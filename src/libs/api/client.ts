@@ -1,5 +1,5 @@
 import axios from 'axios';
-import storage from '../../utils/webStorageUtils';
+import storage from '../../utils/storage/webStorageUtils';
 
 const clientAPI = axios.create({
   baseURL: 'http://localhost:4000',
