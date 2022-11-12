@@ -1,20 +1,19 @@
 import styled from 'styled-components';
+import { isValidEmail } from '../../utils/validator';
 
 const LoginInput = ({ register, errors }: any) => {
-  const isFormatEmail =
-    /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-  const isClientError = Object.keys(errors).length !== 0;
+  const isClientAuthError = Object.keys(errors).length !== 0;
 
   return (
     <>
-      <AuthInputWrapper>
+      <Container>
         <Input
           type="text"
           placeholder="이메일"
           {...register('email', {
             required: '* 이메일을 입력해 주세요.',
             pattern: {
-              value: isFormatEmail,
+              value: isValidEmail,
               message: '* 이메일 형식이 맞지 않습니다.',
             },
           })}
@@ -26,18 +25,18 @@ const LoginInput = ({ register, errors }: any) => {
             required: '* 비밀번호를 입력해 주세요.',
           })}
         />
-        {isClientError && (
-          <ErrorText>
+        {isClientAuthError && (
+          <ErrorMessage>
             {/* {serverAuthError||errors.email?.message || errors.password?.message} */}
             {errors.email?.message || errors.password?.message}
-          </ErrorText>
+          </ErrorMessage>
         )}
-      </AuthInputWrapper>
+      </Container>
     </>
   );
 };
 
-const AuthInputWrapper = styled.div`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -57,7 +56,7 @@ const Input = styled.input`
   }
 `;
 
-const ErrorText = styled.p`
+const ErrorMessage = styled.p`
   color: red;
 `;
 
