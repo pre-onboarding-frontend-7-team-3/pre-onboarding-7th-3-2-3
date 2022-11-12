@@ -1,5 +1,5 @@
 import AuthAPI from '../../../libs/api/auth'
-import { useMutation, UseMutationOptions } from "react-query";
+import { useMutation, UseMutationOptions } from "@tanstack/react-query";
 
 const handleLogin = (
   options?: UseMutationOptions<any>

@@ -41,7 +41,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   width: 100%;
-  gap: 30px;
+  gap: 40px;
 `;
 
 const Input = styled.input`
@@ -57,6 +57,7 @@ const Input = styled.input`
 `;
 
 const ErrorMessage = styled.p`
+margin-top: -20px;
   color: red;
 `;
 
