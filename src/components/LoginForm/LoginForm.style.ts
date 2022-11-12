@@ -18,6 +18,7 @@ export const Form = styled.form`
   padding: 0 70px;
   border: 1px solid lightgrey;
   border-radius: 7px;
+  box-shadow: 2px 2px 7px rgb(200, 200, 200);
 `;
 
 export const Logo = styled.img`

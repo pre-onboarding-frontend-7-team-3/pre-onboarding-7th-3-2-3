@@ -7,7 +7,7 @@ export const ViewPortContainer = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.17);
 `;
 
 export const ModalContainer = styled.div`
@@ -40,4 +40,8 @@ export const Container = styled.div`
   word-spacing: 6px;
   font-size: 18px;
   font-weight: 900;
+`;
+
+export const ErrorText = styled.div`
+  margin-top: 10px;
 `;
