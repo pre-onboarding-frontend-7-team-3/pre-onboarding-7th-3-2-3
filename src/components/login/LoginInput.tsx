@@ -1,9 +1,8 @@
 import styled from 'styled-components';
-import { isValidEmail } from '../../utils/validator';
+import { isValidEmail, USER_VALIDATION_ERRORS } from '../../utils/validator';
 
-const LoginInput = ({ register, errors }: any) => {
+const LoginInput = ({ register, errors, serverAuthError }: any) => {
   const isClientAuthError = Object.keys(errors).length !== 0;
-
   return (
     <>
       <Container>
@@ -11,10 +10,10 @@ const LoginInput = ({ register, errors }: any) => {
           type="text"
           placeholder="이메일"
           {...register('email', {
-            required: '* 이메일을 입력해 주세요.',
+            required: USER_VALIDATION_ERRORS.REQUIRED_EMAIL,
             pattern: {
               value: isValidEmail,
-              message: '* 이메일 형식이 맞지 않습니다.',
+              message: USER_VALIDATION_ERRORS.INVALID_EMAIL,
             },
           })}
         />
@@ -22,13 +21,14 @@ const LoginInput = ({ register, errors }: any) => {
           type="password"
           placeholder="비밀번호"
           {...register('password', {
-            required: '* 비밀번호를 입력해 주세요.',
+            required: USER_VALIDATION_ERRORS.REQUIRED_PASSWORD,
           })}
         />
-        {isClientAuthError && (
+        {(serverAuthError || isClientAuthError) && (
           <ErrorMessage>
-            {/* {serverAuthError||errors.email?.message || errors.password?.message} */}
-            {errors.email?.message || errors.password?.message}
+            {errors.email?.message ||
+              errors.password?.message ||
+              serverAuthError}
           </ErrorMessage>
         )}
       </Container>

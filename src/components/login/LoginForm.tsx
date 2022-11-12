@@ -1,39 +1,42 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import LoginInput from './LoginInput';
 import handleLogin from '../../pages/login/api/handleLogin';
-import { handleHTTPResponseError } from '../../utils/httpResponseUtils'
+import { handleHTTPResponseError } from '../../utils/httpResponseUtils';
 import storage from '../../utils/webStorageUtils';
 
 const LoginForm = () => {
   const [serverAuthError, setServerAuthError] = useState('');
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  
+
   const { mutate: login } = handleLogin({
     onSuccess: res => {
       storage.set('access_token', res.accessToken);
-      console.log('success');
+      // navigate('/dashboard')
     },
     onError: res => {
-      // console.log('error');
-      console.log(handleHTTPResponseError(res));
+      setServerAuthError(handleHTTPResponseError(res));
     },
   });
 
   return (
-    <Form
-      onSubmit={handleSubmit(data => {
-        login(data);
-      })}
-    >
+    <Form onSubmit={handleSubmit(data => login(data))}>
       <Title>DnC</Title>
-      <LoginInput register={register} errors={errors} />
-      <SubmitButton>로그인</SubmitButton>ⓒ December and Company
+      <LoginInput
+        register={register}
+        errors={errors}
+        serverAuthError={serverAuthError}
+      />
+      <SubmitButton>로그인</SubmitButton>
+      <Copyright>ⓒ December and Company</Copyright>
     </Form>
   );
 };
@@ -73,4 +76,8 @@ const SubmitButton = styled.button`
   }
 `;
 
+const Copyright = styled.div`
+  margin-top: 10px;
+  font-size: 18px;
+`;
 export default LoginForm;
