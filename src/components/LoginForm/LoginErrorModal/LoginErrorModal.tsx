@@ -2,11 +2,17 @@ import { useRef } from 'react';
 import * as S from './LoginErrorModal.style';
 import useCheckIfClickedOutside from '../hooks/useCheckIfClickedOutside';
 
-const LoginErrorModal = ({ serverAuthError, setServerAuthError }) => {
-  const modalRef = useRef();
+interface Props {
+  serverAuthError: string;
+  setServerAuthError: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const LoginErrorModal = ({ serverAuthError, setServerAuthError }: Props) => {
+  const modalRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   const handleCloseModal = () => {
     setServerAuthError('');
   };
+
   useCheckIfClickedOutside(modalRef, handleCloseModal);
 
   return (

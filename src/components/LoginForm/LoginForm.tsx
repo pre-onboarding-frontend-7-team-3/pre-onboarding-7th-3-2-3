@@ -32,9 +32,9 @@ const LoginForm = () => {
   return (
     <S.Container>
       <S.Form onSubmit={handleSubmit(data => login(data))}>
-        <img
+        <S.Logo
           src="https://platum.kr/wp-content/uploads/2021/03/de.jpg"
-          style={{ width: '300px', height: '180px' }}
+          alt='디셈버앤컴퍼니'
         />
         <LoginInput
           register={register}
