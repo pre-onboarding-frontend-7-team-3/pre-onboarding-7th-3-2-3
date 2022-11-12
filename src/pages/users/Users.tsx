@@ -1,7 +1,11 @@
+import Layout from '../../components/common/Layout/Layout';
+
 const Users = () => {
   return (
-    <div>users</div>
-  )
-}
+    <Layout>
+      <div>users</div>
+    </Layout>
+  );
+};
 
-export default Users
+export default Users;

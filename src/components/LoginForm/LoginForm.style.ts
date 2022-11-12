@@ -1,14 +1,22 @@
 import styled from 'styled-components';
 
+export const Container = styled.main`
+  display: flex;
+  align-items: center;
+  height: 100vh;
+`;
+
 export const Form = styled.form`
   ${({ theme }) => theme.flexColumn}
   align-items: center;
-  max-width: 650px;
+  /* max-width: 650px; */
+  width: 650px;
   min-width: 400px;
+  height: 600px;
   min-height: 550px;
   gap: 25px;
   margin: 0 auto;
-  padding: 50px 70px;
+  padding: 0 70px;
   border: 1px solid lightgrey;
   border-radius: 7px;
 `;
@@ -26,7 +34,6 @@ export const SubmitButton = styled.button`
   color: white;
   border-radius: 7px;
   background-color: rgb(83, 153, 219);
-
   &:hover {
     background-color: #438ce2;
   }

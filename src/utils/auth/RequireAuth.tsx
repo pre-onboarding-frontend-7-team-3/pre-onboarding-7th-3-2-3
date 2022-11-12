@@ -10,9 +10,9 @@ const RequireAuth = ({ isAuthRequired, redirectUrl }: Props) => {
   const token = storage.get('access_token');
 
   return isAuthRequired === (token !== null) ? (
-    <Navigate to={redirectUrl} replace />
-    ) : (
     <Outlet />
+  ) : (
+    <Navigate to={redirectUrl} replace />
   );
 };
 

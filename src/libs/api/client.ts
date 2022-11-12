@@ -3,6 +3,7 @@ import storage from '../../utils/storage/webStorageUtils';
 
 const clientAPI = axios.create({
   baseURL: 'http://localhost:4000',
+  // baseURL: process.env.REACT_APP_SERVER_URL,
 });
 
 clientAPI.interceptors.request.use(

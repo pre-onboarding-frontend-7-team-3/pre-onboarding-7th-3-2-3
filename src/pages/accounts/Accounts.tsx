@@ -1,7 +1,11 @@
+import Layout from '../../components/common/Layout/Layout'
+
 const Accounts = () => {
   return (
-    <div>accounts</div>
-  )
-}
+    <Layout>
+      <div>accounts</div>
+    </Layout>
+  );
+};
 
-export default Accounts
+export default Accounts;

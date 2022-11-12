@@ -10,7 +10,7 @@ function App() {
       <Routes>
         <Route
           element={
-            <RequireAuth isAuthRequired={false} redirectUrl={ROUTES.ACCOUNTS} />
+            <RequireAuth isAuthRequired={false} redirectUrl={`${-1}`} />
           }
         >
           <Route path={ROUTES.LOGIN} element={<Login />} />
