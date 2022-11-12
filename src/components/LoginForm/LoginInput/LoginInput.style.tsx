@@ -20,5 +20,6 @@ export const Input = styled.input`
 
 export const ErrorMessage = styled.p`
   margin-top: -20px;
+  font-weight: 900;
   color: red;
 `;

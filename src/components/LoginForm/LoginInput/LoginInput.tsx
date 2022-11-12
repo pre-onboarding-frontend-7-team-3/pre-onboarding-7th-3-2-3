@@ -24,11 +24,16 @@ const LoginInput = ({ register, errors, serverAuthError }: any) => {
             required: USER_VALIDATION_ERRORS.REQUIRED_PASSWORD,
           })}
         />
-        {(serverAuthError || isClientAuthError) && (
+        {
+        // (serverAuthError || 
+        isClientAuthError
+        // )
+         && (
           <S.ErrorMessage>
             {errors.email?.message ||
-              errors.password?.message ||
-              serverAuthError}
+              errors.password?.message
+              //  ||serverAuthError
+               }
           </S.ErrorMessage>
         )}
       </S.Container>

@@ -9,7 +9,6 @@ export const Container = styled.main`
 export const Form = styled.form`
   ${({ theme }) => theme.flexColumn}
   align-items: center;
-  /* max-width: 650px; */
   width: 650px;
   min-width: 400px;
   height: 600px;
@@ -21,6 +20,11 @@ export const Form = styled.form`
   border-radius: 7px;
 `;
 
+export const Logo = styled.img`
+  width: 300px;
+  height: 180px;
+`;
+
 export const Title = styled.h1`
   font-size: 50px;
   letter-spacing: 8px;
@@ -28,18 +32,19 @@ export const Title = styled.h1`
 
 export const SubmitButton = styled.button`
   width: 100%;
-  padding: 20px;
+  padding: 18px;
   font-size: 24px;
   font-weight: 900;
   color: white;
   border-radius: 7px;
   background-color: rgb(83, 153, 219);
+
   &:hover {
     background-color: #438ce2;
   }
 `;
 
 export const Copyright = styled.div`
-  margin-top: 10px;
+  margin-top: 20px;
   font-size: 18px;
 `;
