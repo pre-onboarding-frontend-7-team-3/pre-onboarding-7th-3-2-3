@@ -1,19 +1,14 @@
-import { useState } from 'react';
-import './App.css';
-import styled from 'styled-components';
-import axios from 'axios';
+import { Route, Routes } from 'react-router-dom';
+import LogIn from '@pages/LogIn';
+import DashBoard from '@pages/DashBoard';
 
 const App = () => {
-  const [count, setCount] = useState(0);
-
   return (
-    <div>
-      <Wrapper></Wrapper>
-    </div>
+    <Routes>
+      <Route path="/" element={<LogIn />} />
+      <Route path="/dashboard" element={<DashBoard />} />
+    </Routes>
   );
 };
 
-const Wrapper = styled.section`
-  background-color: aliceblue;
-`;
 export default App;
