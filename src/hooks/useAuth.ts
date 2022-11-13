@@ -4,9 +4,7 @@ import { useEffect } from 'react'
 import {useNavigate} from 'react-router-dom'
 import {useRecoilValue} from 'recoil'
 
-
 const useAuth = ()=> {
-  
   const nav = useNavigate()
   useEffect(()=> {
     if (!authService.isLogined) {

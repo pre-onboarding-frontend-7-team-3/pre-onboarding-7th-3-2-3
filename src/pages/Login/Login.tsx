@@ -18,9 +18,7 @@ const Login = () => {
     email: "",
     password: "",
   });
-
-  const [isValid, setIsValid] = useState(false);  
-
+ 
   const handleInputChange =
     (key: "email" | "password") => (e: React.ChangeEvent<HTMLInputElement>) => {
       setAuthInfo({
@@ -31,9 +29,7 @@ const Login = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     const response = await authService.signin(authInfo.email, authInfo.password)
-
     if (response.status === 400) {
       setWarnMessage(response.data)
     }

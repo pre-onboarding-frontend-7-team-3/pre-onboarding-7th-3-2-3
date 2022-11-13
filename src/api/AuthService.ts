@@ -1,17 +1,9 @@
-/**
- * AuthService Interface
- * 1. login
- * +) Register
- */
-// import httpClient from 
-
 import { AxiosHttpClient } from "./AxiosHttpClient";
 import { LocalTokenRepository } from "./LocalTokenRepository";
 
 export class AuthService {
   #httpClient;
-  #tokenRepository
-
+  #tokenRepository; 
 
   constructor(httpClient : AxiosHttpClient, tokenRepository :LocalTokenRepository) {
     this.#httpClient = httpClient;
