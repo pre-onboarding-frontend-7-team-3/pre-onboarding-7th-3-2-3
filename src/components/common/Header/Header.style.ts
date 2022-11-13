@@ -1,11 +1,18 @@
 import styled from 'styled-components';
 
-export const Conatiner = styled.header`
-  display: flex;
+export const Container = styled.header`
+  ${({ theme }) => theme.flexDefault}
+  justify-content: space-between;
   align-items: center;
   width: 100%;
   height: 70px;
-  gap: 18px;
   padding: 30px;
   box-shadow: 10px 10px 10px rgb(1, 1, 1);
 `;
+
+export const ButtonContainer = styled.div`
+  ${({ theme }) => theme.flexDefault}
+  gap: 18px;
+`;
+
+export const IconContainer = styled(ButtonContainer)``;

@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login/Login';
-import Accounts from './pages/Accounts/Accounts';
+import InvestmentAccounts from './pages/InvestmentAccounts/InvestmentAccounts';
 import Users from './pages/Users/Users';
 import RequireAuth from './utils/auth/RequireAuth';
 import ROUTES from './constants/routes';
@@ -20,7 +20,7 @@ function App() {
             <RequireAuth isAuthRequired={true} redirectUrl={ROUTES.LOGIN} />
           }
         >
-          <Route path={ROUTES.ACCOUNTS} element={<Accounts />} />
+          <Route path={ROUTES.ACCOUNTS} element={<InvestmentAccounts />} />
           <Route path={ROUTES.USERS} element={<Users />} />
         </Route>
         <Route path={ROUTES.NOT_FOUND} element={<NotFound />} />

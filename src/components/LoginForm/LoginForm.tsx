@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import * as S from './LoginForm.style';
 import LoginInput from './LoginInput/LoginInput';
 import LoginErrorModal from './LoginErrorModal/LoginErrorModal';
-import handleLogin from './api/handleLogin';
+import handleQueryLogin from './api/handleQueryLogin';
 import { handleHTTPResponseError } from '../../utils/auth/httpResponseUtils';
 import storage from '../../utils/storage/webStorageUtils';
 import ROUTES from '../../constants/routes'
@@ -19,7 +19,7 @@ const LoginForm = () => {
     formState: { errors },
   } = useForm();
 
-  const { mutate: login } = handleLogin({
+  const { mutate: login } = handleQueryLogin({
     onSuccess: res => {
       storage.set('access_token', res.accessToken);
       navigate(`${ROUTES.ACCOUNTS}`);

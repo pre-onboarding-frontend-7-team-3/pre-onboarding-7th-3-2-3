@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.main`
-  display: flex;
-  align-items: center;
+  ${({ theme }) => theme.flexDefault}
   height: 100vh;
 `;
 
