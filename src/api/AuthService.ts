@@ -18,7 +18,14 @@ export class AuthService {
     this.#tokenRepository = tokenRepository
   }
   
-  signin(email:string, password:string) {
-    this.#httpClient.post('users/signin', {data: {email, password}})
+  async signin(email:string, password:string) {
+    const response = await this.#httpClient.post('users/signin', {email, password})
+    if (response.status === 200) {
+      this.#tokenRepository.save(response.data.accessToken)
+    }
+    return response
+  }
+  isLogined() {
+    return this.#tokenRepository.get()
   }
 }

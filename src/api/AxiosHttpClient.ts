@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { Axios, AxiosError } from "axios";
 
 export class AxiosHttpClient {
   #baseURL :string;
@@ -10,11 +10,10 @@ export class AxiosHttpClient {
   }
 
   async post(endPoint:string, options = {}) {
-    // return this.#client.post(this.#baseURL + endPoint, {...options, headers:{
-    return this.#client.post(endPoint, {...options})
+      return await this.#client.post(endPoint, {...options}).then((res :Axios) => res).catch((err: AxiosError)=> err.response)
   }
 
   async get(endPoint:string, options={headers:{}}) {
-    return this.#client.get(endPoint, {...options})
+    return await this.#client.get(endPoint, {...options})
   }
 }
