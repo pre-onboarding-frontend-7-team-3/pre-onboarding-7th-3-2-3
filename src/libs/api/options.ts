@@ -1,6 +1,10 @@
-export const options = {
+import { object } from "prop-types";
+
+export const options:any = {
     eternal: {
-        select: (data) => data.data.data,
+        cacheTime: Infinity,
+        staleTime: 5000,
+        select: (data:any) => data.data,
         notifyOnChangeProps: "tracked",
     }
 }

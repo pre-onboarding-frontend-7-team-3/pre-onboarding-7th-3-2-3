@@ -10,17 +10,27 @@ import Paper from '@mui/material/Paper';
 import clientAPI from "@src/libs/api/client"
 import { useQuery } from "@tanstack/react-query"
 import { useParams } from "react-router"
+import Spinner from '../UI/Spinner';
+import { options } from '@src/libs/api/options';
 
 const UserInfo= () =>{
-    const params = useParams()
   
     //사용자목록 불러오기
     const fetchUser = async() =>{
       return clientAPI.get(`users`)
     }
   
-    const {data: User } = useQuery(["userInfo"],fetchUser)
-    console.log("유저", User?.data)
+    const {data: User, isLoading: loadingUser } = useQuery(["userInfo"],fetchUser, options.eternal)
+    console.log("유저", User)
+
+    //휴대폰번호 가리기
+    const hide_Phnumbers = (phone_number:string) =>{
+       return  phone_number?.slice(0,3) + "****".replace(phone_number?.substr(4,4),4)+ phone_number?.slice(-4)
+      }
+
+
+      //로딩 시 스피너
+      if(loadingUser) return <Spinner />
   
     
     return (<TableContainer component={Paper}>
@@ -41,7 +51,7 @@ const UserInfo= () =>{
             </TableRow>
           </TableHead>
           <TableBody>
-            {User?.data?.map((users: any, idx:number) => (
+            {User?.map((users: any, idx:number) => (
   
               <TableRow
                 key={idx}
@@ -55,7 +65,7 @@ const UserInfo= () =>{
                 }</TableCell>
                 <TableCell align="right">{users.gender_origin}</TableCell>
                 <TableCell align="right">{users.birth_date}</TableCell>
-                <TableCell align="right">{users.phone_number}</TableCell>
+                <TableCell align="right">{hide_Phnumbers(users?.phone_number)}</TableCell>
                 <TableCell align="right">{users.last_login}</TableCell>
                 <TableCell align="right">{"혜택 수신여부 정제필"}</TableCell>
                 <TableCell align="right">{"활성화여부 정제필"}</TableCell>
