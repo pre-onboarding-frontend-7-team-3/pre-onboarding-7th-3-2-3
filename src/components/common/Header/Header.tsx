@@ -1,7 +1,11 @@
-import * as S from './Header.style'
+import * as S from './Header.style';
 
-const Header = () => {
-  return <S.Conatiner>투자 계좌</S.Conatiner>;
+type Props = {
+  title: string;
+};
+
+const Header = ({ title }: Props) => {
+  return <S.Conatiner>{title}</S.Conatiner>;
 };
 
 export default Header;

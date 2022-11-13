@@ -1,17 +1,17 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Login from './pages/login/Login';
-import Accounts from './pages/accounts/Accounts';
-import Users from './pages/users/Users';
+import Login from './pages/Login/Login';
+import Accounts from './pages/Accounts/Accounts';
+import Users from './pages/Users/Users';
 import RequireAuth from './utils/auth/RequireAuth';
+import ROUTES from './constants/routes';
+import NotFound from './pages/NotFound/NotFound';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route
-          element={
-            <RequireAuth isAuthRequired={false} redirectUrl={`${-1}`} />
-          }
+          element={<RequireAuth isAuthRequired={false} redirectUrl={`${-1}`} />}
         >
           <Route path={ROUTES.LOGIN} element={<Login />} />
         </Route>
@@ -23,7 +23,7 @@ function App() {
           <Route path={ROUTES.ACCOUNTS} element={<Accounts />} />
           <Route path={ROUTES.USERS} element={<Users />} />
         </Route>
-        <Route path={ROUTES.NOT_FOUND} element={<div>notfound</div>} />
+        <Route path={ROUTES.NOT_FOUND} element={<NotFound />} />
         <Route
           path={ROUTES.ALL}
           element={<Navigate to={ROUTES.NOT_FOUND} replace />}
@@ -34,11 +34,3 @@ function App() {
 }
 
 export default App;
-
-export const ROUTES = {
-  LOGIN: '/',
-  ACCOUNTS: '/accounts',
-  USERS: '/users',
-  NOT_FOUND: '/page-not-found',
-  ALL: '*',
-};

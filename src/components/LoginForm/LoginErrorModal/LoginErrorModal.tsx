@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import * as S from './LoginErrorModal.style';
-import useCheckIfClickedOutside from '../hooks/useCheckIfClickedOutside';
+import useUnmountIfClickedOutside from '../hooks/useUnmountIfClickedOutside';
 
 interface Props {
   serverAuthError: string;
@@ -13,7 +13,7 @@ const LoginErrorModal = ({ serverAuthError, setServerAuthError }: Props) => {
     setServerAuthError('');
   };
 
-  useCheckIfClickedOutside(modalRef, handleCloseModal);
+  useUnmountIfClickedOutside(modalRef, handleCloseModal);
 
   return (
     <S.ViewPortContainer>

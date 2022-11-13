@@ -6,7 +6,7 @@ export const Template = styled.main`
   height: 100vh;
 `;
 
-export const Container = styled.div`
+export const PageContainer = styled.div`
   display: flex;
   width: 100%;
   flex-wrap: wrap;

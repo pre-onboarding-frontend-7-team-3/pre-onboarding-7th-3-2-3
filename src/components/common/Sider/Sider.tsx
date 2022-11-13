@@ -1,20 +1,35 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import * as S from './Sider.style';
+import LogoutIcon from '@mui/icons-material/Logout';
 import { SIDER_DATA } from '../../../constants/siderData';
+import storage from '../../../utils/storage/webStorageUtils';
+import ROUTES from '../../../constants/routes';
 
 const Sider = () => {
+  const navigate = useNavigate();
+
+  const LogoutAndRedirectToLogin = () => {
+    storage.remove('access_token');
+    navigate(ROUTES.LOGIN);
+  };
+
   return (
     <S.Container>
       <S.Heading>DnC</S.Heading>
-      {SIDER_DATA.map(({ id, name, keyword }) => (
+      {SIDER_DATA.map(({ id, name, keyword, icon }) => (
         <NavLink
           to={`/${keyword}`}
           key={id}
           style={({ isActive }) => (isActive ? S.activeStyle : S.inactiveStyle)}
         >
+          {icon}
           {name}
         </NavLink>
       ))}
+      <S.LogoutButton onClick={LogoutAndRedirectToLogin}>
+        <LogoutIcon />
+        로그아웃
+      </S.LogoutButton>
     </S.Container>
   );
 };

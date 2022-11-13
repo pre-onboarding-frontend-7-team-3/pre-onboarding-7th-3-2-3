@@ -39,7 +39,7 @@ export const Container = styled.div`
   gap: 20px;
   word-spacing: 6px;
   font-size: 18px;
-  font-weight: 900;
+  font-weight: 700;
 `;
 
 export const ErrorText = styled.div`

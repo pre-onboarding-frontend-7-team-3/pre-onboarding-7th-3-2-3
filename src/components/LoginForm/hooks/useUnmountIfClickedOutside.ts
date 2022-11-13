@@ -1,6 +1,6 @@
 import { useEffect, Dispatch, SetStateAction } from 'react';
 
-export const useCheckIfClickedOutside = (ref: React.MutableRefObject<HTMLDivElement>, cb: Dispatch<SetStateAction<boolean>>) => {
+export const useUnmountIfClickedOutside = (ref: React.MutableRefObject<HTMLDivElement>, cb: Dispatch<SetStateAction<boolean>>) => {
 	const handleClick = (e: React.BaseSyntheticEvent | MouseEvent) => {
 		if (ref.current && !ref.current.contains(e.target)) {
 			cb(false);
@@ -16,4 +16,4 @@ export const useCheckIfClickedOutside = (ref: React.MutableRefObject<HTMLDivElem
 	});
 };
 
-export default useCheckIfClickedOutside;
+export default useUnmountIfClickedOutside;

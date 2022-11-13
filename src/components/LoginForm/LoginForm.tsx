@@ -7,7 +7,7 @@ import LoginErrorModal from './LoginErrorModal/LoginErrorModal';
 import handleLogin from './api/handleLogin';
 import { handleHTTPResponseError } from '../../utils/auth/httpResponseUtils';
 import storage from '../../utils/storage/webStorageUtils';
-import { ROUTES } from '../../App';
+import ROUTES from '../../constants/routes'
 
 const LoginForm = () => {
   const [serverAuthError, setServerAuthError] = useState('');
