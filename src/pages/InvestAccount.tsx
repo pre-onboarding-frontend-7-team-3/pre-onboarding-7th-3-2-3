@@ -1,5 +1,7 @@
+import Layout from "../components/Layout/Layout";
+
 const InvestAccount = () => {
-    return(<div></div>)
+    return(<Layout />)
 }
 
 export default InvestAccount;
