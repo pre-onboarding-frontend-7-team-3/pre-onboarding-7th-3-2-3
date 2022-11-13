@@ -1,5 +1,8 @@
-import * as S from './LoginInput.style'
-import { isValidEmail, USER_VALIDATION_ERRORS } from '../../../utils/auth/validator'
+import * as S from './LoginInput.style';
+import {
+  isValidEmail,
+  USER_VALIDATION_ERRORS,
+} from '../../../utils/auth/validator';
 
 const LoginInput = ({ register, errors, serverAuthError }: any) => {
   const isClientAuthError = Object.keys(errors).length !== 0;
@@ -24,16 +27,9 @@ const LoginInput = ({ register, errors, serverAuthError }: any) => {
             required: USER_VALIDATION_ERRORS.REQUIRED_PASSWORD,
           })}
         />
-        {
-        // (serverAuthError || 
-        isClientAuthError
-        // )
-         && (
+        {isClientAuthError && (
           <S.ErrorMessage>
-            {errors.email?.message ||
-              errors.password?.message
-              //  ||serverAuthError
-               }
+            {errors.email?.message || errors.password?.message}
           </S.ErrorMessage>
         )}
       </S.Container>
