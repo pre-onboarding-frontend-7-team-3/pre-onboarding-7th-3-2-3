@@ -15,7 +15,7 @@ const Header = ({ title }: Props) => {
   const [state, setSiderState] = useRecoilState(siderState);
 
   const toggleSider = () => {
-    setSiderState(prev => !prev);
+    setSiderState((prev: boolean) => !prev);
   };
   return (
     <S.Container>
@@ -26,6 +26,15 @@ const Header = ({ title }: Props) => {
           <MenuIcon sx={{ cursor: 'pointer' }} onClick={toggleSider} />
         )}
         <span>{title}</span>
+        <select>
+          <option>1</option>
+          <option>2</option>
+        </select>
+        <select>
+          <option>1</option>
+          <option>2</option>
+        </select>
+        <input placeholder="검색어를 입력" />
       </S.ButtonContainer>
       <S.IconContainer>
         <NotificationsNoneIcon />

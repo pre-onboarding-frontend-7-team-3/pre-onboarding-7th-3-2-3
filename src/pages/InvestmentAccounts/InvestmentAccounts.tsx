@@ -8,6 +8,7 @@ const InvestmentAccounts = () => {
       <Header title="투자계좌" />
       <PageContainer>
         <div>accounts</div>
+        <div>페이지네이션</div>
       </PageContainer>
     </Layout>
   );
