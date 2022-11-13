@@ -20,13 +20,15 @@ const UserInfo= () =>{
       return clientAPI.get(`users`)
     }
   
-    const {data: User, isLoading: loadingUser } = useQuery(["userInfo"],fetchUser, options.eternal)
+  const {data: User, isLoading: loadingUser } = useQuery(["userInfo"],fetchUser, options.eternal)
     console.log("유저", User)
 
     //휴대폰번호 가리기
     const hide_Phnumbers = (phone_number:string) =>{
        return  phone_number?.slice(0,3) + "****".replace(phone_number?.substr(4,4),4)+ phone_number?.slice(-4)
       }
+
+      console.log()
 
 
       //로딩 시 스피너
