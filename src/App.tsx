@@ -1,35 +1,21 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import './App.css';
-import Test from '@components/test';
+import { Route, Routes } from "react-router-dom";
+import Home from "./pages/Home/Home";
+import Login from "./pages/Login/Login";
+import Layout from "./components/common/Layout";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <div className="App">
-      <Test />
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount(count => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          코딩은 즐거워 <br></br> <b>vite는 빨라서 정말 좋아요</b>
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Layout>
+              <Home />
+            </Layout>
+          }
+        />
+        <Route path="/auth" element={<Login />} />
+      </Routes>
   );
 }
 
