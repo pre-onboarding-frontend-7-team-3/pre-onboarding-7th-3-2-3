@@ -1,13 +1,8 @@
-import AuthAPI from '../../../libs/api/auth';
+import investmentService from '../../../libs/api';
 import { useMutation, UseMutationOptions } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
-interface IAuthInputs {
-  email: string;
-  password: string;
-}
 
 const handleLogin = (options?: UseMutationOptions<any>) => {
-  return useMutation<IAuthInputs>(AuthAPI.login, options);
+  return useMutation(investmentService.login, options);
 };
 
 export default handleLogin;
