@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Login from "./components/pages/Login";
+import Login from "./pages/Login";
 import test from '@components/test';
-import InvestAccount from "./components/pages/InvestAccount";
+import InvestAccount from "./pages/InvestAccount";
 
 function App() {
 
