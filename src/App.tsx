@@ -11,7 +11,9 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route
-          element={<RequireAuth isAuthRequired={false} redirectUrl={`${-1}`} />}
+          element={
+            <RequireAuth isAuthRequired={false} redirectUrl={ROUTES.ACCOUNTS} />
+          }
         >
           <Route path={ROUTES.LOGIN} element={<Login />} />
         </Route>
