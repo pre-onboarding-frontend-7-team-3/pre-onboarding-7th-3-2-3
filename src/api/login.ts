@@ -7,5 +7,5 @@ export const loginApi = async (email:string, password:string) => {
         "password":password
     }
     console.log("data", data)
-    return await axios.post("http://localhost:4000/login", data);
+    return await instance.post("/login", data);
 }

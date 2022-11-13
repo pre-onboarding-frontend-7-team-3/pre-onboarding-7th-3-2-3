@@ -8,12 +8,12 @@ export const instance = axios.create({
     }
 })
 
-// instance.interceptors.request.use((config)=>{
+instance.interceptors.request.use((config)=>{
 
-//     const accessToken = localStorage.getItem("access_token")
+    const accessToken = localStorage.getItem("access_token")
 
-//     if (accessToken && config.headers) {
-//         config.headers["access_token"] = `Bearer ${accessToken}`;
-//       }
-//       return config;
-// })
+    if (accessToken && config.headers) {
+        config.headers["access_token"] = `Bearer ${accessToken}`;
+      }
+      return config;
+})
