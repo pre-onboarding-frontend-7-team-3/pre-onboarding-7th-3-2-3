@@ -1,35 +1,35 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import './App.css';
-import Test from '@components/test';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import Login from './pages/Login/Login';
+import InvestmentAccounts from './pages/InvestmentAccounts/InvestmentAccounts';
+import Users from './pages/Users/Users';
+import RequireAuth from './utils/auth/RequireAuth';
+import ROUTES from './constants/routes';
+import NotFound from './pages/NotFound/NotFound';
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <div className="App">
-      <Test />
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount(count => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          코딩은 즐거워 <br></br> <b>vite는 빨라서 정말 좋아요</b>
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          element={<RequireAuth isAuthRequired={false} redirectUrl={`${-1}`} />}
+        >
+          <Route path={ROUTES.LOGIN} element={<Login />} />
+        </Route>
+        <Route
+          element={
+            <RequireAuth isAuthRequired={true} redirectUrl={ROUTES.LOGIN} />
+          }
+        >
+          <Route path={ROUTES.ACCOUNTS} element={<InvestmentAccounts />} />
+          <Route path={ROUTES.USERS} element={<Users />} />
+        </Route>
+        <Route path={ROUTES.NOT_FOUND} element={<NotFound />} />
+        <Route
+          path={ROUTES.ALL}
+          element={<Navigate to={ROUTES.NOT_FOUND} replace />}
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
