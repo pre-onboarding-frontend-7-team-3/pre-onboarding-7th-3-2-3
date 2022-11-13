@@ -17,29 +17,36 @@ export const AuthLayout = styled.div`
 export const Logo = styled.div`
   margin-bottom: 40px;
   font-size: 50px;
-  color: blue;
+  color: #051527;
+  font-weight: 800;
 `;
 
 export const LoginContainer = styled.div`
-  box-shadow: 2px 2px 5px 2px #dadce0;
+  width: 400px;
+  height: 200px;
+  border-radius: 17px;
 `;
+
 export const FormContainer = styled.form`
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: 100%;
   padding: 20px;
   background-color: white;
   box-shadow: 2px 2px 5px 2px #dadce0;
 `;
 export const LoginTitle = styled.div`
+  height: 50px;
   display: flex;
   align-items: center;
-  height: 30px;
+  padding-left: 20px;
+  font-weight: 700;
   border-bottom: 1px solid #f6f6f6;
   background-color: #fafafa;
 `;
 export const IdInput = styled.input`
-  height: 30px;
+  height: 35px;
   border: 2px solid #f0f2f5;
   margin-bottom: 20px;
   &:focus {
@@ -49,5 +56,7 @@ export const IdInput = styled.input`
 export const PassWordInput = styled(IdInput)``;
 export const SubmitButton = styled.button`
   background-color: #f5f5f5;
-  height: 30px;
+  height: 35px;
+  border: 2px solid #f0f2f5;
+  border-radius: 7px;
 `;
