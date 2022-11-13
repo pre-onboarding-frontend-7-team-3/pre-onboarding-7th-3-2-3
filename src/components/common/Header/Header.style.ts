@@ -7,5 +7,5 @@ export const Conatiner = styled.header`
   height: 70px;
   gap: 18px;
   padding: 30px;
-  box-shadow: 2px 2px 6px rgb(1, 1, 1);
+  box-shadow: 10px 10px 10px rgb(1, 1, 1);
 `;
