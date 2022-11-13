@@ -1,4 +1,4 @@
-export type UserType = {
+export type AccountType = {
   id: number;
   user_id: number;
   uuid: string;
