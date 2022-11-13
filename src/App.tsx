@@ -1,13 +1,35 @@
-import { Route, Routes } from 'react-router-dom';
-import LogIn from '@pages/LogIn';
-import DashBoard from '@pages/DashBoard';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import Login from './pages/Login/Login';
+import InvestmentAccounts from './pages/InvestmentAccounts/InvestmentAccounts';
+import Users from './pages/Users/Users';
+import RequireAuth from './utils/auth/RequireAuth';
+import ROUTES from './constants/routes';
+import NotFound from './pages/NotFound/NotFound';
 
-const App = () => {
+function App() {
   return (
-    <Routes>
-      <Route path="/" element={<LogIn />} />
-      <Route path="/dashboard" element={<DashBoard />} />
-    </Routes>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          element={<RequireAuth isAuthRequired={false} redirectUrl={`${-1}`} />}
+        >
+          <Route path={ROUTES.LOGIN} element={<Login />} />
+        </Route>
+        <Route
+          element={
+            <RequireAuth isAuthRequired={true} redirectUrl={ROUTES.LOGIN} />
+          }
+        >
+          <Route path={ROUTES.ACCOUNTS} element={<InvestmentAccounts />} />
+          <Route path={ROUTES.USERS} element={<Users />} />
+        </Route>
+        <Route path={ROUTES.NOT_FOUND} element={<NotFound />} />
+        <Route
+          path={ROUTES.ALL}
+          element={<Navigate to={ROUTES.NOT_FOUND} replace />}
+        />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
