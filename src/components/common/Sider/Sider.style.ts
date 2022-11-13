@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
-export const Container = styled.aside`
+type ContainerProps = {
+  isSiderVisible: boolean;
+};
+
+export const Container = styled.aside<ContainerProps>`
   ${({ theme }) => theme.flexColumn}
   width: ${({ isSiderVisible }) => (isSiderVisible ? '20vw' : '0')};
   color: white;
