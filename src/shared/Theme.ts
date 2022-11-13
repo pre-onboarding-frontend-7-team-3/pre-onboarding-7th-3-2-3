@@ -16,6 +16,12 @@ const theme: DefaultTheme = {
     display: flex;
     align-items: center;
   `,
+  flexColumn: css`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  `,
 };
 
 export default theme;
