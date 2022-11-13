@@ -1,11 +1,14 @@
 import { NavLink, useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import * as S from './Sider.style';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { SIDER_DATA } from '../../../constants/siderData';
 import storage from '../../../utils/storage/webStorageUtils';
 import ROUTES from '../../../constants/routes';
+import {siderState} from '../../../store/sider';
 
 const Sider = () => {
+  const isSiderOpen = useRecoilValue(siderState);
   const navigate = useNavigate();
 
   const LogoutAndRedirectToLogin = () => {
@@ -14,7 +17,7 @@ const Sider = () => {
   };
 
   return (
-    <S.Container>
+    <S.Container isSiderOpen={isSiderOpen}>
       <S.Heading>DnC</S.Heading>
       {SIDER_DATA.map(({ id, name, keyword, icon }) => (
         <NavLink

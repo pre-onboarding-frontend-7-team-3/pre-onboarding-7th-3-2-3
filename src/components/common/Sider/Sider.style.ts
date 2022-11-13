@@ -3,10 +3,10 @@ import styled from 'styled-components';
 export const Container = styled.aside`
   display: flex;
   flex-direction: column;
-  width: 20vw;
-  min-width: 120px;
+  width: ${({ isSiderOpen }) => (isSiderOpen ? '20vw' : '0')};
   color: white;
   background-color: #041627;
+  transition: width 0.3s ease;
 `;
 
 export const Heading = styled.div`
@@ -20,7 +20,7 @@ export const LogoutButton = styled.div`
   display: flex;
   align-items: center;
   gap: 12px;
-  min-width: 120px;
+  min-width: 150px;
   padding: 14px 0 14px 30px;
   font-size: 14px;
   font-weight: 900;
@@ -32,7 +32,7 @@ export const activeStyle = {
   display: 'flex',
   alignItems: 'center',
   gap: '12px',
-  minWidth: '120px',
+  minWidth: '150px',
   padding: '14px 0 14px 40px',
   fontSize: '14px',
   fontWeight: '900',
