@@ -1,12 +1,7 @@
-import {
-  LogInButton,
-  LogInForm,
-  LogInInput,
-  LogInWrapper,
-} from './LogIn.style';
-import { TextField, InputAdornment } from '@mui/material';
+import { LogInButton, LogInForm, LogInWrapper } from './LogIn.style';
+import { TextField } from '@mui/material';
 import Icons from '@components/common/Icons';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useSignForm from '@hooks/useSignForm';
 import { investmentService } from '@apis/index';
@@ -14,13 +9,18 @@ import { investmentService } from '@apis/index';
 const LogIn = () => {
   const navigate = useNavigate();
   const { userInfo, handleInputValue } = useSignForm();
+  const [isError, setIsError] = useState(false);
 
   const handleLogInButton = async () => {
-    const token = await investmentService.logIn(userInfo);
-    console.log(token);
+    const { data } = await investmentService.logIn(userInfo);
+    console.log(data);
+    if (data) {
+      localStorage.setItem('token', JSON.stringify(data.accessToken));
 
-    // localStorage.setItem('token');
-    // navigate('/dashboard');
+      navigate('/dashboard');
+    } else {
+      setIsError(true);
+    }
   };
 
   useEffect(() => {
@@ -42,6 +42,7 @@ const LogIn = () => {
           placeholder="이메일을 입력해주세요"
           fullWidth
           margin="normal"
+          error={isError}
           onChange={handleInputValue('email')}
         />
         <TextField
@@ -55,6 +56,7 @@ const LogIn = () => {
           placeholder="비밀번호를 입력해주세요"
           fullWidth
           margin="normal"
+          error={isError}
           onChange={handleInputValue('password')}
         />
         <LogInButton onClick={handleLogInButton}>로그인</LogInButton>
