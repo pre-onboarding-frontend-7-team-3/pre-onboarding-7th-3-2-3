@@ -1,4 +1,4 @@
-import * as S from './PageContainer.style'
+import * as S from "./PageContainer.style";
 
 interface Props {
   children: React.ReactNode;
