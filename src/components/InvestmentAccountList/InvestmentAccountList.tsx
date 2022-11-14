@@ -11,19 +11,20 @@ import { useQuery } from '@tanstack/react-query';
 import { options } from '@src/libs/api/options';
 import Spinner from '../UI/Spinner';
 import { ListItem } from '@mui/material';
+import Paging from './Paging';
+import { typeOf } from 'react-is';
 
 
+const  InvestmentAccountList=()=> {
 
-export default function InvestmentAccountList() {
-
-//계좌 전체목록 불러오기
-  const fetchAcList = async () => {
+    const fetchAcList = async () => {
     return clientAPI.get("accounts")
   }
-   const {data: AccountsList, isLoading:loadingList } = useQuery(["InvestAccount"], fetchAcList, options.eternal)
 
 
+    const {data: AccountsList, isLoading:loadingList } = useQuery(["InvestAccount"], fetchAcList, options.eternal)
 
+console.log(typeOf(AccountsList))
 
     //브로커명 찾기
     function getBrokerNm(object, key) {
@@ -76,7 +77,22 @@ const acNum = (num:any) => {
   
 //로딩 시 스피너
 if (loadingList) return <Spinner />
+
+//페이지네이션
+const [posts, setPosts] = React.useState([]);
+const [currentPosts, setCurrentPosts] = React.useState([])
+const [page, setPage] = React.useState(1);
+const handlePageChange = (page:number) => {setPage(page)}
+const postPerPage:number = 7
+const indexofLastPost:number = page * postPerPage;
+const indexofFirstPost = indexofLastPost - postPerPage;
+
+React.useEffect(()=>{
+    // setPosts([...AccountsList])
+    setCurrentPosts(AccountsList?.slice(indexofFirstPost, indexofLastPost))
+},[indexofFirstPost, indexofLastPost, page])
   return (
+    <>
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
@@ -93,7 +109,7 @@ if (loadingList) return <Spinner />
           </TableRow>
         </TableHead>
         <TableBody>
-          {AccountsList?.map((list: any, idx:number) => (
+          {currentPosts?.map((list: any, idx:number) => (
 
             <TableRow
               key={idx}
@@ -118,5 +134,9 @@ if (loadingList) return <Spinner />
         </TableBody>
       </Table>
     </TableContainer>
+    <Paging totalCount={AccountsList?.length} page={page} postPerPage={postPerPage} pageRangeDisplay={5} setPage={setPage}/>
+    </>
   );
 }
+
+export default InvestmentAccountList;
