@@ -1,16 +1,7 @@
-import * as S from './NotFound.style'
-import Layout from '../../components/common/Layout/Layout'
-import Header from '../../components/common/Header/Header'
+import * as S from './NotFound.style';
 
 const NotFound = () => {
-  return (
-    <Layout>
-      <Header />
-      <S.Container>
-        <S.NotFoundText>페이지를 찾을 수 없습니다.</S.NotFoundText>
-      </S.Container>
-    </Layout>
-  )
-}
+  return <S.NotFoundText>페이지를 찾을 수 없습니다.</S.NotFoundText>;
+};
 
 export default NotFound;
