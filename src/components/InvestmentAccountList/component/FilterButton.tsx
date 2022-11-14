@@ -12,7 +12,8 @@ export const Container = styled.header`
   ${({ theme }) => theme.flexDefault}
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  /* width: 100%; */
+  width: 100px;
   height: 30px;
   padding: 30px;
   background-color: aquamarine;
