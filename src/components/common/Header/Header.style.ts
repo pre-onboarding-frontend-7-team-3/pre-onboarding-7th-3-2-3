@@ -7,7 +7,6 @@ export const Container = styled.header`
   width: 100%;
   height: 70px;
   padding: 30px;
-  box-shadow: 10px 10px 10px rgb(1, 1, 1);
 `;
 
 export const ButtonContainer = styled.div`

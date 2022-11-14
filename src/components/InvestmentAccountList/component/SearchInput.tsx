@@ -15,6 +15,8 @@ export default SearchInput;
 
 const Input = styled.input`
   width: 180px;
+  height: 38px;
   padding: 6px 10px;
   border: 1px solid grey;
+  border-radius: 10px;
 `;
