@@ -1,8 +1,8 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-export const Container = styled.aside`
+export const Container = styled.aside<{ isSiderVisible: boolean }>`
   ${({ theme }) => theme.flexColumn}
-  width: ${({ isSiderVisible }) => (isSiderVisible ? '20vw' : '0')};
+  width: ${({ isSiderVisible }) => (isSiderVisible ? "20vw" : "0")};
   color: white;
   background-color: #041627;
   transition: width 0.3s ease;
@@ -27,18 +27,18 @@ export const LogoutButton = styled.div`
 `;
 
 export const activeStyle = {
-  display: 'flex',
-  alignItems: 'center',
-  gap: '12px',
-  minWidth: '150px',
-  padding: '14px 0 14px 40px',
-  fontSize: '14px',
-  fontWeight: '900',
-  backgroundColor: '#458FF7',
+  display: "flex",
+  alignItems: "center",
+  gap: "12px",
+  minWidth: "150px",
+  padding: "14px 0 14px 40px",
+  fontSize: "14px",
+  fontWeight: "900",
+  backgroundColor: "#458FF7",
 };
 
 export const inactiveStyle = {
   ...activeStyle,
-  padding: '14px 0 14px 30px',
-  backgroundColor: '#041627',
+  padding: "14px 0 14px 30px",
+  backgroundColor: "#041627",
 };
