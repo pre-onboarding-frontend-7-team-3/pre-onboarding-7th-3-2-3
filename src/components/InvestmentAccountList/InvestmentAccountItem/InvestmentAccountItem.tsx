@@ -19,7 +19,7 @@ const InvestmentAccountItem = ({ data }) => {
             {maskingAccountNumber(row.number)}
           </TableCell>
           <TableCell align="center">{ACCOUNT_STATUS[row.status]}</TableCell>
-          <TableCell align="center">{row?.name}</TableCell>
+          <TableCell align="center">{row.name}</TableCell>
           <TableCell align="center">{changeDotToComma(row.assets)}</TableCell>
           <TableCell align="center">{changeDotToComma(row.payments)}</TableCell>
           <TableCell align="center">

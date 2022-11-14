@@ -22,7 +22,7 @@ const InvestmentAccountList = () => {
   const [accountInfo, setAccountInfo] = useState({
     brokerList: '-',
   });
-
+  
   const {
     data: defaultAccountListData,
     isLoading,
