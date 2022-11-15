@@ -3,7 +3,7 @@ import { TableBody, TableCell, TableRow } from '@mui/material';
 import { changeDotToComma, maskingAccountNumber } from '@src/utils/processData';
 import { STATUS_FORMAT, BROKERS_FORMAT } from '@src/constants/tableData';
 
-const InvestmentAccountItem = ({ data }) => {
+const InvestmentAccountItem = ({ data }: { data: any }) => {
   return (
     <TableBody>
       {data?.data.map((row: any, idx: number) => (
