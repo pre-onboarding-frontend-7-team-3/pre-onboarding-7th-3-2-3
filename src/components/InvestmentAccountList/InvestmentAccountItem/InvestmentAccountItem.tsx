@@ -12,7 +12,7 @@ const InvestmentAccountItem = ({ data }: { data: any }) => {
           sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
         >
           <TableCell component="th" align="center" scope="row">
-            {row.user?.name}
+            {row.users?.name}
           </TableCell>
           <TableCell align="center">{BROKERS_FORMAT[row.broker_id]}</TableCell>
           <TableCell align="center">
