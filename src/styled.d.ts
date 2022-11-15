@@ -1,6 +1,6 @@
-import "styled-components";
+import 'styled-components';
 
-declare module "styled-components" {
+declare module 'styled-components' {
   export interface DefaultTheme {
     flexCenter: ThemedCssFunction;
     flexDefault: ThemedCssFunction;
@@ -9,6 +9,7 @@ declare module "styled-components" {
       lightBlue: string;
       darkBlue: string;
       grey: string;
+      white: string;
     };
   }
 }

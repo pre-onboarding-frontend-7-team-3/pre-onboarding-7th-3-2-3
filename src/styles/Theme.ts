@@ -1,4 +1,4 @@
-import { css, DefaultTheme } from "styled-components";
+import { css, DefaultTheme } from 'styled-components';
 
 export const theme: DefaultTheme = {
   flexCenter: css`
@@ -15,8 +15,9 @@ export const theme: DefaultTheme = {
     flex-direction: column;
   `,
   bg: {
-    lightBlue: "#d0e8fd",
-    darkBlue: "#357ae1",
-    grey: "#808080",
+    lightBlue: '#d0e8fd',
+    darkBlue: '#357ae1',
+    grey: '#808080',
+    white: '#fcfcfc',
   },
 };
