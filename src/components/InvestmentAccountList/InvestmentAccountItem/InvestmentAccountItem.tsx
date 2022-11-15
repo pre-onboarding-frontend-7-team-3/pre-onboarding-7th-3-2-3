@@ -2,8 +2,10 @@ import { TableBody, TableCell, TableRow } from '@mui/material';
 
 import { changeDotToComma, maskingAccountNumber } from '@src/utils/processData';
 import { STATUS_FORMAT, BROKERS_FORMAT } from '@src/constants/tableData';
+import { useNavigate } from 'react-router-dom';
 
 const InvestmentAccountItem = ({ data }: { data: any }) => {
+  const navigate = useNavigate();
   return (
     <TableBody>
       {data?.data.map((row: any, idx: number) => (
@@ -11,8 +13,13 @@ const InvestmentAccountItem = ({ data }: { data: any }) => {
           key={idx}
           sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
         >
-          <TableCell component="th" align="center" scope="row">
-            {row.users?.name}
+          <TableCell
+            onClick={() => navigate(`/accounts/${row.userId}`)}
+            component="th"
+            align="center"
+            scope="row"
+          >
+            {row.user?.name}
           </TableCell>
           <TableCell align="center">{BROKERS_FORMAT[row.broker_id]}</TableCell>
           <TableCell align="center">
