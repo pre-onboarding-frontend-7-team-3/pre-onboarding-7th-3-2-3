@@ -1,14 +1,15 @@
 import Layout from "../../components/common/Layout/Layout";
 import Header from "../../components/common/Header/Header";
 import PageContainer from "../../components/common/PageContainer/PageContainer";
-import UserList from "@src/components/Users/UserList";
+import { useParams } from "react-router-dom";
 
 const Users = () => {
+  const { userId } = useParams();
   return (
     <Layout>
       <Header title="사용자" />
       <PageContainer>
-        <UserList />
+        <div>{userId}</div>
       </PageContainer>
     </Layout>
   );
