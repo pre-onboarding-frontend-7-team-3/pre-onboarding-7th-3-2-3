@@ -21,6 +21,7 @@
     "react-hook-form": "^7.39.3",
     "react-icons": "^4.6.0",
     "react-router-dom": "^6.4.3",
+    "react-table": "^7.8.0",
     "recoil": "^0.7.6",
     "recoil-persist": "^4.2.0",
     "styled-components": "^5.3.6"
@@ -30,6 +31,7 @@
     "@types/node": "^18.11.9",
     "@types/react": "^18.0.24",
     "@types/react-dom": "^18.0.8",
+    "@types/react-table": "^7.7.12",
     "@types/styled-components": "^5.1.26",
     "@vitejs/plugin-react": "^2.2.0",
     "esbuild": "^0.15.13",
