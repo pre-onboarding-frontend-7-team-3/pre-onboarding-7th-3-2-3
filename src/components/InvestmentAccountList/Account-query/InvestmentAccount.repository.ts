@@ -8,7 +8,7 @@ type GetInvestmentAccount = {
   pageLimit: number;
 };
 class InvestmentAccountRepository {
-  private baseQueryString: string = '/accounts?_expand=users&q=';
+  private baseQueryString: string = '/accounts?_expand=user&q=';
 
   getBrokerParamsById(id: string) {
     return id && `&broker_id=${id}`;
