@@ -10,7 +10,7 @@ import { theme } from './styles/Theme';
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      suspense: true,
+      // suspense: true,
     },
   },
 });
@@ -21,7 +21,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       <GlobalStyles />
       <ThemeProvider theme={theme}>
         <App />
-        {/* <ReactQueryDevtools initialIsOpen={true} /> */}
+        <ReactQueryDevtools initialIsOpen={true} />
       </ThemeProvider>
     </QueryClientProvider>
   </RecoilRoot>

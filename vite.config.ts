@@ -12,6 +12,26 @@ export default defineConfig({
         find: '@components',
         replacement: resolve(__dirname, 'src/components'),
       },
+      {
+        find: '@apis',
+        replacement: resolve(__dirname, 'src/apis'),
+      },
+      {
+        find: '@pages',
+        replacement: resolve(__dirname, 'src/pages'),
+      },
+      {
+        find: '@shared',
+        replacement: resolve(__dirname, 'src/shared'),
+      },
+      {
+        find: '@utils',
+        replacement: resolve(__dirname, 'src/utils'),
+      },
+      {
+        find: '@hooks',
+        replacement: resolve(__dirname, 'src/hooks'),
+      },
     ],
   },
 
