@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-
+import React, { Key } from "react";
+import styled from "styled-components";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -9,50 +9,58 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import axios from "axios";
-import AccountFilter from "./dropbox/accountStateFilter";
-
-const columns = [
-  { id: "name", label: "증권사", minWidth: 70 },
-  { id: "accountNum", label: "계좌번호", minWidth: 80 },
-  {
-    id: "customerName",
-    label: "고객명",
-    minWidth: 70,
-  },
-  {
-    id: "accountState",
-    label: "운용상태",
-    minWidth: 100,
-    align: "center",
-  },
-  { id: "principal", label: "계약원금", minWidth: 150 },
-  {
-    id: "totalAsset",
-    label: "총자산",
-    minWidth: 100,
-  },
-  { id: "profitOrLoss", label: "평가손익", minWidth: 100 },
-  { id: "profitRate", label: "수익률", minWidth: 100 },
-  { id: "productName", label: "상품명", minWidth: 100 },
-];
+import IsActiveStateFilter from "./filter/dropbox/isActiveStateFilter/IsActiveStateFilter";
+import AccountStateFilter from "./filter/dropbox/accountStateFilter/AccountStateFilter";
+import { useRecoilState } from "recoil";
+import { inputValueState } from "src/store/search";
+import { columns } from "./table/Columns";
+import { useQuery } from "@tanstack/react-query";
+import { useData } from "./api/handleQueryAccountList";
 
 const InvestmentAccountList = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [datas, setDatas] = useState([]);
   const token = localStorage.getItem("access_token");
+  const [value] = useRecoilState(inputValueState);
 
   const header = {
     headers: {
       Authorization: "Bearer " + token,
     },
   };
-  useEffect(() => {
-    axios
-      .get("http://localhost:4000/accounts", header)
-      .then(({ data }) => setDatas(data));
-  }, []);
-  console.log(datas);
+
+  const { data, error, isFetching, isLoading } = useData();
+
+  if (isLoading) return "Loading...";
+  if (error) return "An error has occurred: " + error.code;
+
+  const stateFilter = (e: any) => {
+    const status = e.target.getAttribute("data-value");
+    console.log(status);
+    axios.get(`http://localhost:4000/accounts?status=${status}`, header);
+  };
+
+  // const activeFilter = (e: any) => {
+  //   const is_active = e.target.getAttribute("idx");
+  //   let active;
+  //   if (is_active === "1") {
+  //     active = true;
+  //   }
+  //   if (is_active === "2") {
+  //     active = false;
+  //   }
+
+  //   axios
+  //     .get(`http://localhost:4000/accounts?is_active=${active}`, header)
+  //     .then(({ data }) => setDatas(data));
+  // };
+
+  // const searchFilter = (e: any) => {
+  //   e.preventDefault();
+  //   axios
+  //     .get(`http://localhost:4000/accounts?q=${value}`, header)
+  //     .then(({ data }) => setDatas(data));
+  // };
 
   const handleChangePage = (
     event: any,
@@ -69,6 +77,7 @@ const InvestmentAccountList = () => {
   };
 
   const rowsData: {
+    [x: string]: Key | null | undefined;
     name: string;
     accountNum: number;
     customerName: string;
@@ -78,80 +87,101 @@ const InvestmentAccountList = () => {
     profitOrLoss: string;
     profitRate: string;
     productName: string;
+    accountActive: string;
+    accountCreativeDate: number;
   }[] = [];
-  datas.forEach((data) => {
-    rowsData.push({
-      name: data.broker_id,
-      accountNum: data.number,
-      customerName: "은지",
-      accountState: 1,
-      principal: data.payments,
-      totalAsset: data.assets,
-      profitOrLoss: "5%",
-      profitRate: "5%",
-      productName: data.name,
-    });
-  });
+
+  {
+    data.forEach(
+      (data: {
+        broker_id: any;
+        number: any;
+        status: any;
+        payments: any;
+        assets: any;
+        name: any;
+        is_active: boolean;
+        created_at: any;
+      }) => {
+        rowsData.push({
+          name: data.broker_id,
+          accountNum: data.number,
+          customerName: "은지",
+          accountState: data.status,
+          principal: data.payments,
+          totalAsset: data.assets,
+          profitOrLoss: "5%",
+          profitRate: "5%",
+          productName: data.name,
+          accountActive: data.is_active === true ? "활성화" : "비활성화",
+          accountCreativeDate: data.created_at,
+        });
+      }
+    );
+  }
 
   const rows = rowsData;
 
-  const stateFilter = (e: any) => {
-    axios
-      .get(" http://localhost:4000/accounts?q=2", header)
-      .then(({ data }) => setDatas(data));
-  };
-
   return (
-    <Paper sx={{ width: "100%", overflow: "hidden" }}>
-      <AccountFilter stateFilter={stateFilter} />
-      <TableContainer sx={{ maxHeight: 600 }}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  style={{ minWidth: column.minWidth }}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
-                return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.name}>
-                    {columns.map((column) => {
-                      const value = row[column.id];
-                      return (
-                        <TableCell key={column.id} align={column.align}>
-                          {/* {column.format && typeof value === "number"
-                            ? column.format(value)
-                            : value} */}
-                          {value}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                );
-              })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
-    </Paper>
+    <>
+      <Paper sx={{ width: "100%", overflow: "hidden" }}>
+        <FilterLayout>
+          <AccountStateFilter stateFilter={stateFilter} />
+          {/* <IsActiveStateFilter activeFilter={activeFilter} />
+          <SearchFilter searchFilter={searchFilter} /> */}
+        </FilterLayout>
+        <TableContainer sx={{ maxHeight: 600 }}>
+          <Table stickyHeader aria-label="sticky table">
+            <TableHead>
+              <TableRow>
+                {columns.map((column) => (
+                  <TableCell
+                    key={column.id}
+                    style={{ minWidth: column.minWidth }}
+                  >
+                    {column.label}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row) => {
+                  return (
+                    <TableRow
+                      key={row.uuid}
+                      hover
+                      role="checkbox"
+                      tabIndex={-1}
+                    >
+                      {columns.map((column) => {
+                        const value = row[column.id];
+                        return <TableCell key={column.id}>{value}</TableCell>;
+                      })}
+                    </TableRow>
+                  );
+                })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[10, 25, 100]}
+          component="div"
+          count={rows.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+      </Paper>
+    </>
   );
 };
 
 export default InvestmentAccountList;
+
+export const FilterLayout = styled.div`
+  display: flex;
+  align-items: center;
+`;
