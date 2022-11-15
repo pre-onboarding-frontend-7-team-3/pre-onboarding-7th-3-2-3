@@ -1,17 +1,54 @@
 import clientAPI from '@src/libs/api/client';
 
+type GetInvestmentAccount = {
+  broker_id: string;
+  is_active: boolean;
+  status: string;
+  keyword: string;
+  pageLimit: number;
+};
 class InvestmentAccountRepository {
-  getInvestmentAccount(accountQueryParams, currentPage) {
-    const broker =
-      accountQueryParams.broker_id &&
-      `&broker_id=${accountQueryParams.broker_id}`;
-    const isActive =
-      accountQueryParams.is_active &&
-      `&is_active=${accountQueryParams.is_active}`;
-    const status =
-      accountQueryParams.status && `&status=${accountQueryParams.status}`;
-    const url = `/accounts?_expand=user&q=${accountQueryParams.keyword}${broker}${isActive}${status}&_page=${currentPage}&_limit=20`;
-   return clientAPI.get(url);
+  private baseQueryString: string = '/accounts?_expand=user&q=';
+
+  getBrokerParamsById(id: string) {
+    return id && `&broker_id=${id}`;
+  }
+
+  getIsActiveParams(is_active: boolean) {
+    return is_active && `&is_active=${is_active}`;
+  }
+
+  getStatusString(status: string) {
+    return status && `&status=${status}`;
+  }
+
+  getPageString(pageLimit: number) {
+    return `&_page=${pageLimit}&_limit=20`;
+  }
+
+  getInvestmentAccount({
+    broker_id,
+    is_active,
+    status,
+    keyword,
+    pageLimit,
+  }: GetInvestmentAccount) {
+    const brokerString = this.getBrokerParamsById(broker_id);
+
+    const isActiveString = this.getIsActiveParams(is_active);
+
+    const statusString = this.getStatusString(status);
+
+    const pageString = this.getPageString(pageLimit);
+
+    return clientAPI.get(
+      this.baseQueryString +
+        keyword +
+        brokerString +
+        isActiveString +
+        statusString +
+        pageString
+    );
   }
 }
 

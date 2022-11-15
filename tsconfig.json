@@ -4,7 +4,7 @@
     "target": "ESNext", // es버젼을 사용하겠다.
     "useDefineForClassFields": true, // class field를 사용하겠다.
     "lib": ["DOM", "DOM.Iterable", "ESNext"], // 사용할 라이브러리를 설정한다.
-    "allowJs": false, // js를 사용하지 않겠다.
+    "allowJs": true, // js를 사용하지 않겠다.
     "skipLibCheck": true, // 모든 선언 파일(*.d.ts)의 타입 검사를 건너뜁니다
     "esModuleInterop": false,
     // 런타임 바벨 생태계 호환성을 위한 __importStar와 __importDefault 헬퍼를 내보내고 타입 시스템 호환성을 위해 --allowSyntheticDefaultImports를 활성화합니다.
@@ -23,7 +23,12 @@
         //@src로 시작하면 아래 줄의 디렉토리를 의미한다.
         "src/*" //baseUrl을 기준으로 src/ 하위 디렉토리를 @src로 표현한다.
       ],
-      "@components/*": ["src/components/*"] //@components로 시작하면 components/ 하위 디렉토리를 의미한다.
+      "@apis/*": ["src/apis/*"],
+      "@pages/*": ["src/pages/*"],
+      "@components/*": ["src/components/*"],
+      "@shared/*": ["src/shared/*"],
+      "@utils/*": ["src/utils/*"],
+      "@hooks/*": ["src/hooks/*"]
     }
   },
   "include": ["src"],

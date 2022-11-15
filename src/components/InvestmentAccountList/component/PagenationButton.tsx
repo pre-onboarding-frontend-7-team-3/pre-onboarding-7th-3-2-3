@@ -4,7 +4,7 @@ import { Button } from '@mui/material';
 interface PagenationButtonType {
   currentPage: number;
   maxPage: number;
-  handleCurrentPage: () => void;
+  handleCurrentPage: (num: number) => void;
 }
 
 const PagenationButton = ({

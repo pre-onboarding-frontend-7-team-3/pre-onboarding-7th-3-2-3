@@ -1,19 +1,26 @@
+import { useState } from 'react';
 import styled from 'styled-components';
+import useDebounce from '../hooks/useDebounce';
 
-const SearchInput = ({ accountQueryParams, setAccountQueryParams }) => {
-  const handleChange = e => {
-    const { name, value } = e.target;
-    setAccountQueryParams(prev => {
-      return { ...prev, [name]: value };
+const SearchInput = ({ setAccountQueryParams }: any) => {
+  const [value, setValue] = useState('');
+
+  useDebounce(() => {
+    setAccountQueryParams((prev: any) => {
+      return { ...prev, keyword: value };
     });
+  }, value);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setValue(value);
   };
 
   return (
     <Input
       type="text"
       placeholder="계좌명 검색"
-      name="keyword"
-      value={accountQueryParams['keyword']}
+      value={value}
       onChange={handleChange}
     />
   );
