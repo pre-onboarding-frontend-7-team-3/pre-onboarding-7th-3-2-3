@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import * as S from './LoginErrorModal.style';
-import useUnmountIfClickedOutside from '../hooks/useUnmountIfClickedOutside';
+import useUnmountIfClickedOutside from '../../../hooks/useUnmountIfClickedOutside';
 
 interface Props {
   serverAuthError: string;
