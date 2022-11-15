@@ -1,7 +1,7 @@
 import { TableBody, TableCell, TableRow } from '@mui/material';
 
 import { changeDotToComma, maskingAccountNumber } from '@src/utils/processData';
-import { ACCOUNT_STATUS, BROKERS_FORMAT } from '@src/constants/tableData';
+import { STATUS_FORMAT, BROKERS_FORMAT } from '@src/constants/tableData';
 
 const InvestmentAccountItem = ({ data }) => {
   return (
@@ -18,7 +18,7 @@ const InvestmentAccountItem = ({ data }) => {
           <TableCell align="center">
             {maskingAccountNumber(row.number)}
           </TableCell>
-          <TableCell align="center">{ACCOUNT_STATUS[row.status]}</TableCell>
+          <TableCell align="center">{STATUS_FORMAT[row.status]}</TableCell>
           <TableCell align="center">{row.name}</TableCell>
           <TableCell align="center">{changeDotToComma(row.assets)}</TableCell>
           <TableCell align="center">{changeDotToComma(row.payments)}</TableCell>

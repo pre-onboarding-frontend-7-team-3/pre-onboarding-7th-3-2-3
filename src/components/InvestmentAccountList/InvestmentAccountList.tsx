@@ -1,62 +1,48 @@
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 
 import { Table, TableContainer, Paper } from '@mui/material';
 
 import { useGetAccountQuery } from '@src/components/InvestmentAccountList/Account-query/InvestmentAccount.query';
-import { useGetFilteredAccountQuery } from './Account-query/FilteredInvestmentAccount.query';
 import usePrefetchAccountList from './hooks/usePrefetchAccountList';
 import InvestmentAccountTableHead from './InvestmentAccountTableHead/InvestmentAccountTableHead';
 import InvestmentAccountItem from './InvestmentAccountItem/InvestmentAccountItem';
 import SearchInput from './component/SearchInput';
-import DropDown from './component/DropDown';
+import Dropdown from './Dropdown/Dropdown';
 import PagenationButton from './component/PagenationButton';
-import FilterButton from './component/FilterButton';
-import { BROKERS_FORMAT } from '@src/constants/tableData';
-
-const maxPage = 18;
+import { DROPDOWN_DATA } from '@src/constants/dropDownData';
 
 const InvestmentAccountList = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [keyword, setKeyword] = useState('');
-  const [accountInfo, setAccountInfo] = useState({
-    brokerList: '-',
+  const [accountQueryParams, setAccountQueryParams] = useState({
+    keyword: '',
+    broker_id: '',
+    is_active: '',
+    status: '',
+    page_limit: `&_page=${currentPage}&_limit=20`,
   });
-  
+
   const {
     data: defaultAccountListData,
     isLoading,
     isError,
-  } = useGetAccountQuery(currentPage, maxPage);
+  } = useGetAccountQuery(accountQueryParams, currentPage);
 
-  const { data: filteredAccountListData } = useGetFilteredAccountQuery(keyword);
+  // const maxPage = Math.floor(defaultAccountListData?.data?.length / 20) + 1;
+  const maxPage = defaultAccountListData?.data?.length;
+  const limit = 20;
 
-  usePrefetchAccountList(currentPage, maxPage);
+  // usePrefetchAccountList(currentPage, maxPage);
 
-  const handleCurrentPagePlus = () => {
-    setCurrentPage(prev => prev + 1);
+  const handleCurrentPage = num => {
+    setCurrentPage(prev => prev + num);
+    setAccountQueryParams(prev => {
+      return {
+        ...prev,
+        page_limit: `&_page=${currentPage + num}&_limit=20`,
+      };
+    });
   };
-
-  const handleCurrentPageMinus = () => {
-    setCurrentPage(prev => prev - 1);
-  };
-
-  const brokerListData = useMemo(() => {
-    const result = [];
-    for (const [key, value] of Object.entries(BROKERS_FORMAT)) {
-      result.push({
-        label: value,
-        value: key,
-        callbackFn: () => {
-          setAccountInfo(prevState => ({
-            ...prevState,
-            brokerList: value,
-          }));
-        },
-      });
-    }
-    return result;
-  }, []);
 
   if (isLoading) return <h3>Loading...</h3>;
   if (isError)
@@ -68,26 +54,31 @@ const InvestmentAccountList = () => {
 
   return (
     <>
-      <FilterButton />
       <Container>
-        <SearchInput keyword={keyword} setKeyword={setKeyword} />
-        <DropDown dropDownData={brokerListData} />
-        <DropDown dropDownData={brokerListData} />
-        <DropDown dropDownData={brokerListData} />
+        <SearchInput
+          accountQueryParams={accountQueryParams}
+          setAccountQueryParams={setAccountQueryParams}
+        />
+        {DROPDOWN_DATA.map(({ id, name, data }) => (
+          <Dropdown
+            key={id}
+            accountQueryParams={accountQueryParams}
+            setAccountQueryParams={setAccountQueryParams}
+            name={name}
+            data={data}
+          />
+        ))}
       </Container>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <InvestmentAccountTableHead />
-          <InvestmentAccountItem
-            data={filteredAccountListData || defaultAccountListData}
-          />
+          <InvestmentAccountItem data={defaultAccountListData} />
         </Table>
       </TableContainer>
       <PagenationButton
         currentPage={currentPage}
         maxPage={maxPage}
-        handleCurrentPagePlus={handleCurrentPagePlus}
-        handleCurrentPageMinus={handleCurrentPageMinus}
+        handleCurrentPage={handleCurrentPage}
       />
     </>
   );

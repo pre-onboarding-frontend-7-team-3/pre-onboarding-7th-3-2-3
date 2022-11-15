@@ -1,11 +1,16 @@
-import { useQuery } from "@tanstack/react-query";
-import InvestmentAccountRepository from "./InvestmentAccount.repository";
+import { useQuery } from '@tanstack/react-query';
+import InvestmentAccountRepository from './InvestmentAccount.repository';
 
-export const useGetAccountQuery = (currentPage: number, maxPage: number) => {
+export const useGetAccountQuery = (accountQueryParams, currentPage: number) => {
+  console.log('useQeury');
   return useQuery(
-    ["GetInvestmentAccount", currentPage],
-    () =>
-      InvestmentAccountRepository.getInvestmentAccount(currentPage, maxPage),
+    ['GetInvestmentAccount', accountQueryParams],
+    async () => {
+      return await InvestmentAccountRepository.getInvestmentAccount(
+        accountQueryParams,
+        currentPage
+      );
+    },
     {
       staleTime: 2000,
       keepPreviousData: true,
