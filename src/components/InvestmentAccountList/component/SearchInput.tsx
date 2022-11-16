@@ -2,12 +2,13 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import useDebounce from '../hooks/useDebounce';
 
-const SearchInput = ({ setAccountQueryParams }: any) => {
+const SearchInput = ({ setAccountQueryParams, setCurrentPage }: any) => {
   const [value, setValue] = useState('');
 
   useDebounce(() => {
+    setCurrentPage(1)
     setAccountQueryParams((prev: any) => {
-      return { ...prev, keyword: value };
+      return { ...prev, pageLimit:1, keyword: value };
     });
   }, value);
 

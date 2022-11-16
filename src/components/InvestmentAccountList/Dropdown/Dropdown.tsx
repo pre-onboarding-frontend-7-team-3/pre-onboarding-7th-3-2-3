@@ -6,16 +6,18 @@ import Select from "@mui/material/Select";
 const Dropdown = ({
   name,
   data,
+  setCurrentPage,
   accountQueryParams,
   setAccountQueryParams,
 }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
+    setCurrentPage(1)
     setAccountQueryParams((prev) => {
-      return { ...prev, [name]: value };
+      return { ...prev, pageLimit:1,  [name]: value };
     });
   };
-
+  
   return (
     <FormControl sx={S.customDropdownStyle.form} size="small">
       <Select

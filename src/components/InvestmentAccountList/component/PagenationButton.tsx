@@ -17,7 +17,7 @@ const PagenationButton = ({
       <Button
         variant="contained"
         disabled={currentPage <= 1}
-        onClick={() => handleCurrentPage(-1)}
+        onClick={() => handleCurrentPage(currentPage-1)}
       >
         Previous page
       </Button>
@@ -27,7 +27,7 @@ const PagenationButton = ({
       <Button
         variant="contained"
         disabled={currentPage >= maxPage}
-        onClick={() => handleCurrentPage(+1)}
+        onClick={() => handleCurrentPage(currentPage+1)}
       >
         Next page
       </Button>
