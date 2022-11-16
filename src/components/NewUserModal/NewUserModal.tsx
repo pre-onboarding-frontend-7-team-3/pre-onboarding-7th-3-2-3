@@ -1,15 +1,13 @@
 import React, { useState, useRef } from 'react';
 import * as S from './NewUserModal.style';
 import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
-import { useMutation } from '@tanstack/react-query';
-import clientAPI from '@src/libs/api/client';
 import UserInput from './UserInput/UserInput';
 import FunnelButton from './FunnelButton/FunnelButton';
 import FileInput from './FileInput/FileInput';
 import { GENDER_DATA } from '../../constants/funnelButtonData';
 import useUnmountIfClickedOutside from '../../hooks/useUnmountIfClickedOutside';
 import { NEW_USER_INPUT_DATA } from '../../constants/NewUserInputData';
-import { useCreateNewUserQuery } from './api/NewUserModal.query';
+import { useCreateNewUserQuery } from './NewUserModal-query/NewUserModal.query';
 
 type Props = {
   setIsModalOpen: Function;

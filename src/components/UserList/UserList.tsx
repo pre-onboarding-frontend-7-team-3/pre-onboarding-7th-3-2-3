@@ -1,12 +1,12 @@
 import { useMemo, useState } from 'react';
-import styled from 'styled-components';
+import * as S from './UserList.style';
 
 import { Table, TableContainer, Paper } from '@mui/material';
 
 import { USER_DROPDOWN_DATA } from '@src/constants/dropDownData';
-import SearchInput from '../InvestmentAccountList/component/SearchInput';
-import Dropdown from '../InvestmentAccountList/Dropdown/Dropdown';
-import PagenationButton from '../InvestmentAccountList/component/PagenationButton';
+import SearchInput from '../common/SearchInput/SearchInput';
+import Dropdown from '../common/Dropdown/Dropdown';
+import PagenationButton from '../InvestmentAccountList/PagenationButton/PagenationButton';
 import { useGetUserListQuery } from './UserList-query/UserList.query';
 import CustomTableBody from '../common/Table/CustomTableBody';
 import { GENDER, USER_TABLE_CELL_DATA } from '@src/constants/tableData';
@@ -72,9 +72,9 @@ const UserList = () => {
 
   return (
     <>
-      <Container>
-        <FilterContainer>
-          <SearchInput onUpdateParams={setAccountQueryParams} />
+      <S.Container>
+        <S.FilterContainer>
+          <SearchInput onUpdateParams={setAccountQueryParams} text='고객명 검색' />
           {USER_DROPDOWN_DATA.map(({ id, name, data }) => (
             <Dropdown
               key={id}
@@ -84,13 +84,13 @@ const UserList = () => {
               data={data}
             />
           ))}
-        </FilterContainer>
-        <AddNewUserButton onClick={() => setIsModalOpen(prev => !prev)}>
+        </S.FilterContainer>
+        <S.AddNewUserButton onClick={() => setIsModalOpen(prev => !prev)}>
           신규 고객 추가
-        </AddNewUserButton>
-      </Container>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        </S.AddNewUserButton>
+      </S.Container>
+      <TableContainer component={Paper} sx={S.customTableStyle.container}>
+        <Table sx={S.customTableStyle.table} aria-label="simple table">
           <CustomTableHead data={USER_TABLE_CELL_DATA} />
           <CustomTableBody data={userData} />
         </Table>
@@ -106,24 +106,3 @@ const UserList = () => {
 };
 
 export default UserList;
-
-const Container = styled.div`
-  ${({ theme }) => theme.flexDefault}
-  justify-content: space-between;
-`;
-
-const FilterContainer = styled.div`
-  ${({ theme }) => theme.flexDefault}
-`;
-
-const AddNewUserButton = styled.button`
-  ${({ theme }) => theme.flexCenter}
-  min-width: 110px;
-  padding: 8px 14px;
-  margin-right: 10px;
-  background: #3c6dba;
-  border-radius: 43px;
-  color: #fff;
-  box-shadow: 0px 1px 2px rgba(9, 16, 55, 0.4);
-  cursor: pointer;
-`;

@@ -5,9 +5,9 @@ import { useGetAccountQuery } from "@src/components/InvestmentAccountList/Accoun
 import usePrefetchAccountList from "./hooks/usePrefetchAccountList";
 import InvestmentAccountTableHead from "./InvestmentAccountTableHead/InvestmentAccountTableHead";
 import InvestmentAccountItem from "./InvestmentAccountItem/InvestmentAccountItem";
-import SearchInput from "./component/SearchInput";
-import Dropdown from "./Dropdown/Dropdown";
-import PagenationButton from "./component/PagenationButton";
+import Dropdown from "../common/Dropdown/Dropdown";
+import SearchInput from "../common/SearchInput/SearchInput";
+import PagenationButton from "./PagenationButton/PagenationButton";
 import { DROPDOWN_DATA } from "@src/constants/dropDownData";
 
 const PARAMETER_KEYS = {
@@ -55,7 +55,7 @@ const InvestmentAccountList = () => {
   return (
     <>
       <Container>
-        <SearchInput onUpdateParams={setAccountQueryParams} />
+        <SearchInput onUpdateParams={setAccountQueryParams} text='계좌명 검색'/>
         {DROPDOWN_DATA.map(({ id, name, data }) => (
           <Dropdown
             key={id}
