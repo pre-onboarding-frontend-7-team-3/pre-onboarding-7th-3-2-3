@@ -21,7 +21,8 @@
     "react-icons": "^4.6.0",
     "react-router-dom": "^6.4.3",
     "recoil": "^0.7.6",
-    "recoil-persist": "^4.2.0"
+    "recoil-persist": "^4.2.0",
+    "styled-components": "^5.3.6"
   },
   "devDependencies": {
     "@tanstack/react-query-devtools": "^4.16.1",

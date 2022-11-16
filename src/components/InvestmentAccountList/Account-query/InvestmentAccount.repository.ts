@@ -40,7 +40,7 @@ class InvestmentAccountRepository {
     const statusString = this.getStatusString(status);
 
     const pageString = this.getPageString(pageLimit);
-
+    
     return clientAPI.get(
       this.baseQueryString +
         keyword +

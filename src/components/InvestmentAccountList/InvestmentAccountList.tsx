@@ -10,10 +10,12 @@ import InvestmentAccountItem from './InvestmentAccountItem/InvestmentAccountItem
 import SearchInput from './component/SearchInput';
 import Dropdown from './Dropdown/Dropdown';
 import PagenationButton from './component/PagenationButton';
+import NewUserModal from '../NewUserModal';
 import { DROPDOWN_DATA } from '@src/constants/dropDownData';
 
 const InvestmentAccountList = () => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [accountQueryParams, setAccountQueryParams] = useState({
     keyword: '',
     broker_id: '',
@@ -28,7 +30,6 @@ const InvestmentAccountList = () => {
     isError,
   } = useGetAccountQuery(accountQueryParams);
 
-  // const maxPage = Math.floor(defaultAccountListData?.data?.length / 20) + 1;
   const maxPage = defaultAccountListData?.data?.length;
 
   // usePrefetchAccountList(currentPage, maxPage);
@@ -43,7 +44,7 @@ const InvestmentAccountList = () => {
     });
   };
 
-  if (isLoading) return <h3>Loading...</h3>;
+  // if (isLoading) return <h3>Loading...</h3>;
   if (isError)
     return (
       <>
@@ -54,16 +55,24 @@ const InvestmentAccountList = () => {
   return (
     <>
       <Container>
-        <SearchInput setAccountQueryParams={setAccountQueryParams} />
-        {DROPDOWN_DATA.map(({ id, name, data }) => (
-          <Dropdown
-            key={id}
+        <FilterContainer>
+          <SearchInput
             accountQueryParams={accountQueryParams}
             setAccountQueryParams={setAccountQueryParams}
-            name={name}
-            data={data}
           />
-        ))}
+          {DROPDOWN_DATA.map(({ id, name, data }) => (
+            <Dropdown
+              key={id}
+              accountQueryParams={accountQueryParams}
+              setAccountQueryParams={setAccountQueryParams}
+              name={name}
+              data={data}
+            />
+          ))}
+        </FilterContainer>
+        <AddNewUserButton onClick={() => setIsModalOpen(prev => !prev)}>
+          신규 고객 추가
+        </AddNewUserButton>
       </Container>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -76,6 +85,7 @@ const InvestmentAccountList = () => {
         maxPage={maxPage}
         handleCurrentPage={handleCurrentPage}
       />
+      {isModalOpen && <NewUserModal setIsModalOpen={setIsModalOpen} />}
     </>
   );
 };
@@ -84,4 +94,21 @@ export default InvestmentAccountList;
 
 const Container = styled.div`
   ${({ theme }) => theme.flexDefault}
+  justify-content: space-between;
+`;
+
+const FilterContainer = styled.div`
+  ${({ theme }) => theme.flexDefault}
+`;
+
+const AddNewUserButton = styled.button`
+  ${({ theme }) => theme.flexCenter}
+  min-width: 110px;
+  padding: 8px 14px;
+  margin-right: 10px;
+  background: #3c6dba;
+  border-radius: 43px;
+  color: #fff;
+  box-shadow: 0px 1px 2px rgba(9, 16, 55, 0.4);
+  cursor: pointer;
 `;
