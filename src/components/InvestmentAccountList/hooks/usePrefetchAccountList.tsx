@@ -13,10 +13,7 @@ const usePrefetchAccountList = ({ currentPage, maxPage }: Props) => {
     if (currentPage < maxPage) {
       const nextPage = currentPage + 1;
       queryClient.prefetchQuery(['GetInvestmentAccount', nextPage], () => {
-        return InvestmentAccountRepository.getInvestmentAccount(
-          nextPage,
-          maxPage
-        );
+        return InvestmentAccountRepository.preFetchAccount(nextPage, maxPage);
       });
     }
   }, [currentPage, queryClient]);

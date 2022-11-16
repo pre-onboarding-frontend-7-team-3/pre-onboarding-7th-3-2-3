@@ -8,7 +8,7 @@ export const customDropdownStyle = {
     fontSize: '14px',
   },
   menuItem: {
-    width: '100px',
+    width: '100%',
     fontWeight: '500',
     fontSize: '14px',
   },
