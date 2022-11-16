@@ -1,10 +1,10 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Login from './pages/login';
-import InvestmentAccounts from './pages/InvestmentAccounts/InvestmentAccounts';
-import Users from './pages/users';
-import RequireAuth from './utils/auth/RequireAuth';
-import ROUTES from './constants/routes';
-import NotFound from './pages/NotFound/NotFound';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Login from "./pages/login";
+import InvestmentAccounts from "./pages/InvestmentAccounts/InvestmentAccounts";
+import Users from "./pages/users";
+import RequireAuth from "./utils/auth/RequireAuth";
+import ROUTES from "./constants/routes";
+import NotFound from "./pages/NotFound/NotFound";
 
 function App() {
   return (

@@ -1,36 +1,30 @@
 import { useState } from "react";
 import styled from "styled-components";
+
 import { Table, TableContainer, Paper } from "@mui/material";
-import { useGetAccountQuery } from "@src/components/InvestmentAccountList/Account-query/InvestmentAccount.query";
-import usePrefetchAccountList from "./hooks/usePrefetchAccountList";
-import InvestmentAccountTableHead from "./InvestmentAccountTableHead/InvestmentAccountTableHead";
-import InvestmentAccountItem from "./InvestmentAccountItem/InvestmentAccountItem";
-import SearchInput from "./component/SearchInput";
-import Dropdown from "./Dropdown/Dropdown";
-import PagenationButton from "./component/PagenationButton";
+
 import { DROPDOWN_DATA } from "@src/constants/dropDownData";
+import SearchInput from "../InvestmentAccountList/component/SearchInput";
+import Dropdown from "../InvestmentAccountList/Dropdown/Dropdown";
+import PagenationButton from "../InvestmentAccountList/component/PagenationButton";
+import UserTableHead from "./UserTableHead/UserTable";
+import UserTableItem from "./UserTableItem/UserTableItem";
+import { useGetUserListQuery } from "./UserList-query/UserList.query";
 
-const PARAMETER_KEYS = {
-  keyword: "",
-  broker_id: "",
-  is_active: "",
-  status: "",
-};
-
-const InvestmentAccountList = () => {
+const UserList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [accountQueryParams, setAccountQueryParams] = useState({
     pageLimit: currentPage,
   });
 
   const {
-    data: defaultAccountListData,
+    data: defaultUserData,
     isLoading,
     isError,
-  } = useGetAccountQuery(accountQueryParams);
+  } = useGetUserListQuery(accountQueryParams);
 
   // const maxPage = Math.floor(defaultAccountListData?.data?.length / 20) + 1;
-  const maxPage = defaultAccountListData?.data?.length;
+  const maxPage = 5;
 
   // usePrefetchAccountList(currentPage, maxPage);
 
@@ -59,7 +53,7 @@ const InvestmentAccountList = () => {
         {DROPDOWN_DATA.map(({ id, name, data }) => (
           <Dropdown
             key={id}
-            accountQueryParams={PARAMETER_KEYS}
+            accountQueryParams={accountQueryParams}
             setAccountQueryParams={setAccountQueryParams}
             name={name}
             data={data}
@@ -68,8 +62,8 @@ const InvestmentAccountList = () => {
       </Container>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <InvestmentAccountTableHead />
-          <InvestmentAccountItem data={defaultAccountListData} />
+          <UserTableHead />
+          <UserTableItem data={defaultUserData} />
         </Table>
       </TableContainer>
       <PagenationButton
@@ -81,7 +75,7 @@ const InvestmentAccountList = () => {
   );
 };
 
-export default InvestmentAccountList;
+export default UserList;
 
 const Container = styled.div`
   ${({ theme }) => theme.flexDefault}

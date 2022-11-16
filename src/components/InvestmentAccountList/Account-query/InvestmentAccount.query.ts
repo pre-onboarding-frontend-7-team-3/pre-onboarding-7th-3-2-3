@@ -1,12 +1,12 @@
-import { useQuery } from '@tanstack/react-query';
-import InvestmentAccountRepository from './InvestmentAccount.repository';
+import { useQuery } from "@tanstack/react-query";
+import InvestmentAccountRepository from "./InvestmentAccount.repository";
 
 export const useGetAccountQuery = (accountQueryParams: any) => {
-  console.log('useQeury');
+  console.log("useQeury");
   return useQuery(
-    ['GetInvestmentAccount', accountQueryParams],
-    async () => {
-      return await InvestmentAccountRepository.getInvestmentAccount(
+    ["GetInvestmentAccount", accountQueryParams],
+    () => {
+      return InvestmentAccountRepository.getInvestmentAccount(
         accountQueryParams
       );
     },
