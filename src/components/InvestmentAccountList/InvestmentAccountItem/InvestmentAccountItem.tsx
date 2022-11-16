@@ -15,6 +15,7 @@ const InvestmentAccountItem = ({ data }: { data: any }) => {
         >
           <TableCell
             onClick={() => navigate(`/accounts/user/${row.userId}`)}
+            // onClick={() => navigate(`/users/${row.userId}`)}
             component="th"
             align="center"
             scope="row"
