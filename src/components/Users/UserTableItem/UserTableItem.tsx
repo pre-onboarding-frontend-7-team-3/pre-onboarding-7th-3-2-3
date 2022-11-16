@@ -23,6 +23,16 @@ const UserTableItem = ({ data }: { data: any }) => {
           <TableCell align="center">{row.email}</TableCell>
           <TableCell align="center">{row.gender_origin}</TableCell>
           <TableCell align="center">
+<<<<<<< HEAD
+            {row.birth_date?.split("").slice(0, 10)}
+          </TableCell>
+          <TableCell align="center">{row.phone_number}</TableCell>
+          <TableCell align="center">
+            {row.last_login?.split("").slice(0, 10)}
+          </TableCell>
+          <TableCell align="center">
+            {row.created_at?.split("").slice(0, 10)}
+=======
             {row.birth_date.split('').slice(0, 10)}
           </TableCell>
           <TableCell align="center">{row.phone_number}</TableCell>
@@ -31,12 +41,17 @@ const UserTableItem = ({ data }: { data: any }) => {
           </TableCell>
           <TableCell align="center">
             {row.created_at.split('').slice(0, 10)}
+>>>>>>> 7bfc10e660fcaa3f5f1c5159f5dc4f12474eb342
           </TableCell>
           <TableCell align="center">
             {row.is_active ? '활성화' : '비활성화'}
           </TableCell>
           <TableCell align="center">
+<<<<<<< HEAD
+            {row.created_at?.split("").slice(0, 10)}
+=======
             {row.created_at.split('').slice(0, 10)}
+>>>>>>> 7bfc10e660fcaa3f5f1c5159f5dc4f12474eb342
           </TableCell>
         </TableRow>
       ))}

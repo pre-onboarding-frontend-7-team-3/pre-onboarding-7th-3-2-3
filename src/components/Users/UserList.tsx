@@ -12,8 +12,15 @@ import CustomTableBody from '../common/Table/CustomTableBody';
 import { USER_TABLE_CELL_DATA } from '@src/constants/tableData';
 import CustomTableHead from '../common/Table/CustomTableHead';
 
+const PARAMETER_KEYS = {
+  // keyword: '',
+  is_active: '',
+  status: '',
+};
 const UserList = () => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [keyword, setKeyword] = useState('');
   const [accountQueryParams, setAccountQueryParams] = useState({
     pageLimit: currentPage,
   });
@@ -23,6 +30,8 @@ const UserList = () => {
     isLoading,
     isError,
   } = useGetUserListQuery(accountQueryParams);
+
+  // const { data: filteredUserDataByKeyword } = useGetFilteredUserList(keyword);
 
   // const maxPage = Math.floor(defaultAccountListData?.data?.length / 20) + 1;
   const maxPage = 5;
@@ -68,16 +77,21 @@ const UserList = () => {
   return (
     <>
       <Container>
-        <SearchInput setAccountQueryParams={setAccountQueryParams} />
-        {DROPDOWN_DATA.map(({ id, name, data }) => (
-          <Dropdown
-            key={id}
-            accountQueryParams={accountQueryParams}
-            setAccountQueryParams={setAccountQueryParams}
-            name={name}
-            data={data}
-          />
-        ))}
+        <FilterContainer>
+          <SearchInput onUpdateParams={setKeyword} />
+          {USER_DROPDOWN_DATA.map(({ id, name, data }) => (
+            <Dropdown
+              key={id}
+              accountQueryParams={PARAMETER_KEYS}
+              setAccountQueryParams={setAccountQueryParams}
+              name={name}
+              data={data}
+            />
+          ))}
+        </FilterContainer>
+        <AddNewUserButton onClick={() => setIsModalOpen(prev => !prev)}>
+          신규 고객 추가
+        </AddNewUserButton>
       </Container>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -90,6 +104,7 @@ const UserList = () => {
         maxPage={maxPage}
         handleCurrentPage={handleCurrentPage}
       />
+      {isModalOpen && <NewUserModal setIsModalOpen={setIsModalOpen} />}
     </>
   );
 };
@@ -98,4 +113,21 @@ export default UserList;
 
 const Container = styled.div`
   ${({ theme }) => theme.flexDefault}
+  justify-content: space-between;
+`;
+
+const FilterContainer = styled.div`
+  ${({ theme }) => theme.flexDefault}
+`;
+
+const AddNewUserButton = styled.button`
+  ${({ theme }) => theme.flexCenter}
+  min-width: 110px;
+  padding: 8px 14px;
+  margin-right: 10px;
+  background: #3c6dba;
+  border-radius: 43px;
+  color: #fff;
+  box-shadow: 0px 1px 2px rgba(9, 16, 55, 0.4);
+  cursor: pointer;
 `;

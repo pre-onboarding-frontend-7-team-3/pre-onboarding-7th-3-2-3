@@ -37,9 +37,9 @@ export const BROKERS_FORMAT: { [key: string]: string } = {
 };
 
 export const IS_ACTIVE_FORMAT: { [key: string]: string } = {
-  '': '선택안함',
-  true: '활성화',
-  false: '비활성화',
+  '': '선택',
+  'true': '활성화',
+  'false': '비활성화',
 };
 
 export const BROKER_FORMAT = {
@@ -97,6 +97,12 @@ export const BROKER_LIST = [
   'LIG투자증권',
   '토스증권',
 ];
+
+export const IS_STAFF_FORMAT: { [key: string]: string } = {
+  '': '선택',
+  'true': '임직원',
+  'false': '고객',
+}
 
 export const GENDER: { [key: string]: string } = {
   1: '남',
