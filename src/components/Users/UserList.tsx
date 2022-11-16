@@ -1,16 +1,16 @@
-import { useMemo, useState } from "react";
-import styled from "styled-components";
+import { useMemo, useState } from 'react';
+import styled from 'styled-components';
 
-import { Table, TableContainer, Paper } from "@mui/material";
+import { Table, TableContainer, Paper } from '@mui/material';
 
-import { DROPDOWN_DATA } from "@src/constants/dropDownData";
-import SearchInput from "../InvestmentAccountList/component/SearchInput";
-import Dropdown from "../InvestmentAccountList/Dropdown/Dropdown";
-import PagenationButton from "../InvestmentAccountList/component/PagenationButton";
-import { useGetUserListQuery } from "./UserList-query/UserList.query";
-import CustomTableBody from "../common/Table/CustomTableBody";
-import { USER_TABLE_CELL_DATA } from "@src/constants/tableData";
-import CustomTableHead from "../common/Table/CustomTableHead";
+import { DROPDOWN_DATA } from '@src/constants/dropDownData';
+import SearchInput from '../InvestmentAccountList/component/SearchInput';
+import Dropdown from '../InvestmentAccountList/Dropdown/Dropdown';
+import PagenationButton from '../InvestmentAccountList/component/PagenationButton';
+import { useGetUserListQuery } from './UserList-query/UserList.query';
+import CustomTableBody from '../common/Table/CustomTableBody';
+import { USER_TABLE_CELL_DATA } from '@src/constants/tableData';
+import CustomTableHead from '../common/Table/CustomTableHead';
 
 const UserList = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -30,8 +30,8 @@ const UserList = () => {
   // usePrefetchAccountList(currentPage, maxPage);
 
   const handleCurrentPage = (num: number) => {
-    setCurrentPage((prev) => prev + num);
-    setAccountQueryParams((prev) => {
+    setCurrentPage(prev => prev + num);
+    setAccountQueryParams(prev => {
       return {
         ...prev,
         pageLimit: currentPage + num,
@@ -43,15 +43,16 @@ const UserList = () => {
     () =>
       defaultUserData?.data?.map((data: any) => ({
         name: data.name,
-        account_count: "계좌수",
+        account_count: '계좌수',
         email: data.email,
         gender_origin: data.gender_origin,
-        birth_date: data.birth_date.split("").slice(0, 10),
+        birth_date: data.birth_date.split('').slice(0, 10),
         phone_number: data.phone_number,
-        last_login: data.last_login.split("").slice(0, 10),
-        receive: "수신동의",
-        active: "계좌활성화",
-        created_at: data.created_at.split("").slice(0, 10),
+        last_login: data.last_login.split('').slice(0, 10),
+        receive: '수신동의',
+        active: '계좌활성화',
+        created_at: data.created_at.split('').slice(0, 10),
+        id: data.id,
       })),
     [defaultUserData]
   );
