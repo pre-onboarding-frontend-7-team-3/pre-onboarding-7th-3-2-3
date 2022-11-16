@@ -10,19 +10,19 @@ type GetInvestmentAccount = {
 class InvestmentAccountRepository {
   private baseQueryString: string = '/accounts?_expand=user&q=';
 
-  getBrokerParamsById(id: string) {
+  private getBrokerParamsById(id: string) {
     return id && `&broker_id=${id}`;
   }
 
-  getIsActiveParams(is_active: boolean) {
+  private getIsActiveParams(is_active: boolean) {
     return is_active && `&is_active=${is_active}`;
   }
 
-  getStatusString(status: string) {
+  private getStatusString(status: string) {
     return status && `&status=${status}`;
   }
 
-  getPageString(pageLimit: number) {
+  private getPageString(pageLimit: number) {
     return `&_page=${pageLimit}&_limit=20`;
   }
 
@@ -49,6 +49,11 @@ class InvestmentAccountRepository {
         statusString +
         pageString
     );
+  }
+
+  preFetchAccount(nextPage: number, maxPage: number) {
+    const pageString = this.getPageString(nextPage);
+    return clientAPI.get(this.baseQueryString + pageString);
   }
 }
 
