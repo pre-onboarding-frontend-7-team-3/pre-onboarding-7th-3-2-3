@@ -1,28 +1,35 @@
-import { TableBody, TableCell, TableRow } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { TableBody, TableCell, TableRow } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const CustomTableBody = ({ data }: { data: { [key: string]: any }[] }) => {
   const navigate = useNavigate();
   return (
     <TableBody>
-      {data?.map((row: { [key: string]: any }, idx: number) => (
+      {data?.map((row: Record<string, any>, idx: number) => (
         <TableRow
           key={idx}
-          sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+          sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
         >
-          {Object.entries(row).map((data) => {
-            return data[0] === "name" ? (
+          {Object.entries(row).map(([userRowkey, userRowVal], idx) => {
+            return userRowkey === 'name' ? (
               <TableCell
-                onClick={() => navigate(`/accounts/${row.userId}`)}
+                onClick={() => navigate(`/users/${data[idx].id}`)}
+                component="th"
+                align="center"
+                scope="row"
+                sx={{ color: '#357ae1', cursor: 'pointer', fontWeight: 'bold' }}
+                key={data[idx].uuid}
+              >
+                {userRowVal}
+              </TableCell>
+            ) : (
+              <TableCell
+                key={data[idx].uuid}
                 component="th"
                 align="center"
                 scope="row"
               >
-                {data[1]}
-              </TableCell>
-            ) : (
-              <TableCell component="th" align="center" scope="row">
-                {data[1]}
+                {userRowVal}
               </TableCell>
             );
           })}
