@@ -11,3 +11,13 @@ export const getUserAllAccount = (userId: string) => {
 export const getUserSetting = (userId: string) => {
   return clientAPI.get(`/userSetting/${userId}`);
 };
+
+export const editUserName = (userId: string, editValue: string) => {
+  return clientAPI.patch(`/users/${userId}`, {
+    name: editValue,
+  });
+};
+
+export const getAllUserDetail = () => {
+  return clientAPI.get(`/users`);
+};
