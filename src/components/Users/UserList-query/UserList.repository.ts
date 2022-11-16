@@ -1,4 +1,4 @@
-import clientAPI from "@src/libs/api/client";
+import clientAPI from '@src/libs/api/client';
 
 type GetInvestmentAccount = {
   broker_id?: string;
@@ -8,11 +8,12 @@ type GetInvestmentAccount = {
   pageLimit: number;
 };
 class UserListRepository {
-  private baseQueryString: string = "/accounts?_expand=user&name_like=home";
+  private baseQueryString: string = 'users?_expand=userSetting';
 
-  getInvestmentAccount({ pageLimit }: GetInvestmentAccount) {
+  getInvestmentAccount({ pageLimit, keyword }: GetInvestmentAccount) {
     return clientAPI.get(this.baseQueryString, {
       params: {
+        name_like: keyword,
         _page: pageLimit,
         _limit: 200,
       },

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { Table, TableContainer, Paper } from '@mui/material';
 
-import { DROPDOWN_DATA } from '@src/constants/dropDownData';
+import { USER_DROPDOWN_DATA } from '@src/constants/dropDownData';
 import SearchInput from '../InvestmentAccountList/component/SearchInput';
 import Dropdown from '../InvestmentAccountList/Dropdown/Dropdown';
 import PagenationButton from '../InvestmentAccountList/component/PagenationButton';
@@ -11,9 +11,10 @@ import { useGetUserListQuery } from './UserList-query/UserList.query';
 import CustomTableBody from '../common/Table/CustomTableBody';
 import { USER_TABLE_CELL_DATA } from '@src/constants/tableData';
 import CustomTableHead from '../common/Table/CustomTableHead';
+import NewUserModal from '../NewUserModal';
 
 const PARAMETER_KEYS = {
-  // keyword: '',
+  keyword: '',
   is_active: '',
   status: '',
 };
@@ -24,17 +25,13 @@ const UserList = () => {
   const [accountQueryParams, setAccountQueryParams] = useState({
     pageLimit: currentPage,
   });
+  const maxPage = 5;
 
   const {
-    data: defaultUserData,
+    data,
     isLoading,
     isError,
   } = useGetUserListQuery(accountQueryParams);
-
-  // const { data: filteredUserDataByKeyword } = useGetFilteredUserList(keyword);
-
-  // const maxPage = Math.floor(defaultAccountListData?.data?.length / 20) + 1;
-  const maxPage = 5;
 
   // usePrefetchAccountList(currentPage, maxPage);
 
@@ -50,20 +47,20 @@ const UserList = () => {
 
   const userData = useMemo(
     () =>
-      defaultUserData?.data?.map((data: any) => ({
+      data?.data?.map((data: any) => ({
         name: data.name,
         account_count: '계좌수',
         email: data.email,
         gender_origin: data.gender_origin,
-        birth_date: data.birth_date.split('').slice(0, 10),
+        birth_date: data.birth_date?.split('').slice(0, 10),
         phone_number: data.phone_number,
-        last_login: data.last_login.split('').slice(0, 10),
+        last_login: data.last_login?.split('').slice(0, 10),
         receive: '수신동의',
         active: '계좌활성화',
-        created_at: data.created_at.split('').slice(0, 10),
+        created_at: data.created_at?.split('').slice(0, 10),
         id: data.id,
       })),
-    [defaultUserData]
+    [data]
   );
 
   if (isLoading) return <h3>Loading...</h3>;
@@ -78,7 +75,7 @@ const UserList = () => {
     <>
       <Container>
         <FilterContainer>
-          <SearchInput onUpdateParams={setKeyword} />
+          <SearchInput onUpdateParams={setAccountQueryParams} />
           {USER_DROPDOWN_DATA.map(({ id, name, data }) => (
             <Dropdown
               key={id}

@@ -18,13 +18,13 @@ const CustomTableBody = ({ data }: { data: { [key: string]: any }[] }) => {
                 align="center"
                 scope="row"
                 sx={{ color: '#357ae1', cursor: 'pointer', fontWeight: 'bold' }}
-                key={data[idx].uuid}
+                key={idx}
               >
                 {userRowVal}
               </TableCell>
             ) : (
               <TableCell
-                key={data[idx].uuid}
+                key={idx}
                 component="th"
                 align="center"
                 scope="row"
