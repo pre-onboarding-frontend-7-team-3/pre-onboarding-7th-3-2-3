@@ -38,8 +38,8 @@ export const BROKERS_FORMAT: { [key: string]: string } = {
 
 export const IS_ACTIVE_FORMAT: { [key: string]: string } = {
   '': '선택',
-  true: '활성화',
-  false: '비활성화',
+  'true': '활성화',
+  'false': '비활성화',
 };
 
 export const BROKER_FORMAT = {
