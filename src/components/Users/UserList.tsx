@@ -1,15 +1,15 @@
-import { useState } from "react";
-import styled from "styled-components";
+import { useState } from 'react';
+import styled from 'styled-components';
 
-import { Table, TableContainer, Paper } from "@mui/material";
+import { Table, TableContainer, Paper } from '@mui/material';
 
-import { DROPDOWN_DATA } from "@src/constants/dropDownData";
-import SearchInput from "../InvestmentAccountList/component/SearchInput";
-import Dropdown from "../InvestmentAccountList/Dropdown/Dropdown";
-import PagenationButton from "../InvestmentAccountList/component/PagenationButton";
-import UserTableHead from "./UserTableHead/UserTable";
-import UserTableItem from "./UserTableItem/UserTableItem";
-import { useGetUserListQuery } from "./UserList-query/UserList.query";
+import { DROPDOWN_DATA } from '@src/constants/dropDownData';
+import SearchInput from '../InvestmentAccountList/component/SearchInput';
+import Dropdown from '../InvestmentAccountList/Dropdown/Dropdown';
+import PagenationButton from '../InvestmentAccountList/component/PagenationButton';
+import UserTableHead from './UserTableHead/UserTable';
+import UserTableItem from './UserTableItem/UserTableItem';
+import { useGetUserListQuery } from './UserList-query/UserList.query';
 
 const UserList = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -29,8 +29,8 @@ const UserList = () => {
   // usePrefetchAccountList(currentPage, maxPage);
 
   const handleCurrentPage = (num: number) => {
-    setCurrentPage((prev) => prev + num);
-    setAccountQueryParams((prev) => {
+    setCurrentPage(prev => prev + num);
+    setAccountQueryParams(prev => {
       return {
         ...prev,
         pageLimit: currentPage + num,
