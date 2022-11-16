@@ -7,23 +7,21 @@ const PARAMETER_KEYS = {
   status: "",
 };
 
-import styled from 'styled-components';
-import { Table, TableContainer, Paper } from '@mui/material';
-import { useGetAccountQuery } from '@src/components/InvestmentAccountList/Account-query/InvestmentAccount.query';
-import InvestmentAccountTableHead from './InvestmentAccountTableHead/InvestmentAccountTableHead';
-import InvestmentAccountItem from './InvestmentAccountItem/InvestmentAccountItem';
-import SearchInput from './component/SearchInput';
-import Dropdown from './Dropdown/Dropdown';
-import PagenationButton from './component/PagenationButton';
-import { DROPDOWN_DATA } from '@src/constants/dropDownData';
+import styled from "styled-components";
+import { Table, TableContainer, Paper } from "@mui/material";
+import { useGetAccountQuery } from "@src/components/InvestmentAccountList/Account-query/InvestmentAccount.query";
+import InvestmentAccountTableHead from "./InvestmentAccountTableHead/InvestmentAccountTableHead";
+import InvestmentAccountItem from "./InvestmentAccountItem/InvestmentAccountItem";
+import SearchInput from "./component/SearchInput";
+import Dropdown from "./Dropdown/Dropdown";
+import PagenationButton from "./component/PagenationButton";
+import { DROPDOWN_DATA } from "@src/constants/dropDownData";
 
 const InvestmentAccountList = () => {
-
   const [accountQueryParams, setAccountQueryParams] = useAtom(
     accountQueryParamsAtom
   );
 
-  console.log(accountQueryParams);
   const {
     data: defaultAccountListData,
     isLoading,

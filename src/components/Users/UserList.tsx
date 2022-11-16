@@ -9,8 +9,9 @@ import Dropdown from '../InvestmentAccountList/Dropdown/Dropdown';
 import PagenationButton from '../InvestmentAccountList/component/PagenationButton';
 import { useGetUserListQuery } from './UserList-query/UserList.query';
 import CustomTableBody from '../common/Table/CustomTableBody';
-import { USER_TABLE_CELL_DATA } from '@src/constants/tableData';
+import { GENDER, USER_TABLE_CELL_DATA } from '@src/constants/tableData';
 import CustomTableHead from '../common/Table/CustomTableHead';
+import { formatBoolean } from '@src/utils/formatBoolean';
 
 const PARAMETER_KEYS = {
   // keyword: '',
@@ -47,7 +48,7 @@ const UserList = () => {
       };
     });
   };
-
+  console.log(defaultUserData)
   const userData = useMemo(
     () =>
       defaultUserData?.data?.map((data: any) => ({
