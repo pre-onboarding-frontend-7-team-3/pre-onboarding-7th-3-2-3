@@ -18,11 +18,11 @@ const CustomTableBody = ({ data }: { data: { [key: string]: any }[] }) => {
                 align="center"
                 scope="row"
               >
-                {data[1] && data[1]}
+                {data[1]}
               </TableCell>
             ) : (
               <TableCell component="th" align="center" scope="row">
-                {data[1] && data[1]}
+                {data[1]}
               </TableCell>
             );
           })}
