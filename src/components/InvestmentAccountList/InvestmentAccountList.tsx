@@ -31,7 +31,7 @@ const InvestmentAccountList = () => {
   // const maxPage = Math.floor(defaultAccountListData?.data?.length / 20) + 1;
   const maxPage = defaultAccountListData?.data?.length;
 
-  // usePrefetchAccountList(currentPage, maxPage);
+  // usePrefetchAccountList({ currentPage, maxPage });
 
   const handleCurrentPage = (num: number) => {
     setCurrentPage(prev => prev + num);
