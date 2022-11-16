@@ -1,7 +1,7 @@
 const ROUTES = {
   LOGIN: "/",
   ACCOUNTS: "/accounts",
-  USERS: "/users/:userId",
+  USERS: "/users",
   NOT_FOUND: "/page-not-found",
   ALL: "*",
 };
