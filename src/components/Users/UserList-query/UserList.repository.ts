@@ -1,4 +1,4 @@
-import clientAPI from "@src/libs/api/client";
+import clientAPI from '@src/libs/api/client';
 
 type GetInvestmentAccount = {
   broker_id?: string;
@@ -8,7 +8,7 @@ type GetInvestmentAccount = {
   pageLimit: number;
 };
 class UserListRepository {
-  private baseQueryString: string = "/accounts?_expand=user&name_like=home";
+  private baseQueryString: string = '/accounts?_expand=user&name_like=home';
 
   getInvestmentAccount({ pageLimit }: GetInvestmentAccount) {
     // return clientAPI.get(this.baseQueryString, {
@@ -18,7 +18,7 @@ class UserListRepository {
     //   },
     // });
     return clientAPI.get(
-      "users?_embed=userSetting&name_like=모&is_active=true&is_staff=false"
+      'users?_embed=userSetting&name_like=&is_active=false&is_staff=true'
     );
   }
 }
