@@ -5,7 +5,6 @@ interface Props {
 }
 
 const UserDetailTableHead = ({ items }: Props) => {
-  console.log(items);
   return (
     <TableHead>
       <TableRow>

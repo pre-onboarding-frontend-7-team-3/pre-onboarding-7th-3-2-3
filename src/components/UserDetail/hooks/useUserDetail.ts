@@ -6,7 +6,6 @@ import {
 import { useQueries } from "@tanstack/react-query";
 
 const useUserDetail = (userId: string) => {
-  console.log("useQuery!!");
   return useQueries({
     queries: [
       {
