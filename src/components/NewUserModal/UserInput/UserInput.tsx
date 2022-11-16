@@ -1,4 +1,15 @@
+import { UseFormRegister, FieldValues } from 'react-hook-form';
 import * as S from './UserInput.style';
+
+type Props = {
+  type: string;
+  text: string;
+  name: string;
+  validation: object;
+  autoFocus: boolean | undefined;
+  autocomplete: string;
+  register: UseFormRegister<FieldValues>;
+};
 
 const UserInput = ({
   type,
@@ -6,15 +17,15 @@ const UserInput = ({
   name,
   validation,
   autoFocus,
-  autoComplete,
+  autocomplete,
   register,
-}) => {
+}: Props) => {
   return (
     <S.UserInput
       type={type}
       placeholder={text}
       autoFocus={autoFocus}
-      autocomplete={autoComplete}
+      autocomplete={autocomplete}
       {...register(name, validation)}
     />
   );
