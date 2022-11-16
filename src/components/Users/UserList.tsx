@@ -32,7 +32,7 @@ const UserList = () => {
     isError,
   } = useGetUserListQuery(accountQueryParams);
 
-  const { data: filteredUserDataByKeyword } = useGetFilteredUserList(keyword);
+  // const { data: filteredUserDataByKeyword } = useGetFilteredUserList(keyword);
   
   // const maxPage = Math.floor(defaultAccountListData?.data?.length / 20) + 1;
   const maxPage = 5;
@@ -79,7 +79,7 @@ const UserList = () => {
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <UserTableHead />
-          <UserTableItem data={filteredUserDataByKeyword || defaultUserData} />
+          <UserTableItem data={defaultUserData} />
         </Table>
       </TableContainer>
       <PagenationButton
