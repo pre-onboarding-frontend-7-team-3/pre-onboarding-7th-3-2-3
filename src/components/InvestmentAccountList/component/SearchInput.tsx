@@ -4,14 +4,20 @@ import useDebounce from '../hooks/useDebounce';
 
 const SearchInput = ({ onUpdateParams }: any) => {
   const [value, setValue] = useState('');
-  useDebounce(() => {
-    onUpdateParams((prev: any) => {
-      return { ...prev, keyword: value };
-    });
-  }, value);
-  
+
+  // useDebounce(() => {
+  //   if (value) 
+  //   setAccountQueryParams((prev: any) => {
+  //     return { ...prev, keyword: value };
+  //   });
+  // }, value);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
+    onUpdateParams((prev: any) => {
+      return { ...prev, pageLimit:1, keyword: value };
+    });
+
     setValue(value);
   };
   

@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import UserListRepository from "./UserList.repository";
 
 export const useGetUserListQuery = (userQueryParams: any) => {
-  
   return useQuery(
     ["GetUserList", userQueryParams],
     () => {

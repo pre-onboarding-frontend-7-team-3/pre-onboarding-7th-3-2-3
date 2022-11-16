@@ -9,8 +9,10 @@ import Dropdown from '../InvestmentAccountList/Dropdown/Dropdown';
 import PagenationButton from '../InvestmentAccountList/component/PagenationButton';
 import { useGetUserListQuery } from './UserList-query/UserList.query';
 import CustomTableBody from '../common/Table/CustomTableBody';
-import { USER_TABLE_CELL_DATA } from '@src/constants/tableData';
+import { GENDER, USER_TABLE_CELL_DATA } from '@src/constants/tableData';
 import CustomTableHead from '../common/Table/CustomTableHead';
+import { formatBoolean } from '@src/utils/formatBoolean';
+
 import NewUserModal from '../NewUserModal';
 
 const PARAMETER_KEYS = {
@@ -21,17 +23,12 @@ const PARAMETER_KEYS = {
 const UserList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [keyword, setKeyword] = useState('');
   const [accountQueryParams, setAccountQueryParams] = useState({
     pageLimit: currentPage,
   });
   const maxPage = 5;
 
-  const {
-    data,
-    isLoading,
-    isError,
-  } = useGetUserListQuery(accountQueryParams);
+  const { data, isLoading, isError } = useGetUserListQuery(accountQueryParams);
 
   // usePrefetchAccountList(currentPage, maxPage);
 
@@ -44,21 +41,23 @@ const UserList = () => {
       };
     });
   };
-
   const userData = useMemo(
     () =>
       data?.data?.map((data: any) => ({
         name: data.name,
         account_count: '계좌수',
         email: data.email,
-        gender_origin: data.gender_origin,
+        gender_origin: GENDER[data.gender_origin],
         birth_date: data.birth_date?.split('').slice(0, 10),
         phone_number: data.phone_number,
         last_login: data.last_login?.split('').slice(0, 10),
-        receive: '수신동의',
-        active: '계좌활성화',
+        allow_marketing_push: formatBoolean(
+          data?.userSetting[0]?.allow_invest_push
+        ),
+        is_active: formatBoolean(data.userSetting[0]?.is_active),
         created_at: data.created_at?.split('').slice(0, 10),
         id: data.id,
+        uuid: data.uuid,
       })),
     [data]
   );
