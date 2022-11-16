@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { Table, TableContainer, Paper } from '@mui/material';
 
-import { DROPDOWN_DATA } from '@src/constants/dropDownData';
+import { USER_DROPDOWN_DATA } from '@src/constants/dropDownData';
 import SearchInput from '../InvestmentAccountList/component/SearchInput';
 import Dropdown from '../InvestmentAccountList/Dropdown/Dropdown';
 import PagenationButton from '../InvestmentAccountList/component/PagenationButton';
@@ -11,10 +11,17 @@ import UserTableHead from './UserTableHead/UserTable';
 import UserTableItem from './UserTableItem/UserTableItem';
 import NewUserModal from '../NewUserModal';
 import { useGetUserListQuery } from './UserList-query/UserList.query';
+import { useGetFilteredUserList } from './UserList-query/UserListFilteredByKeyword.query';
 
+const PARAMETER_KEYS = {
+  // keyword: '',
+  is_active: '',
+  status: '',
+};
 const UserList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [keyword, setKeyword] = useState('');
   const [accountQueryParams, setAccountQueryParams] = useState({
     pageLimit: currentPage,
   });
@@ -25,6 +32,8 @@ const UserList = () => {
     isError,
   } = useGetUserListQuery(accountQueryParams);
 
+  const { data: filteredUserDataByKeyword } = useGetFilteredUserList(keyword);
+  
   // const maxPage = Math.floor(defaultAccountListData?.data?.length / 20) + 1;
   const maxPage = 5;
 
@@ -52,11 +61,11 @@ const UserList = () => {
     <>
       <Container>
         <FilterContainer>
-          <SearchInput setAccountQueryParams={setAccountQueryParams} />
-          {DROPDOWN_DATA.map(({ id, name, data }) => (
+          <SearchInput onUpdateParams={setKeyword} />
+          {USER_DROPDOWN_DATA.map(({ id, name, data }) => (
             <Dropdown
               key={id}
-              accountQueryParams={accountQueryParams}
+              accountQueryParams={PARAMETER_KEYS}
               setAccountQueryParams={setAccountQueryParams}
               name={name}
               data={data}
@@ -70,7 +79,7 @@ const UserList = () => {
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <UserTableHead />
-          <UserTableItem data={defaultUserData} />
+          <UserTableItem data={filteredUserDataByKeyword || defaultUserData} />
         </Table>
       </TableContainer>
       <PagenationButton

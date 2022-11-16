@@ -55,7 +55,7 @@ const InvestmentAccountList = () => {
   return (
     <>
       <Container>
-        <SearchInput setAccountQueryParams={setAccountQueryParams} />
+        <SearchInput onUpdateParams={setAccountQueryParams} />
         {DROPDOWN_DATA.map(({ id, name, data }) => (
           <Dropdown
             key={id}

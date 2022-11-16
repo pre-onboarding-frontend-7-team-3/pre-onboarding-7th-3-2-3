@@ -2,11 +2,11 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import useDebounce from '../hooks/useDebounce';
 
-const SearchInput = ({ setAccountQueryParams }: any) => {
+const SearchInput = ({ onUpdateParams }: any) => {
   const [value, setValue] = useState('');
 
   useDebounce(() => {
-    setAccountQueryParams((prev: any) => {
+    onUpdateParams((prev: any) => {
       return { ...prev, keyword: value };
     });
   }, value);
