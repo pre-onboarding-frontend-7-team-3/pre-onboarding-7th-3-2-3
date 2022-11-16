@@ -6,7 +6,7 @@ type Props = {
   text: string;
   name: string;
   validation: object;
-  autoFocus: boolean | undefined;
+  autoFocus?: boolean;
   autocomplete: string;
   register: UseFormRegister<FieldValues>;
 };

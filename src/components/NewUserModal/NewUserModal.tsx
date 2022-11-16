@@ -46,8 +46,14 @@ const NewUserModal = ({ setIsModalOpen }) => {
 
   return (
     <S.ViewPortContainer>
-      <S.ModalContainer onSubmit={handleSubmit(onSubmit)} ref={modalRef}>
+      <S.ModalContainer
+        onSubmit={handleSubmit(onSubmit)}
+        ref={modalRef}
+        autoComplete="false"
+      >
+        <input type="password" style={{ width: '0px', height: '0px' }} />
         <S.Title>신규 고객 추가</S.Title>
+        {/* disable chrome autocompletion */}
         {NEW_USER_INPUT_DATA.slice(0, 4).map(
           ({ id, type, text, name, validation, autoFocus, autoComplete }) => (
             <React.Fragment key={id}>
@@ -58,7 +64,7 @@ const NewUserModal = ({ setIsModalOpen }) => {
                 name={name}
                 validation={validation}
                 autoFocus={autoFocus}
-                autoComplete={autoComplete}
+                autocomplete={autoComplete}
                 register={register}
               />
             </React.Fragment>

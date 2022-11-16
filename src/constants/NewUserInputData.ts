@@ -6,7 +6,7 @@ export const NEW_USER_INPUT_DATA = [
     name: 'name',
     validation: { required: '이름을 입력해 주세요' },
     autoFocus: true,
-    autoComplete: "off",
+    autoComplete: 'false',
   },
   {
     id: 2,
@@ -20,7 +20,7 @@ export const NEW_USER_INPUT_DATA = [
         message: '* 8글자 이상 입력해 주세요.',
       },
     },
-    autoComplete: "off",
+    autoComplete: 'false',
   },
   {
     id: 3,
@@ -35,7 +35,7 @@ export const NEW_USER_INPUT_DATA = [
         message: '이메일 형식이 맞지 않습니다.',
       },
     },
-    autoComplete: "off",
+    autoComplete: 'false',
   },
   {
     id: 4,
@@ -43,7 +43,7 @@ export const NEW_USER_INPUT_DATA = [
     text: '나이',
     name: 'age',
     validation: { required: '나이를 입력해 주세요' },
-    autoComplete: "off",
+    autoComplete: 'false',
   },
 
   {
@@ -52,7 +52,7 @@ export const NEW_USER_INPUT_DATA = [
     text: '생년월일',
     name: 'birth_date',
     validation: { required: '생년월일 입력해 주세요' },
-    autoComplete: "off",
+    autoComplete: 'false',
   },
   {
     id: 6,
@@ -60,7 +60,7 @@ export const NEW_USER_INPUT_DATA = [
     text: '전화번호',
     name: 'phone_number',
     validation: { required: '전화번호를 입력해 주세요' },
-    autoComplete: "off",
+    autoComplete: 'false',
   },
   {
     id: 7,
@@ -68,7 +68,7 @@ export const NEW_USER_INPUT_DATA = [
     text: '주소',
     name: 'address',
     validation: { required: '주소를 입력해 주세요' },
-    autoComplete: "off",
+    autoComplete: 'false',
   },
   {
     id: 8,
@@ -76,6 +76,6 @@ export const NEW_USER_INPUT_DATA = [
     text: '상세주소',
     name: 'detail_address',
     validation: { required: '상세주소를 입력해 주세요' },
-    autoComplete: "off",
+    autoComplete: 'false',
   },
 ];
