@@ -21,25 +21,25 @@ const InvestmentAccountList = () => {
     broker_id: '',
     is_active: '',
     status: '',
-    page_limit: `&_page=${currentPage}&_limit=20`,
+    pageLimit: currentPage,
   });
 
   const {
     data: defaultAccountListData,
     isLoading,
     isError,
-  } = useGetAccountQuery(accountQueryParams, currentPage);
+  } = useGetAccountQuery(accountQueryParams);
 
   const maxPage = defaultAccountListData?.data?.length;
 
   // usePrefetchAccountList(currentPage, maxPage);
 
-  const handleCurrentPage = num => {
+  const handleCurrentPage = (num: number) => {
     setCurrentPage(prev => prev + num);
     setAccountQueryParams(prev => {
       return {
         ...prev,
-        page_limit: `&_page=${currentPage + num}&_limit=20`,
+        pageLimit: currentPage + num,
       };
     });
   };

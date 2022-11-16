@@ -97,3 +97,9 @@ export const BROKER_LIST = [
   'LIG투자증권',
   '토스증권',
 ];
+
+export const IS_STAFF_FORMAT: { [key: string]: string } = {
+  '': '선택',
+  'true': '임직원',
+  'false': '고객',
+};
