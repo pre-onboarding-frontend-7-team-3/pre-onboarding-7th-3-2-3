@@ -12,7 +12,6 @@ const Dropdown = ({
 }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setCurrentPage(1)
     setAccountQueryParams((prev) => {
       return { ...prev, pageLimit:1,  [name]: value };
     });

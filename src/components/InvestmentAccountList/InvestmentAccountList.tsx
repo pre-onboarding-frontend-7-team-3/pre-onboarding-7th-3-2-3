@@ -18,10 +18,8 @@ const PARAMETER_KEYS = {
 };
 
 const InvestmentAccountList = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-
   const [accountQueryParams, setAccountQueryParams] = useState({
-    pageLimit: currentPage,
+    pageLimit: 1,
   });
   const {
     data: defaultAccountListData,
@@ -32,13 +30,9 @@ const InvestmentAccountList = () => {
   // const maxPage = Math.floor(defaultAccountListData?.data?.length / 20) + 1;
   const maxPage = defaultAccountListData?.data?.length;
 
-  // usePrefetchAccountList(currentPage, maxPage);
   console.log(accountQueryParams);
-
-  
   
   const handleCurrentPage = (num: number) => {    
-    setCurrentPage(num)
     setAccountQueryParams((prev) => {
       return {
         ...prev,
@@ -59,14 +53,12 @@ const InvestmentAccountList = () => {
   return (
     <>
       <Container>
-        <SearchInput 
-        setCurrentPage={setCurrentPage}
+        <SearchInput
         setAccountQueryParams={setAccountQueryParams} />
         {DROPDOWN_DATA.map(({ id, name, data }) => (
           <Dropdown
             key={id}
             accountQueryParams={PARAMETER_KEYS}
-            setCurrentPage={setCurrentPage}
             setAccountQueryParams={setAccountQueryParams}
             name={name}
             data={data}
@@ -80,7 +72,7 @@ const InvestmentAccountList = () => {
         </Table>
       </TableContainer>
       <PagenationButton
-        currentPage={currentPage}
+        currentPage={accountQueryParams.pageLimit}
         maxPage={maxPage}
         handleCurrentPage={handleCurrentPage}
       />
