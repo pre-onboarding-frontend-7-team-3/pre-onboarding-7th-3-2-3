@@ -25,10 +25,7 @@ function App() {
         >
           <Route path={ROUTES.ACCOUNTS} element={<InvestmentAccounts />} />
           <Route path={ROUTES.USERS} element={<Users />} />
-          <Route
-            path={`${ROUTES.USERS}/:userId`}
-            element={<UserDetailPage />}
-          />
+          <Route path={ROUTES.USER_DETAIL_ID} element={<UserDetailPage />} />
         </Route>
         <Route path={ROUTES.NOT_FOUND} element={<NotFound />} />
         <Route
