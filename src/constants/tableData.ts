@@ -110,3 +110,16 @@ export const GENDER: { [key: string]: string } = {
   3: "남",
   4: "여",
 };
+
+export const USER_TABLE_CELL_DATA = [
+  "고객명",
+  "계좌수",
+  "이메일 주소",
+  "성별",
+  "생년월일",
+  "휴대폰 번호",
+  "최근 로그인",
+  "수신 동의",
+  "게좌 활성화",
+  "가입일",
+];
