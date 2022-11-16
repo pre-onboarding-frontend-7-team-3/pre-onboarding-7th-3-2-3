@@ -23,22 +23,10 @@ const NewUserModal = ({ setIsModalOpen }) => {
     formState: { errors },
   } = useForm();
 
-  const submit = useMutation(posts => clientAPI.post('/users', posts));
+  const submit = useMutation(formData => clientAPI.post('/users', formData));
 
   const onSubmit = data => {
-    console.log(`DATA : `, data);
-    const formData = new FormData();
-    formData.append('photo', data.file[0]);
-    formData.append('gender_origin', genderOrigin);
-    formData.append('age', data.age);
-    formData.append('birth_date', data.birth_date);
-    formData.append('detail_address', data.detail_address);
-    formData.append('address', data.address);
-    formData.append('email', data.email);
-    formData.append('password', data.password);
-    formData.append('name', data.name);
-    formData.append('phone_number', data.phone_number);
-    const posts = {
+    const formData = {
       photo: data.file[0],
       gender_origin: genderOrigin,
       age: data.age,
@@ -48,17 +36,9 @@ const NewUserModal = ({ setIsModalOpen }) => {
       address: data.address,
       email: data.email,
       password: data.password,
+      created_at: new Date(),
     };
-    console.log(posts)
-
-    const appenededObjects = {};
-    formData.forEach(function (value, key) {
-      appenededObjects[key] = value;
-    });
-    console.log(appenededObjects);
-
-    const dummy = { email: 'as22d22@naver.com', password: '1293233s' };
-    submit.mutate(posts);
+    submit.mutate(formData);
   };
 
   return (
@@ -78,7 +58,9 @@ const NewUserModal = ({ setIsModalOpen }) => {
         <S.Input
           type="password"
           placeholder="비밀번호"
-          {...register('password')}
+          {...register('password', {
+            required: '이름을 입력해주세요',
+          })}
         />
         <S.Header>이메일</S.Header>
         <S.Input type="text" placeholder="이메일" {...register('email')} />
