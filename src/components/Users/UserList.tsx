@@ -60,6 +60,7 @@ const UserList = () => {
         is_active: formatBoolean(data.userSetting[0].is_active),
         created_at: data.created_at.split('').slice(0, 10),
         id: data.id,
+        uuid: data.uuid,
       })),
     [defaultUserData]
   );
