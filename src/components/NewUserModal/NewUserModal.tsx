@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import * as S from './NewUserModal.style';
-import { useForm } from 'react-hook-form';
+import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import clientAPI from '@src/libs/api/client';
 import UserInput from './UserInput/UserInput';
@@ -9,8 +9,13 @@ import FileInput from './FileInput/FileInput';
 import { GENDER_DATA } from '../../constants/funnelButtonData';
 import useUnmountIfClickedOutside from '../../hooks/useUnmountIfClickedOutside';
 import { NEW_USER_INPUT_DATA } from '../../constants/NewUserInputData';
+import { useCreateNewUserQuery } from './api/NewUserModal.query';
 
-const NewUserModal = ({ setIsModalOpen }) => {
+type Props = {
+  setIsModalOpen: () => void;
+};
+
+const NewUserModal = ({ setIsModalOpen }: Props) => {
   const [genderOrigin, setGenderOrigin] = useState('');
   const modalRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   const handleCloseModal = () => {
@@ -25,9 +30,9 @@ const NewUserModal = ({ setIsModalOpen }) => {
     formState: { errors },
   } = useForm();
 
-  const submit = useMutation(formData => clientAPI.post('/users', formData));
+  const submitMutate = useCreateNewUserQuery(handleCloseModal);
 
-  const onSubmit = data => {
+  const onValid: SubmitHandler<FieldValues> = data => {
     const formData = {
       photo: data.file[0],
       gender_origin: genderOrigin,
@@ -41,19 +46,19 @@ const NewUserModal = ({ setIsModalOpen }) => {
       password: data.password,
       created_at: new Date(),
     };
-    submit.mutate(formData);
+    submitMutate(formData);
   };
 
   return (
     <S.ViewPortContainer>
       <S.ModalContainer
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(onValid)}
         ref={modalRef}
         autoComplete="false"
       >
         <input type="password" style={{ width: '0px', height: '0px' }} />
-        <S.Title>신규 고객 추가</S.Title>
         {/* disable chrome autocompletion */}
+        <S.Title>신규 고객 추가</S.Title>
         {NEW_USER_INPUT_DATA.slice(0, 4).map(
           ({ id, type, text, name, validation, autoFocus, autoComplete }) => (
             <React.Fragment key={id}>
