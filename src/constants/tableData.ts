@@ -1,5 +1,5 @@
 export const STATUS_FORMAT: { [key: string]: string | number } = {
-  '': '선택',
+  '': '선택안함',
   9999: '관리자확인필요',
   1: '입금대기',
   2: '운용중',
@@ -8,7 +8,7 @@ export const STATUS_FORMAT: { [key: string]: string | number } = {
 };
 
 export const BROKERS_FORMAT: { [key: string]: string } = {
-  '': '선택',
+  '': '선택안함',
   '209': '유안타증권',
   '218': '현대증권',
   '230': '미래에셋증권',
@@ -38,8 +38,8 @@ export const BROKERS_FORMAT: { [key: string]: string } = {
 
 export const IS_ACTIVE_FORMAT: { [key: string]: string } = {
   '': '선택',
-  true: '활성화',
-  false: '비활성화',
+  'true': '활성화',
+  'false': '비활성화',
 };
 
 export const BROKER_FORMAT = {
@@ -96,4 +96,30 @@ export const BROKER_LIST = [
   '신영증권',
   'LIG투자증권',
   '토스증권',
+];
+
+export const IS_STAFF_FORMAT: { [key: string]: string } = {
+  '': '선택',
+  'true': '임직원',
+  'false': '고객',
+}
+
+export const GENDER: { [key: string]: string } = {
+  1: '남',
+  2: '여',
+  3: '남',
+  4: '여',
+};
+
+export const USER_TABLE_CELL_DATA = [
+  "고객명",
+  "계좌수",
+  "이메일 주소",
+  "성별",
+  "생년월일",
+  "휴대폰 번호",
+  "최근 로그인",
+  "수신 동의",
+  "게좌 활성화",
+  "가입일",
 ];

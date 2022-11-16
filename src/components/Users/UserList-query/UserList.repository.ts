@@ -8,13 +8,13 @@ type GetInvestmentAccount = {
   pageLimit: number;
 };
 class UserListRepository {
-  private baseQueryString: string = "users";
+  private baseQueryString: string = "/accounts?_expand=user&name_like=home";
 
   getInvestmentAccount({ pageLimit }: GetInvestmentAccount) {
     return clientAPI.get(this.baseQueryString, {
       params: {
         _page: pageLimit,
-        _limit: 20,
+        _limit: 200,
       },
     });
   }

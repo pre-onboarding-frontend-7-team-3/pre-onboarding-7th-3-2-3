@@ -1,12 +1,14 @@
+import clientAPI from "@src/libs/api/client";
 import { useQuery } from "@tanstack/react-query";
 import UserListRepository from "./UserList.repository";
 
 export const useGetUserListQuery = (userQueryParams: any) => {
-  console.log("useruseQeury");
   return useQuery(
     ["GetUserList", userQueryParams],
     () => {
-      return UserListRepository.getInvestmentAccount(userQueryParams);
+      return clientAPI.get(
+        "users?_embed=userSetting&name_like=&is_active=false&is_staff=true"
+        );
     },
     {
       staleTime: 2000,

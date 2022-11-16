@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import useDebounce from '../hooks/useDebounce';
 
-const SearchInput = ({ setAccountQueryParams }: any) => {
+const SearchInput = ({ onUpdateParams }: any) => {
   const [value, setValue] = useState('');
 
   // useDebounce(() => {
@@ -14,8 +14,8 @@ const SearchInput = ({ setAccountQueryParams }: any) => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    setAccountQueryParams((prev: any) => {
-      return { ...prev, keyword: value };
+    onUpdateParams((prev: any) => {
+      return { ...prev, pageLimit:1, keyword: value };
     });
 
     setValue(value);
@@ -37,6 +37,7 @@ const Input = styled.input`
   width: 180px;
   height: 38px;
   padding: 6px 10px;
+  margin-right: 10px;
   border-radius: 4px;
   box-shadow: 1px 1px 2px 1px rgb(200, 200, 200);
 `;

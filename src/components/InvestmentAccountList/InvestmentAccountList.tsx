@@ -1,13 +1,3 @@
-import { useState } from "react";
-import styled from "styled-components";
-import { Table, TableContainer, Paper } from "@mui/material";
-import { useGetAccountQuery } from "@src/components/InvestmentAccountList/Account-query/InvestmentAccount.query";
-import InvestmentAccountTableHead from "./InvestmentAccountTableHead/InvestmentAccountTableHead";
-import InvestmentAccountItem from "./InvestmentAccountItem/InvestmentAccountItem";
-import SearchInput from "./component/SearchInput";
-import Dropdown from "./Dropdown/Dropdown";
-import PagenationButton from "./component/PagenationButton";
-import { DROPDOWN_DATA } from "@src/constants/dropDownData";
 import { accountQueryParamsAtom } from "./atoms";
 import { useAtom } from "jotai";
 const PARAMETER_KEYS = {
@@ -16,6 +6,16 @@ const PARAMETER_KEYS = {
   is_active: "",
   status: "",
 };
+
+import styled from 'styled-components';
+import { Table, TableContainer, Paper } from '@mui/material';
+import { useGetAccountQuery } from '@src/components/InvestmentAccountList/Account-query/InvestmentAccount.query';
+import InvestmentAccountTableHead from './InvestmentAccountTableHead/InvestmentAccountTableHead';
+import InvestmentAccountItem from './InvestmentAccountItem/InvestmentAccountItem';
+import SearchInput from './component/SearchInput';
+import Dropdown from './Dropdown/Dropdown';
+import PagenationButton from './component/PagenationButton';
+import { DROPDOWN_DATA } from '@src/constants/dropDownData';
 
 const InvestmentAccountList = () => {
 
@@ -52,11 +52,11 @@ const InvestmentAccountList = () => {
   return (
     <>
       <Container>
-        <SearchInput setAccountQueryParams={setAccountQueryParams} />
+        <SearchInput onUpdateParams={setAccountQueryParams} />
         {DROPDOWN_DATA.map(({ id, name, data }) => (
           <Dropdown
             key={id}
-            accountQueryParams={PARAMETER_KEYS}
+            accountQueryParams={accountQueryParams}
             setAccountQueryParams={setAccountQueryParams}
             name={name}
             data={data}
