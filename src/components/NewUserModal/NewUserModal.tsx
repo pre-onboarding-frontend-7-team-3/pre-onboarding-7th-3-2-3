@@ -12,7 +12,7 @@ import { NEW_USER_INPUT_DATA } from '../../constants/NewUserInputData';
 import { useCreateNewUserQuery } from './api/NewUserModal.query';
 
 type Props = {
-  setIsModalOpen: () => void;
+  setIsModalOpen: Function;
 };
 
 const NewUserModal = ({ setIsModalOpen }: Props) => {
