@@ -74,7 +74,7 @@ const UserList = () => {
     <>
       <S.Container>
         <S.FilterContainer>
-          <SearchInput onUpdateParams={setAccountQueryParams} />
+          <SearchInput onUpdateParams={setAccountQueryParams} text='고객명 검색' />
           {USER_DROPDOWN_DATA.map(({ id, name, data }) => (
             <Dropdown
               key={id}
@@ -89,8 +89,8 @@ const UserList = () => {
           신규 고객 추가
         </S.AddNewUserButton>
       </S.Container>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <TableContainer component={Paper} sx={S.customTableStyle.container}>
+        <Table sx={S.customTableStyle.table} aria-label="simple table">
           <CustomTableHead data={USER_TABLE_CELL_DATA} />
           <CustomTableBody data={userData} />
         </Table>

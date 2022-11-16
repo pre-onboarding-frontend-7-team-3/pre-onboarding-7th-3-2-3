@@ -1,19 +1,13 @@
-import { TableCell, TableHead, TableRow } from "@mui/material";
+import { TableCell, TableHead, TableRow } from '@mui/material';
+import { USER_TABLE_DATA } from '@src/constants/UserTableData';
 
 const UserTableHead = () => {
   return (
     <TableHead>
       <TableRow>
-        <TableCell align="center">고객명</TableCell>
-        <TableCell align="center">계좌수</TableCell>
-        <TableCell align="center">이메일 주소 </TableCell>
-        <TableCell align="center">성별</TableCell>
-        <TableCell align="center">생년월일</TableCell>
-        <TableCell align="center">휴대폰 번호</TableCell>
-        <TableCell align="center">최근로그인</TableCell>
-        <TableCell align="center">수신 동의</TableCell>
-        <TableCell align="center">계좌활성화</TableCell>
-        <TableCell align="center">가입일</TableCell>
+        {USER_TABLE_DATA.map(({ id, text }) => (
+          <TableCell key={id}>{text}</TableCell>
+        ))}
       </TableRow>
     </TableHead>
   );

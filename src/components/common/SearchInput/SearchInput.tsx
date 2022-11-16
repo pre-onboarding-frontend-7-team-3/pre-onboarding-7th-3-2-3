@@ -2,7 +2,12 @@ import { useState } from 'react';
 import * as S from './SearchInput.style';
 import useDebounce from '../hooks/useDebounce';
 
-const SearchInput = ({ onUpdateParams }: any) => {
+type Props = {
+  onUpdateParams: Function;
+  text: string;
+};
+
+const SearchInput = ({ onUpdateParams, text }: Props) => {
   const [value, setValue] = useState('');
 
   // useDebounce(() => {
@@ -24,7 +29,7 @@ const SearchInput = ({ onUpdateParams }: any) => {
   return (
     <S.Input
       type="text"
-      placeholder="계좌명 검색"
+      placeholder={text}
       value={value}
       onChange={handleChange}
     />
