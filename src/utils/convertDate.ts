@@ -4,9 +4,10 @@ export const convertDate = (originalDate: string): string => {
   let [year, month, day, ampmTime] = localeDate.split(". ");
   let [ampm, time] = ampmTime.split(" ");
   let [hour, minute] = time.split(":");
+  let isAfternoon = ampm === "오전";
 
-  if (ampm === "오전") {
-    time = `${hour}:${minute}`;
+  if (isAfternoon) {
+    time = `0${hour}:${minute}`;
   } else {
     time = `${+hour + 12}:${minute}`;
   }
