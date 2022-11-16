@@ -13,6 +13,8 @@ import { GENDER, USER_TABLE_CELL_DATA } from '@src/constants/tableData';
 import CustomTableHead from '../common/Table/CustomTableHead';
 import { formatBoolean } from '@src/utils/formatBoolean';
 
+import NewUserModal from '../NewUserModal';
+
 const PARAMETER_KEYS = {
   // keyword: '',
   is_active: '',
@@ -31,13 +33,7 @@ const UserList = () => {
     isLoading,
     isError,
   } = useGetUserListQuery(accountQueryParams);
-
-  // const { data: filteredUserDataByKeyword } = useGetFilteredUserList(keyword);
-
-  // const maxPage = Math.floor(defaultAccountListData?.data?.length / 20) + 1;
   const maxPage = 5;
-
-  // usePrefetchAccountList(currentPage, maxPage);
 
   const handleCurrentPage = (num: number) => {
     setCurrentPage(prev => prev + num);
@@ -56,14 +52,16 @@ const UserList = () => {
         account_count: '계좌수',
         email: data.email,
         gender_origin: GENDER[data.gender_origin],
-        birth_date: data.birth_date.split("").slice(0, 10),
+        birth_date: data.birth_date.split('').slice(0, 10),
         phone_number: data.phone_number,
-        last_login: data.last_login.split("").slice(0, 10),
+        last_login: data.last_login.split('').slice(0, 10),
         allow_marketing_push: formatBoolean(
           data.userSetting[0].allow_invest_push
         ),
         is_active: formatBoolean(data.userSetting[0].is_active),
-        created_at: data.created_at.split("").slice(0, 10),
+        created_at: data.created_at.split('').slice(0, 10),
+        id: data.id,
+        uuid: data.uuid,
       })),
     [defaultUserData]
   );
@@ -81,7 +79,7 @@ const UserList = () => {
       <Container>
         <FilterContainer>
           <SearchInput onUpdateParams={setKeyword} />
-          {USER_DROPDOWN_DATA.map(({ id, name, data }) => (
+          {DROPDOWN_DATA.map(({ id, name, data }) => (
             <Dropdown
               key={id}
               accountQueryParams={PARAMETER_KEYS}
