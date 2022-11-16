@@ -61,10 +61,7 @@ const UserList = () => {
         receive: '수신동의',
         active: '계좌활성화',
         created_at: data.created_at.split('').slice(0, 10),
-<<<<<<< HEAD
-=======
         id: data.id,
->>>>>>> 7bfc10e660fcaa3f5f1c5159f5dc4f12474eb342
       })),
     [defaultUserData]
   );

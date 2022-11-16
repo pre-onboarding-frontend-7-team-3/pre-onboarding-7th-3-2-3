@@ -37,15 +37,9 @@ export const BROKERS_FORMAT: { [key: string]: string } = {
 };
 
 export const IS_ACTIVE_FORMAT: { [key: string]: string } = {
-<<<<<<< HEAD
   '': '선택',
   'true': '활성화',
   'false': '비활성화',
-=======
-  '': '선택안함',
-  true: '활성화',
-  false: '비활성화',
->>>>>>> 7bfc10e660fcaa3f5f1c5159f5dc4f12474eb342
 };
 
 export const BROKER_FORMAT = {
