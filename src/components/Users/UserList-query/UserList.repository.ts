@@ -11,12 +11,15 @@ class UserListRepository {
   private baseQueryString: string = "users";
 
   getInvestmentAccount({ pageLimit }: GetInvestmentAccount) {
-    return clientAPI.get(this.baseQueryString, {
-      params: {
-        _page: pageLimit,
-        _limit: 20,
-      },
-    });
+    // return clientAPI.get(this.baseQueryString, {
+    //   params: {
+    //     _page: pageLimit,
+    //     _limit: 20,
+    //   },
+    // });
+    return clientAPI.get(
+      "users?_embed=userSetting&name_like=모&is_active=true&is_staff=false"
+    );
   }
 }
 
