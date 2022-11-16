@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { Table, TableContainer, Paper } from '@mui/material';
 
-import { DROPDOWN_DATA } from '@src/constants/dropDownData';
+import { USER_DROPDOWN_DATA } from '@src/constants/dropDownData';
 import SearchInput from '../InvestmentAccountList/component/SearchInput';
 import Dropdown from '../InvestmentAccountList/Dropdown/Dropdown';
 import PagenationButton from '../InvestmentAccountList/component/PagenationButton';
@@ -12,6 +12,7 @@ import CustomTableBody from '../common/Table/CustomTableBody';
 import { GENDER, USER_TABLE_CELL_DATA } from '@src/constants/tableData';
 import CustomTableHead from '../common/Table/CustomTableHead';
 import { formatBoolean } from '@src/utils/formatBoolean';
+
 import NewUserModal from '../NewUserModal';
 
 const PARAMETER_KEYS = {
@@ -43,7 +44,7 @@ const UserList = () => {
       };
     });
   };
-
+  console.log(defaultUserData)
   const userData = useMemo(
     () =>
       defaultUserData?.data?.map((data: any) => ({

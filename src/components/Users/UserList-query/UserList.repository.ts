@@ -11,14 +11,8 @@ class UserListRepository {
   private baseQueryString: string = '/accounts?_expand=user&name_like=home';
 
   getInvestmentAccount({ pageLimit }: GetInvestmentAccount) {
-    // return clientAPI.get(this.baseQueryString, {
-    //   params: {
-    //     _page: pageLimit,
-    //     _limit: 20,
-    //   },
-    // });
     return clientAPI.get(
-      'users?_embed=userSetting&name_like=&is_active=false&is_staff=true'
+      "users?_embed=userSetting&name_like=&is_active=false&is_staff=true"
     );
   }
 }
