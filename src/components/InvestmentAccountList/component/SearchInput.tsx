@@ -20,7 +20,7 @@ const SearchInput = ({ onUpdateParams }: any) => {
 
     setValue(value);
   };
-
+  
   return (
     <Input
       type="text"

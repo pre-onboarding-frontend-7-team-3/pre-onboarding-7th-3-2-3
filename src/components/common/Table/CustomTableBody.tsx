@@ -29,11 +29,9 @@ const CustomTableBody = ({ data }: { data: { [key: string]: any }[] }) => {
                     {userRowVal}
                   </TableCell>
                 );
-
               case 'id':
               case 'uuid':
                 return '';
-
               default:
                 return (
                   <TableCell

@@ -36,7 +36,7 @@ class InvestmentAccountRepository {
   }: GetInvestmentAccount) {
     return clientAPI.get(this.baseQueryString, {
       params: {
-        q: keyword,
+        name_like: keyword,
         broker_id,
         is_active,
         _page: pageLimit,

@@ -8,12 +8,16 @@ type GetInvestmentAccount = {
   pageLimit: number;
 };
 class UserListRepository {
-  private baseQueryString: string = '/accounts?_expand=user&name_like=home';
+  private baseQueryString: string = 'users?_embed=userSetting';
 
-  getInvestmentAccount({ pageLimit }: GetInvestmentAccount) {
-    return clientAPI.get(
-      "users?_embed=userSetting&name_like=&is_active=false&is_staff=true"
-    );
+  getInvestmentAccount({ pageLimit, keyword }: GetInvestmentAccount) {
+    return clientAPI.get(this.baseQueryString, {
+      params: {
+        name_like: keyword,
+        _page: pageLimit,
+        _limit: 200,
+      },
+    });
   }
 }
 

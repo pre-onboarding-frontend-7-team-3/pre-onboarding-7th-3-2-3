@@ -1,15 +1,8 @@
-import { accountQueryParamsAtom } from "./atoms";
-import { useAtom } from "jotai";
-const PARAMETER_KEYS = {
-  keyword: "",
-  broker_id: "",
-  is_active: "",
-  status: "",
-};
-
+import { useState } from "react";
 import styled from "styled-components";
 import { Table, TableContainer, Paper } from "@mui/material";
 import { useGetAccountQuery } from "@src/components/InvestmentAccountList/Account-query/InvestmentAccount.query";
+import usePrefetchAccountList from "./hooks/usePrefetchAccountList";
 import InvestmentAccountTableHead from "./InvestmentAccountTableHead/InvestmentAccountTableHead";
 import InvestmentAccountItem from "./InvestmentAccountItem/InvestmentAccountItem";
 import SearchInput from "./component/SearchInput";
@@ -17,24 +10,36 @@ import Dropdown from "./Dropdown/Dropdown";
 import PagenationButton from "./component/PagenationButton";
 import { DROPDOWN_DATA } from "@src/constants/dropDownData";
 
+const PARAMETER_KEYS = {
+  keyword: "",
+  broker_id: "",
+  is_active: "",
+  status: "",
+};
+
 const InvestmentAccountList = () => {
-  const [accountQueryParams, setAccountQueryParams] = useAtom(
-    accountQueryParamsAtom
-  );
+  const [currentPage, setCurrentPage] = useState(1);
+  const [accountQueryParams, setAccountQueryParams] = useState({
+    pageLimit: currentPage,
+  });
 
   const {
     data: defaultAccountListData,
     isLoading,
     isError,
-  } = useGetAccountQuery(accountQueryParams);
+  } = useGetAccountQuery(accountQueryParams); 
 
+  // const maxPage = Math.floor(defaultAccountListData?.data?.length / 20) + 1;
   const maxPage = defaultAccountListData?.data?.length;
 
+  // usePrefetchAccountList(currentPage, maxPage);
+
   const handleCurrentPage = (num: number) => {
+    setCurrentPage((prev) => prev + num);
     setAccountQueryParams((prev) => {
       return {
         ...prev,
-        pageLimit: num,
+        pageLimit: currentPage + num,
       };
     });
   };
@@ -54,7 +59,7 @@ const InvestmentAccountList = () => {
         {DROPDOWN_DATA.map(({ id, name, data }) => (
           <Dropdown
             key={id}
-            accountQueryParams={accountQueryParams}
+            accountQueryParams={PARAMETER_KEYS}
             setAccountQueryParams={setAccountQueryParams}
             name={name}
             data={data}
@@ -68,7 +73,7 @@ const InvestmentAccountList = () => {
         </Table>
       </TableContainer>
       <PagenationButton
-        currentPage={accountQueryParams.pageLimit}
+        currentPage={currentPage}
         maxPage={maxPage}
         handleCurrentPage={handleCurrentPage}
       />
