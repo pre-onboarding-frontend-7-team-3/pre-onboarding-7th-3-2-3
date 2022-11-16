@@ -14,10 +14,11 @@ const InvestmentAccountItem = ({ data }: { data: any }) => {
           sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
         >
           <TableCell
-            onClick={() => navigate(`/accounts/${row.userId}`)}
+            onClick={() => navigate(`/accounts/user/${row.userId}`)}
             component="th"
             align="center"
             scope="row"
+            sx={{ color: '#357ae1', cursor: 'pointer', fontWeight: 'bold' }}
           >
             {row.user?.name}
           </TableCell>
