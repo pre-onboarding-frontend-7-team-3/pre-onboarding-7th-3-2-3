@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 const UserTableItem = ({ data }: { data: any }) => {
   const navigate = useNavigate();
+  console.log(data);
   return (
     <TableBody>
       {data?.data.map((row: any, idx: number) => (
@@ -11,7 +12,7 @@ const UserTableItem = ({ data }: { data: any }) => {
           sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
         >
           <TableCell
-            onClick={() => navigate(`/accounts/${row.userId}`)}
+            onClick={() => navigate(`/users/${row.id}`)}
             component="th"
             align="center"
             scope="row"
