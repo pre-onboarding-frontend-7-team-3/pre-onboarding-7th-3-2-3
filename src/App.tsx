@@ -25,7 +25,14 @@ function App() {
         >
           <Route path={ROUTES.ACCOUNTS} element={<InvestmentAccounts />} />
           <Route path={ROUTES.USERS} element={<Users />} />
-          <Route path={ROUTES.USER_DETAIL_ID} element={<UserDetailPage />} />
+          <Route
+            path={ROUTES.USER_DETAIL_FROM_ACCOUNTS}
+            element={<UserDetailPage />}
+          />
+          <Route
+            path={ROUTES.USER_DETAIL_FROM_USERS}
+            element={<UserDetailPage />}
+          />
         </Route>
         <Route path={ROUTES.NOT_FOUND} element={<NotFound />} />
         <Route
