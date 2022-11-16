@@ -14,7 +14,7 @@ const InvestmentAccountItem = ({ data }: { data: any }) => {
           sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
         >
           <TableCell
-            onClick={() => navigate(`/accounts/user/${row.userId}`)}
+            onClick={() => navigate(`/users/${row.userId}`)}
             // onClick={() => navigate(`/users/${row.userId}`)}
             component="th"
             align="center"

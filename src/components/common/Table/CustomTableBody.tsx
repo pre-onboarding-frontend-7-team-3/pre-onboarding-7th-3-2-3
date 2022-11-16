@@ -10,19 +10,25 @@ const CustomTableBody = ({ data }: { data: { [key: string]: any }[] }) => {
           key={idx}
           sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
         >
-          {Object.entries(row).map(([userRowkey, userRowVal]) => {
+          {Object.entries(row).map(([userRowkey, userRowVal], idx) => {
             return userRowkey === 'name' ? (
               <TableCell
-                onClick={() => navigate(`/users/user/${data[idx].id}`)}
+                onClick={() => navigate(`/users/${data[idx].id}`)}
                 component="th"
                 align="center"
                 scope="row"
                 sx={{ color: '#357ae1', cursor: 'pointer', fontWeight: 'bold' }}
+                key={data[idx].uuid}
               >
                 {userRowVal}
               </TableCell>
             ) : (
-              <TableCell component="th" align="center" scope="row">
+              <TableCell
+                key={data[idx].uuid}
+                component="th"
+                align="center"
+                scope="row"
+              >
                 {userRowVal}
               </TableCell>
             );
