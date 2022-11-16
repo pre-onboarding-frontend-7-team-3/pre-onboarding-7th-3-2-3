@@ -1,12 +1,14 @@
-import { useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import * as S from './NewUserModal.style';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import clientAPI from '@src/libs/api/client';
+import UserInput from './UserInput/UserInput';
 import FunnelButton from './FunnelButton/FunnelButton';
 import FileInput from './FileInput/FileInput';
 import { GENDER_DATA } from '../../constants/funnelButtonData';
 import useUnmountIfClickedOutside from '../../hooks/useUnmountIfClickedOutside';
+import { NEW_USER_INPUT_DATA } from '../../constants/NewUserInputData';
 
 const NewUserModal = ({ setIsModalOpen }) => {
   const [genderOrigin, setGenderOrigin] = useState('');
@@ -33,6 +35,7 @@ const NewUserModal = ({ setIsModalOpen }) => {
       name: data.name,
       birth_date: data.birth_date,
       detail_address: data.detail_address,
+      phone_number: data.phone_number,
       address: data.address,
       email: data.email,
       password: data.password,
@@ -45,33 +48,22 @@ const NewUserModal = ({ setIsModalOpen }) => {
     <S.ViewPortContainer>
       <S.ModalContainer onSubmit={handleSubmit(onSubmit)} ref={modalRef}>
         <S.Title>신규 고객 추가</S.Title>
-        <S.Header>이름</S.Header>
-        <S.Input
-          type="text"
-          placeholder="이름"
-          autoFocus
-          {...register('name', {
-            required: '이름을 입력해주세요',
-          })}
-        />
-        <S.Header>비밀번호</S.Header>
-        <S.Input
-          type="password"
-          placeholder="비밀번호"
-          {...register('password', {
-            required: '이름을 입력해주세요',
-          })}
-        />
-        <S.Header>이메일</S.Header>
-        <S.Input type="text" placeholder="이메일" {...register('email')} />
-        <S.Header>나이</S.Header>
-        <S.Input
-          type="text"
-          placeholder="나이"
-          {...register('age', {
-            required: '입력해주세요',
-          })}
-        />
+        {NEW_USER_INPUT_DATA.slice(0, 4).map(
+          ({ id, type, text, name, validation, autoFocus, autoComplete }) => (
+            <React.Fragment key={id}>
+              <S.Header>{text}</S.Header>
+              <UserInput
+                type={type}
+                text={text}
+                name={name}
+                validation={validation}
+                autoFocus={autoFocus}
+                autoComplete={autoComplete}
+                register={register}
+              />
+            </React.Fragment>
+          )
+        )}
         <S.Header>성별</S.Header>
         <S.FunnelButtonContainer>
           {GENDER_DATA.map(({ id, text, value }) => (
@@ -85,38 +77,21 @@ const NewUserModal = ({ setIsModalOpen }) => {
         </S.FunnelButtonContainer>
         <S.Header>프로필 사진</S.Header>
         <FileInput register={register} />
-        <S.Header>생년월일</S.Header>
-        <S.Input
-          type="text"
-          placeholder="생년월일"
-          {...register('birth_date', {
-            required: '입력해주세요',
-          })}
-        />
-        <S.Header>전화번호</S.Header>
-        <S.Input
-          type="text"
-          placeholder="전화번호"
-          {...register('phone_number', {
-            required: '입력해주세요',
-          })}
-        />
-        <S.Header>주소</S.Header>
-        <S.Input
-          type="text"
-          placeholder="주소"
-          {...register('address', {
-            required: '입력해주세요',
-          })}
-        />
-        <S.Header>상세주소</S.Header>
-        <S.Input
-          type="text"
-          placeholder="상세 주소"
-          {...register('detail_address', {
-            required: '입력해주세요',
-          })}
-        />
+        {NEW_USER_INPUT_DATA.slice(4, 8).map(
+          ({ id, type, text, name, validation, autoComplete }) => (
+            <React.Fragment key={id}>
+              <S.Header>{text}</S.Header>
+              <UserInput
+                type={type}
+                text={text}
+                name={name}
+                validation={validation}
+                autocomplete={autoComplete}
+                register={register}
+              />
+            </React.Fragment>
+          )
+        )}
         <S.ButtonContainer>
           <S.Button>추가</S.Button>
           <S.Button onClick={handleCloseModal}>닫기</S.Button>
