@@ -15,7 +15,6 @@ import CustomTableBody from "../common/Table/CustomTableBody";
 import { GENDER, USER_TABLE_CELL_DATA } from "@src/constants/tableData";
 import CustomTableHead from "../common/Table/CustomTableHead";
 import { formatBoolean } from "@src/utils/formatBoolean";
-
 import { maskingPhoneNumber, maskingUserName } from "@src/utils/processData";
 
 import NewUserModal from "../NewUserModal";
