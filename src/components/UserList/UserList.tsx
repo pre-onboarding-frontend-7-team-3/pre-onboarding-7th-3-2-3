@@ -2,10 +2,7 @@ import { useMemo, useState } from "react";
 import * as S from "./UserList.style";
 
 import { Table, TableContainer, Paper } from "@mui/material";
-
-import { USER_DROPDOWN_DATA } from "@src/constants/dropDownData";
 import SearchInput from "../common/SearchInput/SearchInput";
-import Dropdown from "../common/Dropdown/Dropdown";
 import PagenationButton from "../InvestmentAccountList/PagenationButton/PagenationButton";
 import { useGetUserListQuery } from "./UserList-query/UserList.query";
 import CustomTableBody from "../common/Table/CustomTableBody";
@@ -16,11 +13,6 @@ import { maskingPhoneNumber, maskingUserName } from "@src/utils/processData";
 
 import NewUserModal from "../NewUserModal";
 
-const PARAMETER_KEYS = {
-  keyword: "",
-  is_active: "",
-  status: "",
-};
 const UserList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -79,15 +71,6 @@ const UserList = () => {
             onUpdateParams={setAccountQueryParams}
             text="고객명 검색"
           />
-          {USER_DROPDOWN_DATA.map(({ id, name, data }) => (
-            <Dropdown
-              key={id}
-              accountQueryParams={PARAMETER_KEYS}
-              setAccountQueryParams={setAccountQueryParams}
-              name={name}
-              data={data}
-            />
-          ))}
         </S.FilterContainer>
         <S.AddNewUserButton onClick={() => setIsModalOpen((prev) => !prev)}>
           신규 고객 추가
@@ -102,7 +85,7 @@ const UserList = () => {
       <PagenationButton
         currentPage={currentPage}
         maxPage={maxPage}
-        handleCurrentPage={handleCurrentPage}
+        handlePageNum={handleCurrentPage}
       />
       {isModalOpen && <NewUserModal setIsModalOpen={setIsModalOpen} />}
     </>
