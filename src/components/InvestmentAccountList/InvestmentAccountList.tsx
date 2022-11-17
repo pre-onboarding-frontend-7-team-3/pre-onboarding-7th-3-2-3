@@ -10,13 +10,6 @@ import SearchInput from '../common/SearchInput/SearchInput';
 import PagenationButton from './PagenationButton/PagenationButton';
 import { DROPDOWN_DATA } from '@src/constants/dropDownData';
 
-const PARAMETER_KEYS = {
-  keyword: '',
-  broker_id: '',
-  is_active: '',
-  status: '',
-};
-
 const InvestmentAccountList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [accountQueryParams, setAccountQueryParams] = useState({
@@ -62,7 +55,6 @@ const InvestmentAccountList = () => {
         {DROPDOWN_DATA.map(({ id, name, data }) => (
           <Dropdown
             key={id}
-            accountQueryParams={PARAMETER_KEYS}
             setAccountQueryParams={setAccountQueryParams}
             name={name}
             data={data}

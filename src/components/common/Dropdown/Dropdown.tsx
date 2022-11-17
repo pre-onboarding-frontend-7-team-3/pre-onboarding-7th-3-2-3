@@ -2,12 +2,12 @@ import * as S from './Dropdown.style';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-import Select from '@mui/material/Select';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { useState } from 'react';
 
 type Props = {
   name: string;
   data: any;
-  accountQueryParams: any;
   setAccountQueryParams: Function;
 };
 
@@ -17,17 +17,15 @@ const inputLabel = {
   status: '계좌상태',
 };
 
-const Dropdown = ({
-  name,
-  data,
-  accountQueryParams,
-  setAccountQueryParams,
-}: Props) => {
-  const handleChange = e => {
+const Dropdown = ({ name, data, setAccountQueryParams }: Props) => {
+  const [selectVal, setSelectVal] = useState('');
+
+  const handleChange = (e: SelectChangeEvent<any>) => {
     const { name, value } = e.target;
-    setAccountQueryParams(prev => {
+    setAccountQueryParams((prev: any) => {
       return { ...prev, pageLimit: 1, [name]: value };
     });
+    setSelectVal(value);
   };
 
   return (
@@ -38,7 +36,7 @@ const Dropdown = ({
       <Select
         name={name}
         label={inputLabel[name as keyof typeof inputLabel]}
-        value={accountQueryParams[name]}
+        value={selectVal}
         onChange={handleChange}
         inputProps={{ 'aria-label': 'Without label' }}
         sx={S.customDropdownStyle.select}
