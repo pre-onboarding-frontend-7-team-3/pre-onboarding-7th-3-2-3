@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import * as S from './FileInput.style';
+import { ErrorText } from '../UserInput/UserInput.style';
 
-const FileInput = ({ register }) => {
+const FileInput = ({ register, errors }) => {
   const [fileURL, setFileURL] = useState({});
   const isFileUploaded = Object.keys(fileURL).length !== 0;
 
@@ -25,16 +26,13 @@ const FileInput = ({ register }) => {
         사진 업로드 +
         <S.FileInputForm
           type="file"
-          accept="image/*,video/*"
+          accept="image/*"
           {...register('file', {
-            required: '업로드된 사진이 없습니다',
-            pattern: {
-              value: 'isImg',
-              message: '파일 형식이 이미지가 아닙니다',
-            },
+            required: '사용자 사진을 업로드해 주세요',
           })}
         />
       </S.FileInputLabel>
+      {errors.file && <ErrorText>{errors.file.message}</ErrorText>}
       {fileURL.image && (
         <S.ImgPreview
           style={{
