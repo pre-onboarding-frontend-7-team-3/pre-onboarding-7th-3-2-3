@@ -10,19 +10,11 @@ type Props = {
 const SearchInput = ({ onUpdateParams, text }: Props) => {
   const [value, setValue] = useState('');
 
-  // useDebounce(() => {
-  //   if (value)
-  //   setAccountQueryParams((prev: any) => {
-  //     return { ...prev, keyword: value };
-  //   });
-  // }, value);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     onUpdateParams((prev: any) => {
-      return { ...prev, pageNum: 1, keyword: value };
+      return { ...prev, pageNum: 1, q: value };
     });
-
     setValue(value);
   };
 

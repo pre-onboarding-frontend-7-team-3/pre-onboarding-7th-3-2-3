@@ -22,18 +22,17 @@ const UserList = () => {
   const maxPage = 5;
 
   const { data, isLoading, isError } = useGetUserListQuery(accountQueryParams);
-
-  // usePrefetchAccountList(currentPage, maxPage);
-
+  
   const handleCurrentPage = (num: number) => {
-    setCurrentPage((prev) => prev + num);
-    setAccountQueryParams((prev) => {
+    setCurrentPage(num);
+    setAccountQueryParams(prev => {
       return {
         ...prev,
-        pageLimit: currentPage + num,
+        pageLimit: num,
       };
     });
   };
+
   const userData = useMemo(
     () =>
       data?.data?.map((data: { [key: string]: any }) => ({
