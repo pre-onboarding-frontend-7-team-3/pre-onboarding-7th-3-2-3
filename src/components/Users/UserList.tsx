@@ -44,7 +44,7 @@ const UserList = () => {
       };
     });
   };
-  console.log(defaultUserData)
+  console.log(defaultUserData);
   const userData = useMemo(
     () =>
       defaultUserData?.data?.map((data: any) => ({
@@ -79,7 +79,7 @@ const UserList = () => {
       <Container>
         <FilterContainer>
           <SearchInput onUpdateParams={setKeyword} />
-          {DROPDOWN_DATA.map(({ id, name, data }) => (
+          {USER_DROPDOWN_DATA.map(({ id, name, data }) => (
             <Dropdown
               key={id}
               accountQueryParams={PARAMETER_KEYS}
