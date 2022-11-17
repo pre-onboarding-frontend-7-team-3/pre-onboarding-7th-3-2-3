@@ -15,6 +15,7 @@ const inputLabel = {
   broker_id: '브로커명',
   is_active: '계좌활성화',
   status: '계좌상태',
+  is_staff: '임직원 계좌 여부',
 };
 
 const Dropdown = ({ name, data, setAccountQueryParams }: Props) => {
