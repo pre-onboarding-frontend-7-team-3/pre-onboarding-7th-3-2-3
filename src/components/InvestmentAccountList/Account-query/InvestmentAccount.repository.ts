@@ -5,7 +5,7 @@ type GetInvestmentAccount = {
   is_active?: boolean;
   status?: string;
   keyword?: string;
-  pageLimit: number;
+  pageNum: number;
 };
 class InvestmentAccountRepository {
   // private baseQueryString: string = '/accounts?_expand=user&q=';
@@ -22,27 +22,31 @@ class InvestmentAccountRepository {
   //   return status && `&status=${status}`;
   // }
 
-  private getPageString(pageLimit: number) {
-    return `&_page=${pageLimit}&_limit=20`;
+  private getPageString(pageNum: number) {
+    return `&_page=${pageNum}&_limit=20`;
   }
+
   private baseQueryString: string = '/accounts?_expand=user';
 
   private removeEmptyStringFromParams(params: GetInvestmentAccount) {
     for (const key of Object.keys(params)) {
-      if (params[key as keyof typeof params] === '') {
+      if (!params[key as keyof typeof params]) {
         delete params[key as keyof typeof params];
       }
     }
-
+    console.log(params);
+    
     return params;
   }
 
   getInvestmentAccount(params: GetInvestmentAccount) {
     const paramsWithoutEmptyString = this.removeEmptyStringFromParams({
       ...params,
+      pageNum: 0
     });
 
-    return clientAPI.get(this.baseQueryString, {
+    const pageString = this.getPageString(params.pageNum)
+    return clientAPI.get(this.baseQueryString + pageString, {
       params: paramsWithoutEmptyString,
     });
   }

@@ -24,7 +24,7 @@ const Dropdown = ({ name, data, setAccountQueryParams }: Props) => {
   const handleChange = (e: SelectChangeEvent<any>) => {
     const { name, value } = e.target;
     setAccountQueryParams((prev: any) => {
-      return { ...prev, pageLimit: 1, [name]: value };
+      return { ...prev, pageNum: 1, [name]: value };
     });
     setSelectVal(value);
   };

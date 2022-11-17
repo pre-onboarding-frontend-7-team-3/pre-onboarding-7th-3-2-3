@@ -1,38 +1,42 @@
-import { useState } from 'react';
-import styled from 'styled-components';
-import { Table, TableContainer, Paper } from '@mui/material';
-import { useGetAccountQuery } from '@src/components/InvestmentAccountList/Account-query/InvestmentAccount.query';
-import usePrefetchAccountList from './hooks/usePrefetchAccountList';
-import InvestmentAccountTableHead from './InvestmentAccountTableHead/InvestmentAccountTableHead';
-import InvestmentAccountItem from './InvestmentAccountItem/InvestmentAccountItem';
-import Dropdown from '../common/Dropdown/Dropdown';
-import SearchInput from '../common/SearchInput/SearchInput';
-import PagenationButton from './PagenationButton/PagenationButton';
-import { DROPDOWN_DATA } from '@src/constants/dropDownData';
+import { accountQueryParamsAtom } from './atoms';
+import { useAtom } from 'jotai';
+import styled from "styled-components";
+import { Table, TableContainer, Paper } from "@mui/material";
+import { useGetAccountQuery } from "@src/components/InvestmentAccountList/Account-query/InvestmentAccount.query";
+import InvestmentAccountTableHead from "./InvestmentAccountTableHead/InvestmentAccountTableHead";
+import InvestmentAccountItem from "./InvestmentAccountItem/InvestmentAccountItem";
+
+import Dropdown from "../common/Dropdown/Dropdown";
+import SearchInput from "../common/SearchInput/SearchInput";
+import PagenationButton from "./PagenationButton/PagenationButton";
+import { DROPDOWN_DATA } from "@src/constants/dropDownData";
+
+const PARAMETER_KEYS = {
+  keyword: "",
+  broker_id: "",
+  is_active: "",
+  status: "",
+};
 
 const InvestmentAccountList = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [accountQueryParams, setAccountQueryParams] = useState({
-    pageLimit: currentPage,
-  });
+
+  const [accountQueryParams, setAccountQueryParams] = useAtom(
+    accountQueryParamsAtom
+  );
 
   const {
     data: defaultAccountListData,
     isLoading,
     isError,
-  } = useGetAccountQuery(accountQueryParams);
+  } = useGetAccountQuery(accountQueryParams); 
 
-  // const maxPage = Math.floor(defaultAccountListData?.data?.length / 20) + 1;
   const maxPage = defaultAccountListData?.data?.length;
 
-  // usePrefetchAccountList(currentPage, maxPage);
-
-  const handleCurrentPage = (num: number) => {
-    setCurrentPage(prev => prev + num);
-    setAccountQueryParams(prev => {
+  const handlePageNum = (num: number) => {
+    setAccountQueryParams((prev) => {
       return {
         ...prev,
-        pageLimit: currentPage + num,
+        pageNum: num,
       };
     });
   };
@@ -48,13 +52,11 @@ const InvestmentAccountList = () => {
   return (
     <>
       <Container>
-        <SearchInput
-          onUpdateParams={setAccountQueryParams}
-          text="계좌명 검색"
-        />
+        <SearchInput onUpdateParams={setAccountQueryParams} text='계좌명 검색'/>
         {DROPDOWN_DATA.map(({ id, name, data }) => (
           <Dropdown
             key={id}
+            accountQueryParams={accountQueryParams}
             setAccountQueryParams={setAccountQueryParams}
             name={name}
             data={data}
@@ -68,9 +70,9 @@ const InvestmentAccountList = () => {
         </Table>
       </TableContainer>
       <PagenationButton
-        currentPage={currentPage}
+        currentPage={accountQueryParams.pageNum}
         maxPage={maxPage}
-        handleCurrentPage={handleCurrentPage}
+        handlePageNum={handlePageNum}
       />
     </>
   );

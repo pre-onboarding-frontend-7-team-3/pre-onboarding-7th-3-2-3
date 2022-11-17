@@ -20,7 +20,7 @@ const SearchInput = ({ onUpdateParams, text }: Props) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     onUpdateParams((prev: any) => {
-      return { ...prev, pageLimit: 1, keyword: value };
+      return { ...prev, pageNum: 1, keyword: value };
     });
 
     setValue(value);
