@@ -12,7 +12,7 @@ import CustomTableHead from '../common/Table/CustomTableHead';
 import { formatBoolean } from '@src/utils/formatBoolean';
 
 import NewUserModal from '../NewUserModal';
-import { maskingUserName } from '@src/utils/processData';
+import { maskingPhoneNumber, maskingUserName } from '@src/utils/processData';
 
 const UserList = () => {
   const [currentPage, setCurrentPage] = useState(1);
