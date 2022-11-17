@@ -8,10 +8,10 @@ const clientAPI = axios.create({
 
 clientAPI.interceptors.request.use((config) => {
   const cookies = new Cookies();
-  const access_token = cookies.get("access_token");
+  const accessToken = cookies.get("access_token");
 
-  if (!!access_token && config.headers) {
-    config.headers.Authorization = "Bearer " + access_token;
+  if (!!accessToken && config.headers) {
+    config.headers.Authorization = "Bearer " + accessToken;
   }
 
   return config;

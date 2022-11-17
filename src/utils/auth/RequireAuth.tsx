@@ -8,13 +8,13 @@ interface Props {
 
 const RequireAuth = ({ isAuthRequired, redirectUrl }: Props) => {
   const cookies = new Cookies();
-  const token = cookies.get("access_token");
+  const accessToken = cookies.get("access_token");
 
-  if (isAuthRequired && !token) {
+  if (isAuthRequired && !accessToken) {
     alert("토큰이 만료되었습니다.");
     return <Navigate to={redirectUrl} replace />;
   }
-  if (!isAuthRequired && !!token) {
+  if (!isAuthRequired && !!accessToken) {
     alert("이미 로그인 되었습니다.");
     return <Navigate to={redirectUrl} replace />;
   }
