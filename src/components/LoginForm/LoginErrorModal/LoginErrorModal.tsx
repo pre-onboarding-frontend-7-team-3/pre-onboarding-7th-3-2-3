@@ -1,6 +1,6 @@
-import { useRef } from 'react';
-import * as S from './LoginErrorModal.style';
-import useUnmountIfClickedOutside from '../../../hooks/useUnmountIfClickedOutside';
+import { useRef } from "react";
+import * as S from "./LoginErrorModal.style";
+import useUnmountIfClickedOutside from "../../../hooks/useUnmountIfClickedOutside";
 
 interface Props {
   serverAuthError: string;
@@ -8,9 +8,10 @@ interface Props {
 }
 
 const LoginErrorModal = ({ serverAuthError, setServerAuthError }: Props) => {
-  const modalRef = useRef() as React.MutableRefObject<HTMLDivElement>;
+  const modalRef = useRef<HTMLDivElement>(null);
+
   const handleCloseModal = () => {
-    setServerAuthError('');
+    setServerAuthError("");
   };
 
   useUnmountIfClickedOutside(modalRef, handleCloseModal);
