@@ -1,19 +1,31 @@
-import { UseFormRegister, FieldValues } from 'react-hook-form';
-import * as S from './UserInput.style';
+import {
+  type UseFormRegister,
+  type FieldValues,
+  type FieldErrorsImpl,
+} from "react-hook-form";
+import * as S from "./UserInput.style";
 
-type Props = {
+interface UserImputProps {
+  inputProps: InputPropsType;
+  errors: Partial<
+    FieldErrorsImpl<{
+      [x: string]: string[];
+    }>
+  >;
+  register: UseFormRegister<FieldValues>;
+}
+
+type InputPropsType = {
   type: string;
-  text: string;
   name: string;
-  errors: object;
   validation: object;
   autoFocus?: boolean;
-  autocomplete: string;
-  register: UseFormRegister<FieldValues>;
+  autoComplete: string;
+  placeholder: string;
 };
 
-const UserInput = ({ inputProps, errors, register }: Props) => {
-  const { type, name, placeholder, validation, autoFocus, autocomplete } =
+const UserInput = ({ inputProps, errors, register }: UserImputProps) => {
+  const { type, name, placeholder, validation, autoFocus, autoComplete } =
     inputProps;
   return (
     <>
@@ -21,10 +33,10 @@ const UserInput = ({ inputProps, errors, register }: Props) => {
         type={type}
         placeholder={placeholder}
         autoFocus={autoFocus}
-        autocomplete={autocomplete}
+        autoComplete={autoComplete}
         {...register(name, validation)}
       />
-      {errors[name] && <S.ErrorText>{errors[name].message}</S.ErrorText>}
+      {errors[name] && <S.ErrorText>{errors[name]?.message}</S.ErrorText>}
     </>
   );
 };

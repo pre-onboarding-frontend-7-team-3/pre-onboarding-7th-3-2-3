@@ -1,7 +1,7 @@
 import { accountQueryParamsAtom } from "./atoms";
 import { useAtom } from "jotai";
 import styled from "styled-components";
-import { Table, TableContainer, Paper } from "@mui/material";
+import { Table, TableContainer, Paper,Button } from "@mui/material";
 import {
   useGetAccountQuery,
   usePrefetchAccountQuery,
@@ -28,11 +28,17 @@ const InvestmentAccountList = () => {
   const isMaxPage = usePrefetchAccountQuery(accountQueryParams).data?.data.length
   
   const handlePageNum = (num: number) => {
-    setAccountQueryParams((prev) => {
+    setAccountQueryParams(prev => {
       return {
         ...prev,
         pageNum: num,
       };
+    });
+  };
+
+  const initDropDownFilters = () => {
+    setAccountQueryParams({
+      pageNum: 1,
     });
   };
 
@@ -53,13 +59,20 @@ const InvestmentAccountList = () => {
         />
         {DROPDOWN_DATA.map(({ id, name, data }) => (
           <Dropdown
-            key={id}
             accountQueryParams={accountQueryParams}
+            key={id}
             setAccountQueryParams={setAccountQueryParams}
             name={name}
             data={data}
           />
         ))}
+        <Button
+          sx={{ margin: '8px' }}
+          variant="contained"
+          onClick={initDropDownFilters}
+        >
+          필터링 초기화
+        </Button>
       </Container>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
