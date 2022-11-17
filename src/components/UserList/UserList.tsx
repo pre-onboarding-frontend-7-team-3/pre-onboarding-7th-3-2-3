@@ -57,17 +57,17 @@ const UserList = () => {
   const userData = useMemo(
     () =>
       data?.data?.map((data: Record<string, any>) => ({
-        name: maskingUserName(data.name),
+        name: maskingUserName(data?.name),
         account_count: Math.floor(Math.random() * 10),
         email: data.email,
         gender_origin: GENDER[data.gender_origin],
         birth_date: data?.birth_date?.split('').slice(0, 10),
-        phone_number: maskingPhoneNumber(data.phone_number),
+        phone_number: maskingPhoneNumber(data?.phone_number),
         last_login: data?.last_login?.split('').slice(0, 10),
         allow_marketing_push: formatBoolean(
           data?.userSetting[0]?.allow_invest_push
         ),
-        is_active: formatBoolean(data.userSetting[0]?.is_active),
+        is_active: formatBoolean(data?.userSetting[0]?.is_active),
         created_at: data?.created_at?.split('').slice(0, 10),
         id: data.id,
         uuid: data.uuid,
