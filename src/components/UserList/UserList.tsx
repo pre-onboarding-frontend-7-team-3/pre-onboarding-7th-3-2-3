@@ -12,6 +12,7 @@ import CustomTableHead from '../common/Table/CustomTableHead';
 import { formatBoolean } from '@src/utils/formatBoolean';
 
 import NewUserModal from '../NewUserModal';
+import { maskingUserName } from '@src/utils/processData';
 
 const UserList = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -34,15 +35,16 @@ const UserList = () => {
       };
     });
   };
+
   const userData = useMemo(
     () =>
-      data?.data?.map((data: any) => ({
-        name: data.name,
-        account_count: '계좌수',
+      data?.data?.map((data: Record<string, any>) => ({
+        name: maskingUserName(data.name),
+        account_count: Math.floor(Math.random() * 10),
         email: data.email,
         gender_origin: GENDER[data.gender_origin],
         birth_date: data.birth_date?.split('').slice(0, 10),
-        phone_number: data.phone_number,
+        phone_number: maskingPhoneNumber(data.phone_number),
         last_login: data.last_login?.split('').slice(0, 10),
         allow_marketing_push: formatBoolean(
           data?.userSetting[0]?.allow_invest_push
