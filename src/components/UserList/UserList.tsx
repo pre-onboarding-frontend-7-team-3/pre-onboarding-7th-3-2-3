@@ -4,22 +4,21 @@ import { useAtom } from "jotai";
 
 import { Table, TableContainer, Paper } from "@mui/material";
 
-import SearchInput from "../common/SearchInput/SearchInput";
-import PagenationButton from "../common/PagenationButton/PagenationButton";
 import {
-  useDeleteUsers,
   useGetUserListQuery,
   usePrefetchUserListQuery,
-} from "./UserList-query/UserList.query";
+  useDeleteUsers,
+} from "@src/shared/User-query/User.query";
+
+import SearchInput from "../common/SearchInput/SearchInput";
+import PagenationButton from "../common/PagenationButton/PagenationButton";
 import CustomTableBody from "../common/Table/CustomTableBody";
 import { GENDER, USER_TABLE_CELL_DATA } from "@src/constants/tableData";
 import CustomTableHead from "../common/Table/CustomTableHead";
 import { formatBoolean } from "@src/utils/formatBoolean";
 import { maskingPhoneNumber, maskingUserName } from "@src/utils/processData";
-
 import NewUserModal from "../NewUserModal";
 import { userQueryParamsAtom } from "./atoms";
-
 import Loader from "../common/Loader/Loader";
 
 const UserList = () => {
@@ -33,17 +32,18 @@ const UserList = () => {
   const { mutate: deleteUser } = useDeleteUsers();
   // usePrefetchAccountList(currentPage, maxPage);
 
-  const handleCheck = (userId: string) => {
+  const handleAlreadyCheck = (userId: string) => {
     checked.includes(userId)
       ? setChecked(checked.filter((el) => el !== userId))
       : setChecked([...checked, userId]);
   };
 
-  const handleClick = () => {
+  const handleDeleteUser = () => {
     //await Promise.all(checked.map((userId) => mutate(userId)));
     deleteUser(checked);
     setChecked([]);
   };
+
   const handleCurrentPage = (num: number) => {
     setUserQueryParams((prev) => {
       return {
@@ -84,7 +84,7 @@ const UserList = () => {
           <SearchInput onUpdateParams={setUserQueryParams} text="고객명 검색" />
         </S.FilterContainer>
         <S.ButtonContainer>
-          <S.Button onClick={handleClick}>삭제</S.Button>
+          <S.Button onClick={handleDeleteUser}>삭제</S.Button>
           <S.Button onClick={() => setIsModalOpen((prev) => !prev)}>
             신규 고객 추가
           </S.Button>
@@ -96,7 +96,7 @@ const UserList = () => {
           <CustomTableBody
             data={userData}
             checkbox={true}
-            handleCheck={handleCheck}
+            handleCheck={handleAlreadyCheck}
           />
         </Table>
       </TableContainer>

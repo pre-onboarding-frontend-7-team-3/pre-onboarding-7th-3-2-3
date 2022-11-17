@@ -1,13 +1,15 @@
 import React, { useState, useRef } from "react";
-import * as S from "./NewUserModal.style";
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
+
+import { useCreateNewUser } from "@src/shared/User-query/User.query";
+
+import * as S from "./NewUserModal.style";
 import UserInput from "./UserInput/UserInput";
 import FunnelButton from "./FunnelButton/FunnelButton";
 import FileInput from "./FileInput/FileInput";
 import { GENDER_DATA } from "../../constants/funnelButtonData";
 import useUnmountIfClickedOutside from "../../hooks/useUnmountIfClickedOutside";
 import { NEW_USER_INPUT_DATA } from "../../constants/NewUserInputData";
-import { useCreateNewUserQuery } from "./NewUserModal-query/NewUserModal.query";
 import { ErrorText } from "./UserInput/UserInput.style";
 
 type Props = {
@@ -38,12 +40,7 @@ const NewUserModal = ({ setIsModalOpen }: Props) => {
     );
   };
 
-  useUnmountIfClickedOutside(modalRef, handleCloseModal);
-
-  const onSubmitMutate = useCreateNewUserQuery(
-    handleCloseModal,
-    handleEmailError
-  );
+  const onSubmitMutate = useCreateNewUser(handleCloseModal, handleEmailError);
 
   const onValid: SubmitHandler<FieldValues> = (data) => {
     const formData = {

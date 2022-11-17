@@ -1,16 +1,17 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { TableContainer, Table, Paper } from "@mui/material";
 
-import useUserDetail from "./hooks/useUserDetail";
-import useEditComment from "./hooks/useEditUserDetail";
+import {
+  useUserDetail,
+  useEditUserName,
+} from "@src/shared/User-query/User.query";
 
 import Loader from "../common/Loader/Loader";
 
 import InvestmentAccountItem from "../InvestmentAccountList/InvestmentAccountItem/InvestmentAccountItem";
 import InvestmentAccountTableHead from "../InvestmentAccountList/InvestmentAccountTableHead/InvestmentAccountTableHead";
 import UserInfoTable from "./UserInfoTable";
-
-import { TableContainer, Table, Paper } from "@mui/material";
 
 type Props = {
   id: string;
@@ -41,7 +42,7 @@ const UserDetail = ({ id }: Props) => {
     setIsEditing(!isEditing);
   };
 
-  const saveUsedData = useEditComment(id, { name: inputState });
+  const saveUsedData = useEditUserName(id, { name: inputState });
   const onSaveUsedData = () => {
     saveUsedData.mutate();
   };
