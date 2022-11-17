@@ -4,20 +4,20 @@ import { Button } from '@mui/material';
 interface PagenationButtonType {
   currentPage: number;
   maxPage: number;
-  handleCurrentPage: (num: number) => void;
+  handlePageNum: (num: number) => void;
 }
 
 const PagenationButton = ({
   currentPage,
   maxPage,
-  handleCurrentPage,
+  handlePageNum,
 }: PagenationButtonType) => {
   return (
     <PageButtonContainer>
       <Button
         variant="contained"
         disabled={currentPage <= 1}
-        onClick={() => handleCurrentPage(currentPage-1)}
+        onClick={() => handlePageNum(currentPage-1)}
       >
         Previous page
       </Button>
@@ -27,7 +27,7 @@ const PagenationButton = ({
       <Button
         variant="contained"
         disabled={currentPage >= maxPage}
-        onClick={() => handleCurrentPage(currentPage+1)}
+        onClick={() => handlePageNum(currentPage+1)}
       >
         Next page
       </Button>
