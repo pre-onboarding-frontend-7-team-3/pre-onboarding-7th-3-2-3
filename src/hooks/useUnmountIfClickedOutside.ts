@@ -1,7 +1,7 @@
-import { useEffect, Dispatch, SetStateAction, RefObject } from "react";
+import { useEffect, RefObject } from "react";
 
 export const useUnmountIfClickedOutside = (
-  ref: RefObject<HTMLFormElement> | undefined,
+  ref: RefObject<HTMLFormElement | HTMLDivElement> | undefined,
   callback: (toggleEvent: boolean) => void
 ) => {
   const handleClick = (e: React.BaseSyntheticEvent | MouseEvent) => {
