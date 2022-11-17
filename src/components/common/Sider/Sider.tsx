@@ -3,16 +3,18 @@ import { useRecoilValue } from "recoil";
 import * as S from "./Sider.style";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { SIDER_DATA } from "../../../constants/siderData";
-import storage from "../../../utils/storage/webStorageUtils";
+
 import ROUTES from "../../../constants/routes";
 import { siderState } from "../../../store/sider";
+import Cookies from "universal-cookie";
 
 const Sider = () => {
   const isSiderVisible = useRecoilValue(siderState);
   const navigate = useNavigate();
+  const cookies = new Cookies();
 
   const LogoutAndRedirectToLogin = () => {
-    storage.remove("access_token");
+    cookies.remove("access_token");
     navigate(ROUTES.LOGIN);
   };
 
