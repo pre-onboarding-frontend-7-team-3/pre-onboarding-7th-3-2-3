@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { ReactNode, useState } from "react";
+import { ReactNode, useMemo } from "react";
 import { css } from "@emotion/react";
 
 import { convertDate } from "@src/utils/convertDate";
@@ -58,18 +58,20 @@ const UserInfoTable = ({
     setInputState(e.target.value);
   };
 
-  const defaultUserData: defaultUserDataProps = {
-    name: detail.name,
-    gender_origin: GENDER[detail.gender_origin],
-    birth_date: detail.birth_date.substring(0, 10),
-    address: detail.address + detail.detail_address,
-    email: detail.email,
-    phone_number: detail.phone_number,
-    allow_marketing_push: formatBoolean(setting.allow_marketing_push),
-    is_active: formatBoolean(setting.is_active),
-    created_at: detail.created_at.substring(0, 10),
-    last_login: convertDate(detail.last_login),
-  };
+  const defaultUserData: defaultUserDataProps = useMemo(() => {
+    return {
+      name: detail.name,
+      gender_origin: GENDER[detail.gender_origin],
+      birth_date: detail.birth_date.substring(0, 10),
+      address: detail.address + detail.detail_address,
+      email: detail.email,
+      phone_number: detail.phone_number,
+      allow_marketing_push: formatBoolean(setting.allow_marketing_push),
+      is_active: formatBoolean(setting.is_active),
+      created_at: detail.created_at.substring(0, 10),
+      last_login: convertDate(detail.last_login),
+    };
+  }, [detail, detail]);
 
   return (
     <>
