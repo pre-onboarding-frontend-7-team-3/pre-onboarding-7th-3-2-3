@@ -1,23 +1,23 @@
-import React, { useState, useRef } from 'react';
-import * as S from './NewUserModal.style';
-import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
-import UserInput from './UserInput/UserInput';
-import FunnelButton from './FunnelButton/FunnelButton';
-import FileInput from './FileInput/FileInput';
-import { GENDER_DATA } from '../../constants/funnelButtonData';
-import useUnmountIfClickedOutside from '../../hooks/useUnmountIfClickedOutside';
-import { NEW_USER_INPUT_DATA } from '../../constants/NewUserInputData';
-import { useCreateNewUserQuery } from './NewUserModal-query/NewUserModal.query';
+import React, { useState, useRef } from "react";
+import * as S from "./NewUserModal.style";
+import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
+import UserInput from "./UserInput/UserInput";
+import FunnelButton from "./FunnelButton/FunnelButton";
+import FileInput from "./FileInput/FileInput";
+import { GENDER_DATA } from "../../constants/funnelButtonData";
+import useUnmountIfClickedOutside from "../../hooks/useUnmountIfClickedOutside";
+import { NEW_USER_INPUT_DATA } from "../../constants/NewUserInputData";
+import { useCreateNewUserQuery } from "./NewUserModal-query/NewUserModal.query";
 
 type Props = {
-  setIsModalOpen: Function;
+  setIsModalOpen: (toggleEvent: boolean) => void;
 };
 
 const NewUserModal = ({ setIsModalOpen }: Props) => {
-  const [genderOrigin, setGenderOrigin] = useState('');
-  const modalRef = useRef() as React.MutableRefObject<HTMLDivElement>;
+  const [genderOrigin, setGenderOrigin] = useState("");
+  const modalRef = useRef<HTMLFormElement>(null);
   const handleCloseModal = () => {
-    setIsModalOpen(prev => !prev);
+    setIsModalOpen(false);
   };
 
   useUnmountIfClickedOutside(modalRef, handleCloseModal);
@@ -30,7 +30,7 @@ const NewUserModal = ({ setIsModalOpen }: Props) => {
 
   const submitMutate = useCreateNewUserQuery(handleCloseModal);
 
-  const onValid: SubmitHandler<FieldValues> = data => {
+  const onValid: SubmitHandler<FieldValues> = (data) => {
     const formData = {
       photo: data.file[0],
       gender_origin: genderOrigin,
@@ -54,7 +54,7 @@ const NewUserModal = ({ setIsModalOpen }: Props) => {
         ref={modalRef}
         autoComplete="false"
       >
-        <input type="password" style={{ width: '0px', height: '0px' }} />
+        <input type="password" style={{ width: "0px", height: "0px" }} />
         {/* disable chrome autocompletion */}
         <S.Title>신규 고객 추가</S.Title>
         {NEW_USER_INPUT_DATA.slice(0, 4).map(
