@@ -56,6 +56,7 @@ const InvestmentAccountList = () => {
         />
         {DROPDOWN_DATA.map(({ id, name, data }) => (
           <Dropdown
+            accountQueryParams={accountQueryParams}
             key={id}
             setAccountQueryParams={setAccountQueryParams}
             name={name}
