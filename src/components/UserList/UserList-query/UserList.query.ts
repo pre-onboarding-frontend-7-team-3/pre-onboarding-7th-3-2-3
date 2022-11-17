@@ -30,7 +30,7 @@ export const usePrefetchUserListQuery = (accountQueryParams: any) => {
       staleTime: 2000,
       keepPreviousData: true,
     }
-  )
+  );
 };
 
 export const useDeleteUsers = () => {

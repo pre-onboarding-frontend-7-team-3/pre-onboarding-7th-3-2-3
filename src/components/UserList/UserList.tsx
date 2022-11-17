@@ -9,13 +9,13 @@ import PagenationButton from "../InvestmentAccountList/PagenationButton/Pagenati
 import {
   useDeleteUsers,
   useGetUserListQuery,
+  usePrefetchUserListQuery,
 } from "./UserList-query/UserList.query";
 import CustomTableBody from "../common/Table/CustomTableBody";
 import { GENDER, USER_TABLE_CELL_DATA } from "@src/constants/tableData";
 import CustomTableHead from "../common/Table/CustomTableHead";
 import { formatBoolean } from "@src/utils/formatBoolean";
 
-import NewUserModal from "../NewUserModal";
 import { maskingPhoneNumber, maskingUserName } from "@src/utils/processData";
 
 import NewUserModal from "../NewUserModal";
@@ -24,14 +24,10 @@ import { userQueryParamsAtom } from "./atoms";
 const UserList = () => {
   const [userQueryParams, setUserQueryParams] = useAtom(userQueryParamsAtom);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [accountQueryParams, setAccountQueryParams] = useState({
-    pageLimit: currentPage,
-  });
+
   const [checked, setChecked] = useState<string[]>([]);
-  const maxPage = 5;
 
   const { data, isLoading, isError } = useGetUserListQuery(userQueryParams);
-
   const isMaxPage = usePrefetchUserListQuery(userQueryParams).data?.data.length;
   const { mutate: deleteUser } = useDeleteUsers();
   // usePrefetchAccountList(currentPage, maxPage);

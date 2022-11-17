@@ -25,11 +25,12 @@ const CustomTableBody = ({ data, checkbox, handleCheck }: Props) => {
           sx={S.customTableBodyStyle.TableRow}
         >
           {checkbox && (
-            <TableCell key="checkboxBody" align="center" size="small">
+            <TableCell align="center" size="small">
               <Checkbox value={data[parentIdx].id} onChange={handleChange} />
             </TableCell>
           )}
           {Object.entries(row).map(([userRowkey, userRowVal], childIdx) => {
+            console.log("childIdx", childIdx);
             switch (userRowkey) {
               case "name":
                 return (
