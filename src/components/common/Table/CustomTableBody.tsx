@@ -1,9 +1,22 @@
-import * as S from './CustomTableBody.style';
-import { TableBody, TableCell, TableRow } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import * as S from "./CustomTableBody.style";
+import { Checkbox, TableBody, TableCell, TableRow } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
-const CustomTableBody = ({ data }: { data: { [key: string]: any }[] }) => {
+interface Props {
+  data: { [key: string]: any }[];
+  checkbox?: boolean;
+  handleCheck?: (userId: string) => void;
+}
+
+const CustomTableBody = ({ data, checkbox, handleCheck }: Props) => {
   const navigate = useNavigate();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (handleCheck) {
+      handleCheck(e.target.value);
+    }
+  };
+
   return (
     <TableBody>
       {data?.map((row: Record<string, any>, parentIdx: number) => (
@@ -11,9 +24,14 @@ const CustomTableBody = ({ data }: { data: { [key: string]: any }[] }) => {
           key={data[parentIdx].uuid}
           sx={S.customTableBodyStyle.TableRow}
         >
+          {checkbox && (
+            <TableCell key="checkboxBody" align="center" size="small">
+              <Checkbox value={data[parentIdx].id} onChange={handleChange} />
+            </TableCell>
+          )}
           {Object.entries(row).map(([userRowkey, userRowVal], childIdx) => {
             switch (userRowkey) {
-              case 'name':
+              case "name":
                 return (
                   <TableCell
                     onClick={() => navigate(`/users/${data[parentIdx].id}`)}
@@ -26,9 +44,9 @@ const CustomTableBody = ({ data }: { data: { [key: string]: any }[] }) => {
                     {userRowVal}
                   </TableCell>
                 );
-              case 'id':
-              case 'uuid':
-                return '';
+              case "id":
+              case "uuid":
+                return "";
               default:
                 return (
                   <TableCell
