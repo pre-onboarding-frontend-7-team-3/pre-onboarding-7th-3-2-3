@@ -15,3 +15,22 @@ export const useGetAccountQuery = (accountQueryParams: any) => {
     }
   );
 };
+
+export const usePrefetchAccountQuery = (accountQueryParams: any) => {
+  const accountPrefetchQueryParams = {
+    ...accountQueryParams,
+    pageNum: accountQueryParams.pageNum + 1,
+  };
+  return useQuery(
+    ["GetInvestmentAccount", accountPrefetchQueryParams],
+    () => {
+      return InvestmentAccountRepository.getInvestmentAccount(
+        accountPrefetchQueryParams
+      );
+    },
+    {
+      staleTime: 2000,
+      keepPreviousData: true,
+    }
+  )
+};

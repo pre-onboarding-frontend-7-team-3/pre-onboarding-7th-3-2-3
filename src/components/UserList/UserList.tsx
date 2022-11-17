@@ -1,37 +1,54 @@
 import { useMemo, useState } from 'react';
 import * as S from './UserList.style';
+import { useAtom } from 'jotai';
 
 import { Table, TableContainer, Paper } from '@mui/material';
 
 import SearchInput from '../common/SearchInput/SearchInput';
 import PagenationButton from '../InvestmentAccountList/PagenationButton/PagenationButton';
-import { useGetUserListQuery } from './UserList-query/UserList.query';
+import {
+  useDeleteUsers,
+  useGetUserListQuery,
+  usePrefetchUserListQuery,
+} from './UserList-query/UserList.query';
 import CustomTableBody from '../common/Table/CustomTableBody';
 import { GENDER, USER_TABLE_CELL_DATA } from '@src/constants/tableData';
 import CustomTableHead from '../common/Table/CustomTableHead';
 import { formatBoolean } from '@src/utils/formatBoolean';
 
-import NewUserModal from '../NewUserModal';
 import { maskingPhoneNumber, maskingUserName } from '@src/utils/processData';
 
+import NewUserModal from '../NewUserModal';
+import { userQueryParamsAtom } from './atoms';
+
 const UserList = () => {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [userQueryParams, setUserQueryParams] = useAtom(userQueryParamsAtom);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [accountQueryParams, setAccountQueryParams] = useState({
-    pageLimit: currentPage,
-  });
-  const maxPage = 5;
 
-  const { data, isLoading, isError } = useGetUserListQuery(accountQueryParams);
+  const [checked, setChecked] = useState<string[]>([]);
 
+  const { data, isLoading, isError } = useGetUserListQuery(userQueryParams);
+  const isMaxPage = usePrefetchUserListQuery(userQueryParams).data?.data.length;
+  const { mutate: deleteUser } = useDeleteUsers();
   // usePrefetchAccountList(currentPage, maxPage);
 
+  const handleCheck = (userId: string) => {
+    checked.includes(userId)
+      ? setChecked(checked.filter(el => el !== userId))
+      : setChecked([...checked, userId]);
+  };
+
+  const handleClick = () => {
+    //await Promise.all(checked.map((userId) => mutate(userId)));
+    deleteUser(checked);
+    setChecked([]);
+  };
+
   const handleCurrentPage = (num: number) => {
-    setCurrentPage(prev => prev + num);
-    setAccountQueryParams(prev => {
+    setUserQueryParams(prev => {
       return {
         ...prev,
-        pageLimit: currentPage,
+        pageNum: num,
       };
     });
   };
@@ -69,24 +86,28 @@ const UserList = () => {
     <>
       <S.Container>
         <S.FilterContainer>
-          <SearchInput
-            onUpdateParams={setAccountQueryParams}
-            text="고객명 검색"
-          />
+          <SearchInput onUpdateParams={setUserQueryParams} text="고객명 검색" />
         </S.FilterContainer>
-        <S.AddNewUserButton onClick={() => setIsModalOpen(prev => !prev)}>
-          신규 고객 추가
-        </S.AddNewUserButton>
+        <S.ButtonContainer>
+          <S.Button onClick={handleClick}>삭제</S.Button>
+          <S.Button onClick={() => setIsModalOpen(prev => !prev)}>
+            신규 고객 추가
+          </S.Button>
+        </S.ButtonContainer>
       </S.Container>
       <TableContainer component={Paper} sx={S.customTableStyle.container}>
         <Table sx={S.customTableStyle.table} aria-label="simple table">
-          <CustomTableHead data={USER_TABLE_CELL_DATA} />
-          <CustomTableBody data={userData} />
+          <CustomTableHead data={USER_TABLE_CELL_DATA} checkbox={true} />
+          <CustomTableBody
+            data={userData}
+            checkbox={true}
+            handleCheck={handleCheck}
+          />
         </Table>
       </TableContainer>
       <PagenationButton
-        currentPage={currentPage}
-        maxPage={maxPage}
+        currentPage={userQueryParams.pageNum}
+        isMaxPage={isMaxPage}
         handlePageNum={handleCurrentPage}
       />
       {isModalOpen && <NewUserModal setIsModalOpen={setIsModalOpen} />}
