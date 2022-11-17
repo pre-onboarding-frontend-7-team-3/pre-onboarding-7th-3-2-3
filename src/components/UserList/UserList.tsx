@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import * as S from "./UserList.style";
+import { useAtom } from "jotai";
 
 import { Table, TableContainer, Paper } from "@mui/material";
 
@@ -12,26 +13,21 @@ import CustomTableHead from "../common/Table/CustomTableHead";
 import { formatBoolean } from "@src/utils/formatBoolean";
 
 import NewUserModal from "../NewUserModal";
-import { maskingUserName, maskingPhoneNumber } from "@src/utils/processData";
+import { userQueryParamsAtom } from "./atoms";
 
 const UserList = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [accountQueryParams, setAccountQueryParams] = useState({
-    pageLimit: currentPage,
-  });
+  const [userQueryParams, setUserQueryParams] = useAtom(userQueryParamsAtom);
+  const [isModalOpen, setIsModalOpen] = useState(false);  
+
   const maxPage = 5;
 
-  const { data, isLoading, isError } = useGetUserListQuery(accountQueryParams);
-
-  // usePrefetchAccountList(currentPage, maxPage);
+  const { data, isLoading, isError } = useGetUserListQuery(userQueryParams);
 
   const handleCurrentPage = (num: number) => {
-    setCurrentPage((prev) => prev + num);
-    setAccountQueryParams((prev) => {
+    setUserQueryParams((prev) => {
       return {
         ...prev,
-        pageLimit: currentPage,
+        pageNum: num,
       };
     });
   };
@@ -69,10 +65,7 @@ const UserList = () => {
     <>
       <S.Container>
         <S.FilterContainer>
-          <SearchInput
-            onUpdateParams={setAccountQueryParams}
-            text="고객명 검색"
-          />
+          <SearchInput onUpdateParams={setUserQueryParams} text="고객명 검색" />
         </S.FilterContainer>
         <S.AddNewUserButton onClick={() => setIsModalOpen((prev) => !prev)}>
           신규 고객 추가
@@ -85,7 +78,7 @@ const UserList = () => {
         </Table>
       </TableContainer>
       <PagenationButton
-        currentPage={currentPage}
+        currentPage={userQueryParams.pageNum}
         maxPage={maxPage}
         handlePageNum={handleCurrentPage}
       />

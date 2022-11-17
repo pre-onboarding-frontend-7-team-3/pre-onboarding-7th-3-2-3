@@ -1,10 +1,13 @@
-import { accountQueryParamsAtom } from './atoms';
-import { useAtom } from 'jotai';
-import styled from 'styled-components';
-import { Table, TableContainer, Paper, Button } from '@mui/material';
-import { useGetAccountQuery } from '@src/components/InvestmentAccountList/Account-query/InvestmentAccount.query';
-import InvestmentAccountTableHead from './InvestmentAccountTableHead/InvestmentAccountTableHead';
-import InvestmentAccountItem from './InvestmentAccountItem/InvestmentAccountItem';
+import { accountQueryParamsAtom } from "./atoms";
+import { useAtom } from "jotai";
+import styled from "styled-components";
+import { Table, TableContainer, Paper } from "@mui/material";
+import {
+  useGetAccountQuery,
+  usePrefetchAccountQuery,
+} from "@src/components/InvestmentAccountList/Account-query/InvestmentAccount.query";
+import InvestmentAccountTableHead from "./InvestmentAccountTableHead/InvestmentAccountTableHead";
+import InvestmentAccountItem from "./InvestmentAccountItem/InvestmentAccountItem";
 
 import Dropdown from '../common/Dropdown/Dropdown';
 import SearchInput from '../common/SearchInput/SearchInput';
@@ -21,6 +24,8 @@ const InvestmentAccountList = () => {
     isLoading,
     isError,
   } = useGetAccountQuery(accountQueryParams);
+
+  const {data : nextPage, isLoading2} = usePrefetchAccountQuery(accountQueryParams);
 
   const maxPage = defaultAccountListData?.data?.length;
 
@@ -46,6 +51,7 @@ const InvestmentAccountList = () => {
         <h3>error...</h3>
       </>
     );
+  console.log(nextPage, isLoading2);
 
   return (
     <>
