@@ -1,11 +1,11 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Login from './pages/login';
-import InvestmentAccounts from './pages/InvestmentAccounts/InvestmentAccounts';
-import Users from './pages/UserList';
-import RequireAuth from './utils/auth/RequireAuth';
-import ROUTES from './constants/routes';
-import NotFound from './pages/NotFound/NotFound';
-import UserDetail from './pages/UserDetail';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Login from "./pages/login";
+import InvestmentAccounts from "./pages/InvestmentAccounts/InvestmentAccounts";
+import Users from "./pages/UserList";
+import RequireAuth from "./utils/auth/RequireAuth";
+import ROUTES from "./constants/routes";
+import NotFound from "./pages/NotFound/NotFound";
+import UserDetail from "./pages/UserDetail";
 
 function App() {
   return (
@@ -24,7 +24,19 @@ function App() {
           }
         >
           <Route path={ROUTES.ACCOUNTS} element={<InvestmentAccounts />} />
+        </Route>
+        <Route
+          element={
+            <RequireAuth isAuthRequired={true} redirectUrl={ROUTES.LOGIN} />
+          }
+        >
           <Route path={ROUTES.USERS} element={<Users />} />
+        </Route>
+        <Route
+          element={
+            <RequireAuth isAuthRequired={true} redirectUrl={ROUTES.LOGIN} />
+          }
+        >
           <Route path={ROUTES.USER_DETAIL} element={<UserDetail />} />
         </Route>
         <Route path={ROUTES.NOT_FOUND} element={<NotFound />} />
