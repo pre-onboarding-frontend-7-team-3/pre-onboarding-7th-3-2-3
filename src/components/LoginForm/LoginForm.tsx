@@ -1,17 +1,22 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import * as S from './LoginForm.style';
-import LoginInput from './LoginInput/LoginInput';
-import LoginErrorModal from './LoginErrorModal/LoginErrorModal';
-import handleQueryLogin from './api/handleQueryLogin';
-import { handleHTTPResponseError } from '../../utils/auth/httpResponseUtils';
-import storage from '../../utils/storage/webStorageUtils';
-import ROUTES from '../../constants/routes';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import * as S from "./LoginForm.style";
+import LoginInput from "./LoginInput/LoginInput";
+import LoginErrorModal from "./LoginErrorModal/LoginErrorModal";
+import handleQueryLogin from "./api/handleQueryLogin";
+import { handleHTTPResponseError } from "../../utils/auth/httpResponseUtils";
+import ROUTES from "../../constants/routes";
+
+import Cookies from "universal-cookie";
 
 const LoginForm = () => {
-  const [serverAuthError, setServerAuthError] = useState('');
+  const [serverAuthError, setServerAuthError] = useState("");
   const navigate = useNavigate();
+  const cookies = new Cookies();
+
+  const expiresTime = new Date();
+  expiresTime.setHours(expiresTime.getHours() + 1);
 
   const {
     register,
@@ -21,10 +26,15 @@ const LoginForm = () => {
 
   const { mutate: login } = handleQueryLogin({
     onSuccess: (res: any) => {
-      storage.set('access_token', res.accessToken);
+      cookies.set("access_token", res.accessToken, {
+        path: "/",
+        expires: expiresTime,
+      });
+
       navigate(`${ROUTES.ACCOUNTS}`);
     },
-    onError: res => {
+
+    onError: (res) => {
       setServerAuthError(handleHTTPResponseError(res));
     },
   });

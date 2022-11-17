@@ -1,18 +1,18 @@
-import { useMemo, useState } from 'react';
-import * as S from './UserList.style';
+import { useMemo, useState } from "react";
+import * as S from "./UserList.style";
 
-import { Table, TableContainer, Paper } from '@mui/material';
+import { Table, TableContainer, Paper } from "@mui/material";
 
-import SearchInput from '../common/SearchInput/SearchInput';
-import PagenationButton from '../InvestmentAccountList/PagenationButton/PagenationButton';
-import { useGetUserListQuery } from './UserList-query/UserList.query';
-import CustomTableBody from '../common/Table/CustomTableBody';
-import { GENDER, USER_TABLE_CELL_DATA } from '@src/constants/tableData';
-import CustomTableHead from '../common/Table/CustomTableHead';
-import { formatBoolean } from '@src/utils/formatBoolean';
+import SearchInput from "../common/SearchInput/SearchInput";
+import PagenationButton from "../InvestmentAccountList/PagenationButton/PagenationButton";
+import { useGetUserListQuery } from "./UserList-query/UserList.query";
+import CustomTableBody from "../common/Table/CustomTableBody";
+import { GENDER, USER_TABLE_CELL_DATA } from "@src/constants/tableData";
+import CustomTableHead from "../common/Table/CustomTableHead";
+import { formatBoolean } from "@src/utils/formatBoolean";
 
-import NewUserModal from '../NewUserModal';
-import { maskingUserName } from '@src/utils/processData';
+import NewUserModal from "../NewUserModal";
+import { maskingUserName, maskingPhoneNumber } from "@src/utils/processData";
 
 const UserList = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -27,8 +27,8 @@ const UserList = () => {
   // usePrefetchAccountList(currentPage, maxPage);
 
   const handleCurrentPage = (num: number) => {
-    setCurrentPage(prev => prev + num);
-    setAccountQueryParams(prev => {
+    setCurrentPage((prev) => prev + num);
+    setAccountQueryParams((prev) => {
       return {
         ...prev,
         pageLimit: currentPage,
@@ -43,14 +43,14 @@ const UserList = () => {
         account_count: Math.floor(Math.random() * 10),
         email: data.email,
         gender_origin: GENDER[data.gender_origin],
-        birth_date: data.birth_date?.split('').slice(0, 10),
+        birth_date: data.birth_date?.split("").slice(0, 10),
         phone_number: maskingPhoneNumber(data.phone_number),
-        last_login: data.last_login?.split('').slice(0, 10),
+        last_login: data.last_login?.split("").slice(0, 10),
         allow_marketing_push: formatBoolean(
           data?.userSetting[0]?.allow_invest_push
         ),
         is_active: formatBoolean(data.userSetting[0]?.is_active),
-        created_at: data.created_at?.split('').slice(0, 10),
+        created_at: data.created_at?.split("").slice(0, 10),
         id: data.id,
         uuid: data.uuid,
       })),
@@ -74,7 +74,7 @@ const UserList = () => {
             text="고객명 검색"
           />
         </S.FilterContainer>
-        <S.AddNewUserButton onClick={() => setIsModalOpen(prev => !prev)}>
+        <S.AddNewUserButton onClick={() => setIsModalOpen((prev) => !prev)}>
           신규 고객 추가
         </S.AddNewUserButton>
       </S.Container>
