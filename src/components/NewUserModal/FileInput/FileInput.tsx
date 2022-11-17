@@ -1,14 +1,32 @@
-import { useState } from 'react';
-import * as S from './FileInput.style';
-import { ErrorText } from '../UserInput/UserInput.style';
+import { useState } from "react";
+import {
+  type UseFormRegister,
+  type FieldValues,
+  type FieldErrorsImpl,
+} from "react-hook-form";
+import * as S from "./FileInput.style";
+import { ErrorText } from "../UserInput/UserInput.style";
 
-const FileInput = ({ register, errors }) => {
-  const [fileURL, setFileURL] = useState({});
+interface FileInputrops {
+  errors: Partial<
+    FieldErrorsImpl<{
+      [x: string]: string[];
+    }>
+  >;
+  register: UseFormRegister<FieldValues>;
+}
+
+const FileInput = ({ register, errors }: FileInputrops) => {
+  const [fileURL, setFileURL] = useState({
+    url: "",
+    image: false,
+  });
   const isFileUploaded = Object.keys(fileURL).length !== 0;
 
-  const saveFileImage = event => {
+  const saveFileImage = (event: any) => {
+    if (!event.target.files) return;
     if (event.target.files.length !== 0) {
-      const imageFormat = event.target.files[0].type.includes('image');
+      const imageFormat = event.target.files[0].type.includes("image");
 
       setFileURL({
         url: URL.createObjectURL(event.target.files[0]),
@@ -27,8 +45,8 @@ const FileInput = ({ register, errors }) => {
         <S.FileInputForm
           type="file"
           accept="image/*"
-          {...register('file', {
-            required: '사용자 사진을 업로드해 주세요',
+          {...register("file", {
+            required: "사용자 사진을 업로드해 주세요",
           })}
         />
       </S.FileInputLabel>
