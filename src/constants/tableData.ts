@@ -1,6 +1,6 @@
 type TableDataType = { [key: string]: string };
 
-export const STATUS_FORMAT: { [key: string]: string | number } = {
+export const STATUS_FORMAT: TableDataType = {
   "": "선택안함",
   9999: "관리자확인필요",
   1: "입금대기",
@@ -124,4 +124,17 @@ export const USER_TABLE_CELL_DATA = [
   "수신 동의",
   "계좌 활성화",
   "가입일",
+];
+
+export const USER_DETAIL_TABLE_CELL_DATA = [
+  "이름",
+  "성별",
+  "생년월일",
+  "주소",
+  "이메일",
+  "핸드폰",
+  "혜택 정보 수신",
+  "활성화 여부",
+  "가입 날짜",
+  "최근 로그인",
 ];
