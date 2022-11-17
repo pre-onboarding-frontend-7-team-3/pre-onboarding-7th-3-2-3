@@ -6,22 +6,27 @@ import { Table, TableContainer, Paper } from "@mui/material";
 
 import SearchInput from "../common/SearchInput/SearchInput";
 import PagenationButton from "../InvestmentAccountList/PagenationButton/PagenationButton";
-import { useGetUserListQuery, usePrefetchUserListQuery } from "./UserList-query/UserList.query";
+import {
+  useGetUserListQuery,
+  usePrefetchUserListQuery,
+} from "./UserList-query/UserList.query";
 import CustomTableBody from "../common/Table/CustomTableBody";
 import { GENDER, USER_TABLE_CELL_DATA } from "@src/constants/tableData";
 import CustomTableHead from "../common/Table/CustomTableHead";
 import { formatBoolean } from "@src/utils/formatBoolean";
+
+import { maskingUserName, maskingPhoneNumber } from "@src/utils/processData";
 
 import NewUserModal from "../NewUserModal";
 import { userQueryParamsAtom } from "./atoms";
 
 const UserList = () => {
   const [userQueryParams, setUserQueryParams] = useAtom(userQueryParamsAtom);
-  const [isModalOpen, setIsModalOpen] = useState(false);  
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { data, isLoading, isError } = useGetUserListQuery(userQueryParams);
 
-  const isMaxPage = usePrefetchUserListQuery(userQueryParams).data?.data.length
+  const isMaxPage = usePrefetchUserListQuery(userQueryParams).data?.data.length;
 
   const handleCurrentPage = (num: number) => {
     setUserQueryParams((prev) => {
