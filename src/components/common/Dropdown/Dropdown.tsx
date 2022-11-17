@@ -10,6 +10,7 @@ type Props = {
     broker_id?: string;
     is_active?: string;
     status?: string;
+    pageNum?: number;
   };
   name: string;
   data: any;
