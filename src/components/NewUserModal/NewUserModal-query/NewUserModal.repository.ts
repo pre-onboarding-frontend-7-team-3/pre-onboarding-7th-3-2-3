@@ -5,10 +5,10 @@ type Props = {
 };
 
 class NewUserModalRepository {
-  private baseEndPoint: string = '/users';
+  private baseQueryString: string = '/users';
 
   createNewUser(formData: Props) {
-    return clientAPI.post(this.baseEndPoint, formData);
+    return clientAPI.post(this.baseQueryString, formData);
   }
 }
 

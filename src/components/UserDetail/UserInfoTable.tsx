@@ -44,6 +44,8 @@ const UserInfoTable = ({
   isEditing,
   setInputState,
 }: Props) => {
+  console.log(`AT USERIFNO : `,detail)
+  console.log('1')
   const INDEX_OF_CAN_BE_EDITED = 0;
   const settingInputProps = (idx: number) => {
     if (isEditing && INDEX_OF_CAN_BE_EDITED === idx) {
@@ -57,22 +59,23 @@ const UserInfoTable = ({
   const inputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputState(e.target.value);
   };
-
+  console.log('2')
   const defaultUserData: defaultUserDataProps = useMemo(() => {
     return {
-      name: detail.name,
-      gender_origin: GENDER[detail.gender_origin],
-      birth_date: detail.birth_date.substring(0, 10),
-      address: detail.address + detail.detail_address,
-      email: detail.email,
-      phone_number: detail.phone_number,
-      allow_marketing_push: formatBoolean(setting.allow_marketing_push),
-      is_active: formatBoolean(setting.is_active),
-      created_at: detail.created_at.substring(0, 10),
-      last_login: convertDate(detail.last_login),
+      name: detail?.name,
+      gender_origin: GENDER[detail?.gender_origin],
+      birth_date: detail?.birth_date.substring(0, 10),
+      address: detail?.address + detail?.detail_address,
+      email: detail?.email,
+      phone_number: detail?.phone_number,
+      allow_marketing_push: formatBoolean(setting?.allow_marketing_push),
+      is_active: formatBoolean(setting?.is_active),
+      created_at: detail?.created_at.substring(0, 10),
+      last_login: convertDate(detail?.last_login),
     };
   }, [detail, setting]);
-
+  console.log('3')
+  console.log(`AT USERIFNO : `,detail)
   return (
     <>
       <TableHead css={{ backgroundColor: "white" }}>
@@ -116,11 +119,9 @@ export default UserInfoTable;
 const inputStyle = (isEditing: any) => css`
   height: 30px;
   padding: 2px 0;
-
   color: "#3A474E";
   font-size: 14px;
   font-weight: 500;
-
   ${isEditing &&
   css`
     border: solid 1px #3a474e;

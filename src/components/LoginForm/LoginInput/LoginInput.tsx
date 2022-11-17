@@ -1,8 +1,8 @@
 import * as S from './LoginInput.style';
 import {
-  isValidEmail,
+  regex,
   USER_VALIDATION_ERRORS,
-} from '../../../utils/auth/validator';
+} from '../../../utils/validator';
 
 const LoginInput = ({ register, errors, serverAuthError }: any) => {
   const isClientAuthError = Object.keys(errors).length !== 0;
@@ -15,7 +15,7 @@ const LoginInput = ({ register, errors, serverAuthError }: any) => {
           {...register('email', {
             required: USER_VALIDATION_ERRORS.REQUIRED_EMAIL,
             pattern: {
-              value: isValidEmail,
+              value: regex.isEmail,
               message: USER_VALIDATION_ERRORS.INVALID_EMAIL,
             },
           })}

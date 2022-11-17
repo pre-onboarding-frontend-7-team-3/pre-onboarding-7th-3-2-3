@@ -8,6 +8,7 @@ import { GENDER_DATA } from '../../constants/funnelButtonData';
 import useUnmountIfClickedOutside from '../../hooks/useUnmountIfClickedOutside';
 import { NEW_USER_INPUT_DATA } from '../../constants/NewUserInputData';
 import { useCreateNewUserQuery } from './NewUserModal-query/NewUserModal.query';
+import { ErrorText } from './UserInput/UserInput.style';
 
 type Props = {
   setIsModalOpen: Function;
@@ -16,21 +17,34 @@ type Props = {
 const NewUserModal = ({ setIsModalOpen }: Props) => {
   const [genderOrigin, setGenderOrigin] = useState('');
   const modalRef = useRef() as React.MutableRefObject<HTMLDivElement>;
-  const handleCloseModal = () => {
-    setIsModalOpen(prev => !prev);
-  };
-
-  useUnmountIfClickedOutside(modalRef, handleCloseModal);
 
   const {
+    setError,
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const submitMutate = useCreateNewUserQuery(handleCloseModal);
+  const handleCloseModal = () => {
+    setIsModalOpen(prev => !prev);
+  };
+  
+  const handleEmailError = () => {
+    setError(
+      'email',
+      { type: 'focus', message: '이미 존재하는 이메일입니다' },
+      { shouldFocus: true }
+    );
+  };
 
-  const onValid: SubmitHandler<FieldValues> = data => {
+  useUnmountIfClickedOutside(modalRef, handleCloseModal);
+
+  const onSubmitMutate = useCreateNewUserQuery(
+    handleCloseModal,
+    handleEmailError
+  );
+
+  const onCreateUser: SubmitHandler<FieldValues> = data => {
     const formData = {
       photo: data.file[0],
       gender_origin: genderOrigin,
@@ -44,63 +58,53 @@ const NewUserModal = ({ setIsModalOpen }: Props) => {
       password: data.password,
       created_at: new Date(),
     };
-    submitMutate(formData);
+    onSubmitMutate(formData);
   };
 
   return (
     <S.ViewPortContainer>
-      <S.ModalContainer
-        onSubmit={handleSubmit(onValid)}
-        ref={modalRef}
-        autoComplete="false"
-      >
-        <input type="password" style={{ width: '0px', height: '0px' }} />
+      <S.ModalContainer onSubmit={handleSubmit(onCreateUser)} ref={modalRef}>
+        <input type="password" style={S.HiddenInput} />
         {/* disable chrome autocompletion */}
         <S.Title>신규 고객 추가</S.Title>
-        {NEW_USER_INPUT_DATA.slice(0, 4).map(
-          ({ id, type, text, name, validation, autoFocus, autoComplete }) => (
-            <React.Fragment key={id}>
-              <S.Header>{text}</S.Header>
-              <UserInput
-                type={type}
-                text={text}
-                name={name}
-                validation={validation}
-                autoFocus={autoFocus}
-                autocomplete={autoComplete}
-                register={register}
-              />
-            </React.Fragment>
-          )
-        )}
+        {NEW_USER_INPUT_DATA.slice(0, 4).map(inputProps => (
+          <React.Fragment key={inputProps.id}>
+            <S.Header>{inputProps.text}</S.Header>
+            <UserInput
+              inputProps={inputProps}
+              errors={errors}
+              register={register}
+            />
+          </React.Fragment>
+        ))}
         <S.Header>성별</S.Header>
         <S.FunnelButtonContainer>
-          {GENDER_DATA.map(({ id, text, value }) => (
-            <FunnelButton
-              key={id}
-              text={text}
-              handleButtonStyle={() => setGenderOrigin(value)}
-              isSelected={genderOrigin === value}
-            />
-          ))}
+          <S.InnerContainer>
+            {GENDER_DATA.map(({ id, text, value }) => (
+              <FunnelButton
+                key={id}
+                text={text}
+                handleButtonStyle={() => setGenderOrigin(value)}
+                isSelected={genderOrigin === value}
+              />
+            ))}
+          </S.InnerContainer>
+          {Object.keys(errors).length !== 0 && !genderOrigin && (
+            <ErrorText>성별을 선택해 주세요</ErrorText>
+          )}
         </S.FunnelButtonContainer>
         <S.Header>프로필 사진</S.Header>
-        <FileInput register={register} />
-        {NEW_USER_INPUT_DATA.slice(4, 8).map(
-          ({ id, type, text, name, validation, autoComplete }) => (
-            <React.Fragment key={id}>
-              <S.Header>{text}</S.Header>
-              <UserInput
-                type={type}
-                text={text}
-                name={name}
-                validation={validation}
-                autocomplete={autoComplete}
-                register={register}
-              />
-            </React.Fragment>
-          )
-        )}
+        <FileInput register={register} errors={errors} />
+        {NEW_USER_INPUT_DATA.slice(4, 8).map(inputProps => (
+          <React.Fragment key={inputProps.id}>
+            <S.Header>{inputProps.text}</S.Header>
+            <UserInput
+              inputProps={inputProps}
+              errors={errors}
+              register={register}
+            />
+          </React.Fragment>
+        ))}
         <S.ButtonContainer>
           <S.Button>추가</S.Button>
           <S.Button onClick={handleCloseModal}>닫기</S.Button>
