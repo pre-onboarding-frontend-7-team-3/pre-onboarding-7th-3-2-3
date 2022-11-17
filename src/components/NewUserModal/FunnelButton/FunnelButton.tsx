@@ -10,7 +10,7 @@ const FunnelButton = ({ text, handleButtonStyle, isSelected }: ButtonProps) => {
   return (
     <div>
       {isSelected ? (
-        <S.SelectedFunnelButton onClick={handleButtonStyle}>
+        <S.SelectedFunnelButton disabled={true} onClick={handleButtonStyle}>
           {text}
         </S.SelectedFunnelButton>
       ) : (
