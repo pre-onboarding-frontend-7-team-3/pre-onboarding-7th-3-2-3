@@ -28,7 +28,7 @@ const InvestmentAccountList = () => {
   const isMaxPage = usePrefetchAccountQuery(accountQueryParams).data?.data.length
   
   const handlePageNum = (num: number) => {
-    setAccountQueryParams(prev => {
+    setAccountQueryParams((prev) => {
       return {
         ...prev,
         pageNum: num,
@@ -67,7 +67,7 @@ const InvestmentAccountList = () => {
           />
         ))}
         <Button
-          sx={{ margin: '8px' }}
+          sx={{ margin: "8px" }}
           variant="contained"
           onClick={initDropDownFilters}
         >
