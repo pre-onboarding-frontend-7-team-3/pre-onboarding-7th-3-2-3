@@ -20,6 +20,8 @@ import { maskingPhoneNumber, maskingUserName } from "@src/utils/processData";
 import NewUserModal from "../NewUserModal";
 import { userQueryParamsAtom } from "./atoms";
 
+import Loader from "../common/Loader/Loader";
+
 const UserList = () => {
   const [userQueryParams, setUserQueryParams] = useAtom(userQueryParamsAtom);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -59,27 +61,22 @@ const UserList = () => {
         account_count: Math.floor(Math.random() * 10),
         email: data.email,
         gender_origin: GENDER[data.gender_origin],
-        birth_date: data.birth_date?.split("").slice(0, 10),
+        birth_date: data?.birth_date?.split("").slice(0, 10),
         phone_number: maskingPhoneNumber(data.phone_number),
-        last_login: data.last_login?.split("").slice(0, 10),
+        last_login: data?.last_login?.split("").slice(0, 10),
         allow_marketing_push: formatBoolean(
           data?.userSetting[0]?.allow_invest_push
         ),
         is_active: formatBoolean(data.userSetting[0]?.is_active),
-        created_at: data.created_at?.split("").slice(0, 10),
+        created_at: data?.created_at?.split("").slice(0, 10),
         id: data.id,
         uuid: data.uuid,
       })),
     [data]
   );
 
-  if (isLoading) return <h3>Loading...</h3>;
-  if (isError)
-    return (
-      <>
-        <h3>error...</h3>
-      </>
-    );
+  if (isLoading) return <Loader />;
+  if (isError) return <h3>error...</h3>;
 
   return (
     <>

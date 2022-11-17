@@ -30,7 +30,6 @@ const CustomTableBody = ({ data, checkbox, handleCheck }: Props) => {
             </TableCell>
           )}
           {Object.entries(row).map(([userRowkey, userRowVal], childIdx) => {
-            console.log("childIdx", childIdx);
             switch (userRowkey) {
               case "name":
                 return (

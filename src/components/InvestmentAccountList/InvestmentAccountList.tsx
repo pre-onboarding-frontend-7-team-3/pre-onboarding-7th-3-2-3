@@ -13,6 +13,7 @@ import Dropdown from "../common/Dropdown/Dropdown";
 import SearchInput from "../common/SearchInput/SearchInput";
 import PagenationButton from "./PagenationButton/PagenationButton";
 import { DROPDOWN_DATA } from "@src/constants/dropDownData";
+import Loader from "../common/Loader/Loader";
 
 const InvestmentAccountList = () => {
   const [accountQueryParams, setAccountQueryParams] = useAtom(
@@ -43,7 +44,7 @@ const InvestmentAccountList = () => {
     });
   };
 
-  if (isLoading) return <h3>Loading...</h3>;
+  if (isLoading) return <Loader />;
   if (isError)
     return (
       <>
