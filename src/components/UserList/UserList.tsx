@@ -74,7 +74,10 @@ const UserList = () => {
     <>
       <S.Container>
         <S.FilterContainer>
-          <SearchInput onUpdateParams={setAccountQueryParams} text='고객명 검색' />
+          <SearchInput
+            onUpdateParams={setAccountQueryParams}
+            text="고객명 검색"
+          />
           {USER_DROPDOWN_DATA.map(({ id, name, data }) => (
             <Dropdown
               key={id}
