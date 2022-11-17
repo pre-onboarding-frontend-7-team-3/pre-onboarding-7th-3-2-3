@@ -1,12 +1,12 @@
 import { useMemo, useState } from 'react';
-import styled from 'styled-components';
+import * as S from './UserList.style';
 
 import { Table, TableContainer, Paper } from '@mui/material';
 
 import { USER_DROPDOWN_DATA } from '@src/constants/dropDownData';
-import SearchInput from '../InvestmentAccountList/component/SearchInput';
-import Dropdown from '../InvestmentAccountList/Dropdown/Dropdown';
-import PagenationButton from '../InvestmentAccountList/component/PagenationButton';
+import SearchInput from '../common/SearchInput/SearchInput';
+import Dropdown from '../common/Dropdown/Dropdown';
+import PagenationButton from '../InvestmentAccountList/PagenationButton/PagenationButton';
 import { useGetUserListQuery } from './UserList-query/UserList.query';
 import CustomTableBody from '../common/Table/CustomTableBody';
 import { GENDER, USER_TABLE_CELL_DATA } from '@src/constants/tableData';
@@ -16,24 +16,21 @@ import { formatBoolean } from '@src/utils/formatBoolean';
 import NewUserModal from '../NewUserModal';
 
 const PARAMETER_KEYS = {
-  // keyword: '',
+  keyword: '',
   is_active: '',
   status: '',
 };
 const UserList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [keyword, setKeyword] = useState('');
   const [accountQueryParams, setAccountQueryParams] = useState({
     pageLimit: currentPage,
   });
-
-  const {
-    data: defaultUserData,
-    isLoading,
-    isError,
-  } = useGetUserListQuery(accountQueryParams);
   const maxPage = 5;
+
+  const { data, isLoading, isError } = useGetUserListQuery(accountQueryParams);
+
+  // usePrefetchAccountList(currentPage, maxPage);
 
   const handleCurrentPage = (num: number) => {
     setCurrentPage(prev => prev + num);
@@ -44,26 +41,25 @@ const UserList = () => {
       };
     });
   };
-  console.log(defaultUserData);
   const userData = useMemo(
     () =>
-      defaultUserData?.data?.map((data: any) => ({
+      data?.data?.map((data: any) => ({
         name: data.name,
         account_count: '계좌수',
         email: data.email,
         gender_origin: GENDER[data.gender_origin],
-        birth_date: data.birth_date.split('').slice(0, 10),
+        birth_date: data.birth_date?.split('').slice(0, 10),
         phone_number: data.phone_number,
-        last_login: data.last_login.split('').slice(0, 10),
+        last_login: data.last_login?.split('').slice(0, 10),
         allow_marketing_push: formatBoolean(
-          data.userSetting[0].allow_invest_push
+          data?.userSetting[0]?.allow_invest_push
         ),
-        is_active: formatBoolean(data.userSetting[0].is_active),
-        created_at: data.created_at.split('').slice(0, 10),
+        is_active: formatBoolean(data.userSetting[0]?.is_active),
+        created_at: data.created_at?.split('').slice(0, 10),
         id: data.id,
         uuid: data.uuid,
       })),
-    [defaultUserData]
+    [data]
   );
 
   if (isLoading) return <h3>Loading...</h3>;
@@ -76,9 +72,12 @@ const UserList = () => {
 
   return (
     <>
-      <Container>
-        <FilterContainer>
-          <SearchInput onUpdateParams={setKeyword} />
+      <S.Container>
+        <S.FilterContainer>
+          <SearchInput
+            onUpdateParams={setAccountQueryParams}
+            text="고객명 검색"
+          />
           {USER_DROPDOWN_DATA.map(({ id, name, data }) => (
             <Dropdown
               key={id}
@@ -88,13 +87,13 @@ const UserList = () => {
               data={data}
             />
           ))}
-        </FilterContainer>
-        <AddNewUserButton onClick={() => setIsModalOpen(prev => !prev)}>
+        </S.FilterContainer>
+        <S.AddNewUserButton onClick={() => setIsModalOpen(prev => !prev)}>
           신규 고객 추가
-        </AddNewUserButton>
-      </Container>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        </S.AddNewUserButton>
+      </S.Container>
+      <TableContainer component={Paper} sx={S.customTableStyle.container}>
+        <Table sx={S.customTableStyle.table} aria-label="simple table">
           <CustomTableHead data={USER_TABLE_CELL_DATA} />
           <CustomTableBody data={userData} />
         </Table>
@@ -110,24 +109,3 @@ const UserList = () => {
 };
 
 export default UserList;
-
-const Container = styled.div`
-  ${({ theme }) => theme.flexDefault}
-  justify-content: space-between;
-`;
-
-const FilterContainer = styled.div`
-  ${({ theme }) => theme.flexDefault}
-`;
-
-const AddNewUserButton = styled.button`
-  ${({ theme }) => theme.flexCenter}
-  min-width: 110px;
-  padding: 8px 14px;
-  margin-right: 10px;
-  background: #3c6dba;
-  border-radius: 43px;
-  color: #fff;
-  box-shadow: 0px 1px 2px rgba(9, 16, 55, 0.4);
-  cursor: pointer;
-`;

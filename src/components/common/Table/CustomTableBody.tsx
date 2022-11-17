@@ -1,3 +1,4 @@
+import * as S from './CustomTableBody.style';
 import { TableBody, TableCell, TableRow } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,7 +9,7 @@ const CustomTableBody = ({ data }: { data: { [key: string]: any }[] }) => {
       {data?.map((row: Record<string, any>, parentIdx: number) => (
         <TableRow
           key={data[parentIdx].uuid}
-          sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+          sx={S.customTableBodyStyle.TableRow}
         >
           {Object.entries(row).map(([userRowkey, userRowVal], childIdx) => {
             switch (userRowkey) {
@@ -19,21 +20,15 @@ const CustomTableBody = ({ data }: { data: { [key: string]: any }[] }) => {
                     component="th"
                     align="center"
                     scope="row"
-                    sx={{
-                      color: '#357ae1',
-                      cursor: 'pointer',
-                      fontWeight: 'bold',
-                    }}
+                    sx={S.customTableBodyStyle.nameCell}
                     key={childIdx}
                   >
                     {userRowVal}
                   </TableCell>
                 );
-
               case 'id':
               case 'uuid':
                 return '';
-
               default:
                 return (
                   <TableCell
@@ -41,6 +36,7 @@ const CustomTableBody = ({ data }: { data: { [key: string]: any }[] }) => {
                     component="th"
                     align="center"
                     scope="row"
+                    sx={S.customTableBodyStyle.defaultCell}
                   >
                     {userRowVal}
                   </TableCell>
