@@ -44,8 +44,6 @@ const UserInfoTable = ({
   isEditing,
   setInputState,
 }: Props) => {
-  console.log(`AT USERIFNO : `,detail)
-  console.log('1')
   const INDEX_OF_CAN_BE_EDITED = 0;
   const settingInputProps = (idx: number) => {
     if (isEditing && INDEX_OF_CAN_BE_EDITED === idx) {
@@ -59,7 +57,7 @@ const UserInfoTable = ({
   const inputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputState(e.target.value);
   };
-  console.log('2')
+
   const defaultUserData: defaultUserDataProps = useMemo(() => {
     return {
       name: detail?.name,
@@ -74,8 +72,7 @@ const UserInfoTable = ({
       last_login: convertDate(detail?.last_login),
     };
   }, [detail, setting]);
-  console.log('3')
-  console.log(`AT USERIFNO : `,detail)
+
   return (
     <>
       <TableHead css={{ backgroundColor: "white" }}>
@@ -124,6 +121,7 @@ const inputStyle = (isEditing: any) => css`
   font-weight: 500;
   ${isEditing &&
   css`
+    padding-left: 2px;
     border: solid 1px #3a474e;
     border-radius: 5px;
   `}
