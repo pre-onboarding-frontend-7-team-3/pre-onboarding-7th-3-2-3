@@ -43,8 +43,7 @@ export const useDeleteUsers = () => {
       );
     },
     onSuccess: () => {
-      // TODO: type에러 수정
-      queryClient.invalidateQueries("GetUserList");
+      queryClient.invalidateQueries(["GetUserList"]);
     },
   });
 };
