@@ -1,9 +1,5 @@
-import {
-  type UseFormRegister,
-  type FieldValues,
-  type FieldErrorsImpl,
-} from "react-hook-form";
-import * as S from "./UserInput.style";
+import { UseFormRegister, FieldValues, FieldErrorsImpl } from 'react-hook-form';
+import * as S from './UserInput.style';
 
 interface UserImputProps {
   inputProps: InputPropsType;
