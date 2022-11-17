@@ -68,7 +68,7 @@ const InvestmentAccountList = () => {
       </Container>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <InvestmentAccountTableHead />
+          <InvestmentAccountTableHead pageType="InvestmentAccounts" />
           <InvestmentAccountItem data={defaultAccountListData} />
         </Table>
       </TableContainer>

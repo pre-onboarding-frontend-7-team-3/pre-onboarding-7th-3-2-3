@@ -1,95 +1,104 @@
-import { useState } from "react";
-import styled from "styled-components";
-import { TableContainer, Table, Paper } from "@mui/material";
-import InvestmentAccountItem from "../InvestmentAccountList/InvestmentAccountItem/InvestmentAccountItem";
-import InvestmentAccountTableHead from "../InvestmentAccountList/InvestmentAccountTableHead/InvestmentAccountTableHead";
-import UserDetailTableHead from "./UserDetailTableHead";
-import UserDetailTableItem from "./UserDetailTableItem";
-import useUserDetail from "./hooks/useUserDetail";
+import { useState } from 'react';
+import styled from 'styled-components';
 
-// TODO: any 수정
+import useUserDetail from './hooks/useUserDetail';
+import useEditComment from './hooks/useEditUserDetail';
+
+import InvestmentAccountItem from '../InvestmentAccountList/InvestmentAccountItem/InvestmentAccountItem';
+import InvestmentAccountTableHead from '../InvestmentAccountList/InvestmentAccountTableHead/InvestmentAccountTableHead';
+import UserInfoTable from './UserInfoTable';
+
+import { TableContainer, Table, Paper } from '@mui/material';
+
 type Props = {
-  id: any;
+  id: string;
 };
 
 const UserDetail = ({ id }: Props) => {
-  const [modify, setModify] = useState(false);
   const results = useUserDetail(id);
-  const isLoading = results.some((result) => result.isLoading);
+  const isLoading = results.some(result => result.isLoading);
+
   const [detailResult, accountsResult, settingResult] = results;
+
   const detail = detailResult.data?.data;
   const accounts = accountsResult.data;
   const setting = settingResult.data?.data;
 
-  const handleClick = () => {
-    setModify(!modify);
+  const [isEditing, setIsEditing] =
+    useState<React.SetStateAction<boolean>>(false);
+  const [inputState, setInputState] = useState<React.SetStateAction<string>>(
+    detail?.name
+  );
+
+  const clickEdit = () => {
+    setIsEditing(!isEditing);
   };
 
-  if (isLoading) return <h3>Loading...</h3>;
+  const clickCompleteEdit = () => {
+    onSaveUsedData();
+    setIsEditing(!isEditing);
+  };
+
+  const saveUsedData = useEditComment(id, { name: inputState });
+  const onSaveUsedData = () => {
+    saveUsedData.mutate();
+  };
+  // console.log(`DETAIL : `, detail);
+  if (isLoading) return <>Loading...</>;
   return (
-    <>
-      {!isLoading && (
-        <>
-          <TitleButtonWrapper>
-            <h1>사용자 정보</h1>
-            <button onClick={handleClick}>수정</button>
-          </TitleButtonWrapper>
-          <TableContainer>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-              <UserDetailTableHead
-                items={[
-                  "이름",
-                  "성별",
-                  "생년월일",
-                  "주소",
-                  "이메일",
-                  "핸드폰",
-                  "혜택 정보 수신",
-                  "활성화 여부",
-                  "가입 날짜",
-                  "최근 로그인",
-                ]}
-              />
-              <UserDetailTableItem
-                detail={detail}
-                setting={setting}
-                isModify={modify}
-              />
-            </Table>
-          </TableContainer>
-          <h1>증권 계좌 목록 : 총 {accounts?.data.length}개</h1>
-          {/* // TODO: InvestmentAccount 재사용하려면 수정 필요 */}
-          <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-              <InvestmentAccountTableHead />
-              <InvestmentAccountItem data={accounts} />
-            </Table>
-          </TableContainer>
-        </>
-      )}
-    </>
+    <Wrapper>
+      <Title>사용자 정보</Title>
+      <TableContainer>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          {detail && (
+            <UserInfoTable
+              detail={detail}
+              setting={setting}
+              isEditing={isEditing}
+              setInputState={setInputState}
+            />
+          )}
+        </Table>
+      </TableContainer>
+
+      <EditButton onClick={isEditing ? clickCompleteEdit : clickEdit}>
+        {isEditing ? '완료' : '수정'}
+      </EditButton>
+
+      <Title>{`증권 계좌 목록 (${accounts?.data.length}건)`}</Title>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <InvestmentAccountTableHead pageType="UserDetail" />
+          <InvestmentAccountItem data={accounts} />
+        </Table>
+      </TableContainer>
+    </Wrapper>
   );
 };
 
 export default UserDetail;
 
-const TitleButtonWrapper = styled.div`
-  ${({ theme }) => theme.flexDefault};
-  justify-content: space-between;
-
-  button {
-    font-size: 20px;
-  }
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
 `;
 
-/*
-  // const accountsData = {
-  //   data: {
-  //     user: {
-  //       id: 1,
-  //     },
-  //     ...accounts,
-  //   },
-  // };
-  //const { data, isLoading, isError } = useUserDetail(id);
-*/
+const Title = styled.span`
+  margin: 20px 0 10px 0;
+  color: black;
+  font-size: 20px;
+  font-weight: 700;
+`;
+
+const EditButton = styled.button`
+  width: 60px;
+  height: 32px;
+  margin: 10px 0;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid gray;
+  border-radius: 10px;
+  background-color: white;
+`;
