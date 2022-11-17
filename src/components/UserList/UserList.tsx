@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import * as S from "./UserList.style";
+import { useAtom } from "jotai";
 
 import { Table, TableContainer, Paper } from "@mui/material";
 import SearchInput from "../common/SearchInput/SearchInput";
@@ -12,23 +13,21 @@ import { formatBoolean } from "@src/utils/formatBoolean";
 import { maskingPhoneNumber, maskingUserName } from "@src/utils/processData";
 
 import NewUserModal from "../NewUserModal";
+import { userQueryParamsAtom } from "./atoms";
 
 const UserList = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [accountQueryParams, setAccountQueryParams] = useState({
-    pageLimit: currentPage,
-  });
+  const [userQueryParams, setUserQueryParams] = useAtom(userQueryParamsAtom);
+  const [isModalOpen, setIsModalOpen] = useState(false);  
+
   const maxPage = 5;
 
-  const { data, isLoading, isError } = useGetUserListQuery(accountQueryParams);
-  
+  const { data, isLoading, isError } = useGetUserListQuery(userQueryParams);
+
   const handleCurrentPage = (num: number) => {
-    setCurrentPage(num);
-    setAccountQueryParams(prev => {
+    setUserQueryParams((prev) => {
       return {
         ...prev,
-        pageLimit: num,
+        pageNum: num,
       };
     });
   };
@@ -66,10 +65,7 @@ const UserList = () => {
     <>
       <S.Container>
         <S.FilterContainer>
-          <SearchInput
-            onUpdateParams={setAccountQueryParams}
-            text="고객명 검색"
-          />
+          <SearchInput onUpdateParams={setUserQueryParams} text="고객명 검색" />
         </S.FilterContainer>
         <S.AddNewUserButton onClick={() => setIsModalOpen((prev) => !prev)}>
           신규 고객 추가
@@ -82,7 +78,7 @@ const UserList = () => {
         </Table>
       </TableContainer>
       <PagenationButton
-        currentPage={currentPage}
+        currentPage={userQueryParams.pageNum}
         maxPage={maxPage}
         handlePageNum={handleCurrentPage}
       />

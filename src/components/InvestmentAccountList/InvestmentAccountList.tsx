@@ -1,8 +1,11 @@
-import { accountQueryParamsAtom } from './atoms';
-import { useAtom } from 'jotai';
+import { accountQueryParamsAtom } from "./atoms";
+import { useAtom } from "jotai";
 import styled from "styled-components";
 import { Table, TableContainer, Paper } from "@mui/material";
-import { useGetAccountQuery } from "@src/components/InvestmentAccountList/Account-query/InvestmentAccount.query";
+import {
+  useGetAccountQuery,
+  usePrefetchAccountQuery,
+} from "@src/components/InvestmentAccountList/Account-query/InvestmentAccount.query";
 import InvestmentAccountTableHead from "./InvestmentAccountTableHead/InvestmentAccountTableHead";
 import InvestmentAccountItem from "./InvestmentAccountItem/InvestmentAccountItem";
 
@@ -11,15 +14,7 @@ import SearchInput from "../common/SearchInput/SearchInput";
 import PagenationButton from "./PagenationButton/PagenationButton";
 import { DROPDOWN_DATA } from "@src/constants/dropDownData";
 
-const PARAMETER_KEYS = {
-  keyword: "",
-  broker_id: "",
-  is_active: "",
-  status: "",
-};
-
 const InvestmentAccountList = () => {
-
   const [accountQueryParams, setAccountQueryParams] = useAtom(
     accountQueryParamsAtom
   );
@@ -28,7 +23,9 @@ const InvestmentAccountList = () => {
     data: defaultAccountListData,
     isLoading,
     isError,
-  } = useGetAccountQuery(accountQueryParams); 
+  } = useGetAccountQuery(accountQueryParams);
+
+  const {data : nextPage, isLoading2} = usePrefetchAccountQuery(accountQueryParams);
 
   const maxPage = defaultAccountListData?.data?.length;
 
@@ -48,11 +45,15 @@ const InvestmentAccountList = () => {
         <h3>error...</h3>
       </>
     );
+  console.log(nextPage, isLoading2);
 
   return (
     <>
       <Container>
-        <SearchInput onUpdateParams={setAccountQueryParams} text='계좌명 검색'/>
+        <SearchInput
+          onUpdateParams={setAccountQueryParams}
+          text="계좌명 검색"
+        />
         {DROPDOWN_DATA.map(({ id, name, data }) => (
           <Dropdown
             key={id}
