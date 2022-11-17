@@ -6,6 +6,7 @@ import { convertDate } from "@src/utils/convertDate";
 import { formatBoolean } from "@src/utils/formatBoolean";
 
 import { GENDER } from "@src/constants/tableData";
+import { USER_DETAIL_TABLE_CELL_DATA } from "@src/constants/tableData";
 
 import { UserDetailProps, UserSettingProps } from "./types";
 
@@ -25,16 +26,16 @@ interface Props {
 }
 
 interface defaultUserDataProps {
-  이름: string;
-  성별: string;
-  생년월일: string;
-  주소: string;
-  이메일: string;
-  핸드폰: string;
-  "혜택 정보 수신": string;
-  "활성화 여부": string;
-  "가입 날짜": string;
-  "최근 로그인": string;
+  name: string;
+  gender_origin: string;
+  birth_date: string;
+  address: string;
+  email: string;
+  phone_number: string;
+  allow_marketing_push: string;
+  is_active: string;
+  created_at: string;
+  last_login: string;
 }
 
 const UserInfoTable = ({
@@ -51,30 +52,30 @@ const UserInfoTable = ({
     return { readOnly: true };
   };
 
-  const editTargetArr = ["이름"];
+  const editTargetArr = ["name"];
 
   const inputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputState(e.target.value);
   };
 
   const defaultUserData: defaultUserDataProps = {
-    이름: detail.name,
-    성별: GENDER[detail.gender_origin],
-    생년월일: detail.birth_date.substring(0, 10),
-    주소: detail.address + detail.detail_address,
-    이메일: detail.email,
-    핸드폰: detail.phone_number,
-    "혜택 정보 수신": formatBoolean(setting.allow_marketing_push),
-    "활성화 여부": formatBoolean(setting.is_active),
-    "가입 날짜": detail.created_at.substring(0, 10),
-    "최근 로그인": convertDate(detail.last_login),
+    name: detail.name,
+    gender_origin: GENDER[detail.gender_origin],
+    birth_date: detail.birth_date.substring(0, 10),
+    address: detail.address + detail.detail_address,
+    email: detail.email,
+    phone_number: detail.phone_number,
+    allow_marketing_push: formatBoolean(setting.allow_marketing_push),
+    is_active: formatBoolean(setting.is_active),
+    created_at: detail.created_at.substring(0, 10),
+    last_login: convertDate(detail.last_login),
   };
 
   return (
     <>
       <TableHead css={{ backgroundColor: "white" }}>
         <TableRow>
-          {Object.keys(defaultUserData).map(
+          {USER_DETAIL_TABLE_CELL_DATA.map(
             (headData: ReactNode, idx: number) => {
               return (
                 <TableCell key={idx} align="center">
