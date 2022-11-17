@@ -1,4 +1,4 @@
-type TableDataType = { [key: string]: string };
+type TableDataType = Record<string, string>;
 
 export const STATUS_FORMAT: TableDataType = {
   "": "선택안함",
