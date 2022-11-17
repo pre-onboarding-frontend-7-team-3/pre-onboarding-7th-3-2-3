@@ -71,7 +71,7 @@ const UserInfoTable = ({
       created_at: detail.created_at.substring(0, 10),
       last_login: convertDate(detail.last_login),
     };
-  }, [detail, detail]);
+  }, [detail, setting]);
 
   return (
     <>
