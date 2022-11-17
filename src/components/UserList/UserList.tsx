@@ -32,15 +32,18 @@ const UserList = () => {
 
   // usePrefetchAccountList(currentPage, maxPage);
 
+
+  
   const handleCurrentPage = (num: number) => {
-    setCurrentPage(prev => prev + num);
+    setCurrentPage(num);
     setAccountQueryParams(prev => {
       return {
         ...prev,
-        pageLimit: currentPage + num,
+        pageLimit: num,
       };
     });
   };
+
   const userData = useMemo(
     () =>
       data?.data?.map((data: any) => ({
@@ -101,7 +104,7 @@ const UserList = () => {
       <PagenationButton
         currentPage={currentPage}
         maxPage={maxPage}
-        handleCurrentPage={handleCurrentPage}
+        handlePageNum={handleCurrentPage}
       />
       {isModalOpen && <NewUserModal setIsModalOpen={setIsModalOpen} />}
     </>
