@@ -5,7 +5,7 @@ import { useAtom } from "jotai";
 import { Table, TableContainer, Paper } from "@mui/material";
 
 import SearchInput from "../common/SearchInput/SearchInput";
-import PagenationButton from "../InvestmentAccountList/PagenationButton/PagenationButton";
+import PagenationButton from "../common/PagenationButton/PagenationButton";
 import {
   useDeleteUsers,
   useGetUserListQuery,
@@ -44,7 +44,6 @@ const UserList = () => {
     deleteUser(checked);
     setChecked([]);
   };
-
   const handleCurrentPage = (num: number) => {
     setUserQueryParams((prev) => {
       return {

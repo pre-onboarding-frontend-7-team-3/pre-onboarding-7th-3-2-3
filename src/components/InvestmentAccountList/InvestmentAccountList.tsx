@@ -11,7 +11,7 @@ import InvestmentAccountItem from "./InvestmentAccountItem/InvestmentAccountItem
 
 import Dropdown from "../common/Dropdown/Dropdown";
 import SearchInput from "../common/SearchInput/SearchInput";
-import PagenationButton from "./PagenationButton/PagenationButton";
+import PagenationButton from "../common/PagenationButton/PagenationButton";
 import { DROPDOWN_DATA } from "@src/constants/dropDownData";
 import Loader from "../common/Loader/Loader";
 
