@@ -13,7 +13,9 @@ export const maskingAccountNumber = (number: string) => {
   return originNumber.join("");
 };
 
-export const handleTableDataToSelectData = (query) => {
+export const handleTableDataToSelectData = (query: {
+  [key: string]: string | number;
+}) => {
   const result = [];
   for (const [key, value] of Object.entries(query)) {
     result.push({
@@ -33,4 +35,31 @@ export const formattingAccountNumber = (number: string, broker_id: string) => {
     originNumber = originNumber.slice(i.length);
   }
   return formattedNumber.slice(0, -1);
+};
+
+export const maskingPhoneNumber = (phoneNumber: string) => {
+  const isPhoneNumber = /-[0-9]{4}-/.test(phoneNumber);
+  if (!isPhoneNumber) return phoneNumber;
+  if (isPhoneNumber) {
+    return phoneNumber.replace(
+      phoneNumber,
+      phoneNumber.toString().replace(/-[0-9]{4}-/g, "-****-")
+    );
+  }
+};
+
+export const maskingUserName = (userName: string) => {
+  if (!userName) return;
+  if (userName.length > 2) {
+    let originName = userName.split("");
+    originName.forEach((_, i) => {
+      if (i === 0 || i === originName.length - 1) return;
+      originName[i] = "*";
+    });
+    let joinName = originName.join();
+    return joinName.replace(/,/g, "");
+  } else {
+    let pattern = /.$/;
+    return userName.replace(pattern, "*");
+  }
 };

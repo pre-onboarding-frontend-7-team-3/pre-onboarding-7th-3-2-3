@@ -1,14 +1,11 @@
-import clientAPI from '../../../libs/api/client';
-
-type Props = {
-  formData: object;
-};
+import clientAPI from "../../../libs/api/client";
+import { FormDataType } from "./NewUserModal.query";
 
 class NewUserModalRepository {
-  private baseQueryString: string = '/users';
+ private baseEndPoint: string = "/users";
 
-  createNewUser(formData: Props) {
-    return clientAPI.post(this.baseQueryString, formData);
+  createNewUser(formData: FormDataType) {
+    return clientAPI.post(this.baseEndPoint, formData);
   }
 }
 

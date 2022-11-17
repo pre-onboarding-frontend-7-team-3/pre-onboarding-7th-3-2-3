@@ -11,12 +11,17 @@ import { useCreateNewUserQuery } from './NewUserModal-query/NewUserModal.query';
 import { ErrorText } from './UserInput/UserInput.style';
 
 type Props = {
-  setIsModalOpen: Function;
+  setIsModalOpen: (toggleEvent: boolean) => void;
 };
 
 const NewUserModal = ({ setIsModalOpen }: Props) => {
-  const [genderOrigin, setGenderOrigin] = useState('');
-  const modalRef = useRef() as React.MutableRefObject<HTMLDivElement>;
+  const [genderOrigin, setGenderOrigin] = useState("");
+  const modalRef = useRef<HTMLFormElement>(null);
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  useUnmountIfClickedOutside(modalRef, handleCloseModal);
 
   const {
     setError,
@@ -44,7 +49,7 @@ const NewUserModal = ({ setIsModalOpen }: Props) => {
     handleEmailError
   );
 
-  const onCreateUser: SubmitHandler<FieldValues> = data => {
+  const onValid: SubmitHandler<FieldValues> = (data) => {
     const formData = {
       photo: data.file[0],
       gender_origin: genderOrigin,
@@ -63,8 +68,12 @@ const NewUserModal = ({ setIsModalOpen }: Props) => {
 
   return (
     <S.ViewPortContainer>
-      <S.ModalContainer onSubmit={handleSubmit(onCreateUser)} ref={modalRef}>
-        <input type="password" style={S.HiddenInput} />
+      <S.ModalContainer
+        onSubmit={handleSubmit(onValid)}
+        ref={modalRef}
+        autoComplete="false"
+      >
+        <input type="password" style={{ width: "0px", height: "0px" }} />
         {/* disable chrome autocompletion */}
         <S.Title>신규 고객 추가</S.Title>
         {NEW_USER_INPUT_DATA.slice(0, 4).map(inputProps => (

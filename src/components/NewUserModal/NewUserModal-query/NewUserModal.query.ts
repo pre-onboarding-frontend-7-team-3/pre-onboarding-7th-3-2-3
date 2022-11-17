@@ -2,15 +2,30 @@ import { AxiosError } from 'axios';
 import { useMutation } from '@tanstack/react-query';
 import NewUserModalRepository from './NewUserModal.repository';
 
+export type FormDataType = {
+  photo: HTMLImageElement;
+  gender_origin: string;
+  age: any;
+  name: string;
+  birth_date: string;
+  detail_address: string;
+  phone_number: string;
+  address: string;
+  email: string;
+  password: string;
+  created_at: Date;
+};
+
+
 export const useCreateNewUserQuery = (
   successCallback: () => void,
-  errorCallback: () => void
+  handleCloseModal: (toggleEvent: boolean) => void
 ) => {
   const { mutate } = useMutation(
-    formData => NewUserModalRepository.createNewUser(formData),
+    (formData: FormDataType) => NewUserModalRepository.createNewUser(formData),
     {
       onSuccess: res => {
-        successCallback();
+        handleCloseModal(false);
       },
       onError: (err: AxiosError) => {
         if (err.response?.data === 'Email already exists') {
