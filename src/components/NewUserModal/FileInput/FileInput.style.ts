@@ -1,6 +1,6 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 
-export const FileInputLabel = styled.label`
+export const FileInputLabel = styled.label<{ isFileUploaded: boolean }>`
   display: inline-block;
   padding: 8px 14px;
   border-radius: 20px;
@@ -9,8 +9,8 @@ export const FileInputLabel = styled.label`
   line-height: 16px;
 
   ${({ isFileUploaded }) => css`
-    background-color: ${isFileUploaded ? '#3c6dba' : '#eff2f5'};
-    color: ${isFileUploaded ? '#fff' : '#afafaf'};
+    background-color: ${isFileUploaded ? "#3c6dba" : "#eff2f5"};
+    color: ${isFileUploaded ? "#fff" : "#afafaf"};
   `}
 
   box-shadow: 0px 1px 3px rgba(9, 16, 55, 0.4);
