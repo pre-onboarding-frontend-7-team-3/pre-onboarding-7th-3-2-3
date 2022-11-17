@@ -17,19 +17,32 @@ type Props = {
 const NewUserModal = ({ setIsModalOpen }: Props) => {
   const [genderOrigin, setGenderOrigin] = useState('');
   const modalRef = useRef() as React.MutableRefObject<HTMLDivElement>;
-  const handleCloseModal = () => {
-    setIsModalOpen(prev => !prev);
-  };
-
-  useUnmountIfClickedOutside(modalRef, handleCloseModal);
 
   const {
+    setError,
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmitMutate = useCreateNewUserQuery(handleCloseModal);
+  const handleCloseModal = () => {
+    setIsModalOpen(prev => !prev);
+  };
+  
+  const handleEmailError = () => {
+    setError(
+      'email',
+      { type: 'focus', message: '이미 존재하는 이메일입니다' },
+      { shouldFocus: true }
+    );
+  };
+
+  useUnmountIfClickedOutside(modalRef, handleCloseModal);
+
+  const onSubmitMutate = useCreateNewUserQuery(
+    handleCloseModal,
+    handleEmailError
+  );
 
   const onCreateUser: SubmitHandler<FieldValues> = data => {
     const formData = {
