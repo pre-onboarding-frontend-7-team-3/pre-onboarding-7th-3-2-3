@@ -7,10 +7,11 @@ import useEditComment from "./hooks/useEditUserDetail";
 import Loader from "../common/Loader/Loader";
 
 import InvestmentAccountItem from "../InvestmentAccountList/InvestmentAccountItem/InvestmentAccountItem";
-import InvestmentAccountTableHead from "../InvestmentAccountList/InvestmentAccountTableHead/InvestmentAccountTableHead";
 import UserInfoTable from "./UserInfoTable";
 
 import { TableContainer, Table, Paper } from "@mui/material";
+import CustomTableHead from "../common/Table/CustomTableHead";
+import { USER_DETAL_ACCOUNT_LIST_TABLE_CELL_DATA } from "@src/constants/tableData";
 
 type Props = {
   id: string;
@@ -70,7 +71,7 @@ const UserDetail = ({ id }: Props) => {
       <Title>{`증권 계좌 목록 (${accounts?.data.length}건)`}</Title>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <InvestmentAccountTableHead pageType="UserDetail" />
+          <CustomTableHead data={USER_DETAL_ACCOUNT_LIST_TABLE_CELL_DATA} />
           <InvestmentAccountItem data={accounts} />
         </Table>
       </TableContainer>
