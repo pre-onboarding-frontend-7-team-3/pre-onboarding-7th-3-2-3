@@ -1,48 +1,50 @@
-export const STATUS_FORMAT: Record<string, string | number> = {
-  '': '필터제외',
-  9999: '관리자확인필요',
-  1: '입금대기',
-  2: '운용중',
-  3: '투자중지',
-  4: '해지',
+type TableDataType = Record<string, string>;
+
+export const STATUS_FORMAT: TableDataType = {
+  "": "선택안함",
+  9999: "관리자확인필요",
+  1: "입금대기",
+  2: "운용중",
+  3: "투자중지",
+  4: "해지",
 };
 
-export const BROKERS_FORMAT: Record<string, string> = {
-  '': '필터제외',
-  '209': '유안타증권',
-  '218': '현대증권',
-  '230': '미래에셋증권',
-  '238': '대우증권',
-  '240': '삼성증권',
-  '243': '한국투자증권',
-  '247': '우리투자증권',
-  '261': '교보증권',
-  '262': '하이투자증권',
-  '263': 'HMC투자증권',
-  '264': '키움증권',
-  '265': '이베스트투자증권',
-  '266': 'SK증권',
-  '267': '대신증권',
-  '268': '아이엠투자증권',
-  '269': '한화투자증권',
-  '270': '하나대투자증권',
-  '279': '동부증권',
-  '280': '유진투자증권',
-  '288': '카카오페이증권',
-  '287': '메리츠종합금융증권',
-  '290': '부국증권',
-  '291': '신영증권',
-  '292': 'LIG투자증권',
-  '271': '토스증권',
+export const BROKERS_FORMAT: TableDataType = {
+  "": "선택안함",
+  "209": "유안타증권",
+  "218": "현대증권",
+  "230": "미래에셋증권",
+  "238": "대우증권",
+  "240": "삼성증권",
+  "243": "한국투자증권",
+  "247": "우리투자증권",
+  "261": "교보증권",
+  "262": "하이투자증권",
+  "263": "HMC투자증권",
+  "264": "키움증권",
+  "265": "이베스트투자증권",
+  "266": "SK증권",
+  "267": "대신증권",
+  "268": "아이엠투자증권",
+  "269": "한화투자증권",
+  "270": "하나대투자증권",
+  "279": "동부증권",
+  "280": "유진투자증권",
+  "288": "카카오페이증권",
+  "287": "메리츠종합금융증권",
+  "290": "부국증권",
+  "291": "신영증권",
+  "292": "LIG투자증권",
+  "271": "토스증권",
 };
 
-export const IS_ACTIVE_FORMAT: Record<string, string> = {
-  '': '필터제외',
-  true: '활성화',
-  false: '비활성화',
+export const IS_ACTIVE_FORMAT: TableDataType = {
+  "": "선택",
+  true: "활성화",
+  false: "비활성화",
 };
 
-export const BROKER_FORMAT = {
+export const BROKER_FORMAT: TableDataType = {
   "209": "00-00000000-00",
   "218": "00-0000000-000",
   "230": "00-000000-0000",
@@ -98,18 +100,17 @@ export const BROKER_LIST = [
   "토스증권",
 ];
 
-
-export const IS_STAFF_FORMAT: Record<string, string> = {
-  '': '필터제외',
-  true: '임직원',
-  false: '고객',
+export const IS_STAFF_FORMAT: TableDataType = {
+  "": "선택",
+  true: "임직원",
+  false: "고객",
 };
 
-export const GENDER: Record<string, string> = {
-  1: '남',
-  2: '여',
-  3: '남',
-  4: '여',
+export const GENDER: TableDataType = {
+  1: "남",
+  2: "여",
+  3: "남",
+  4: "여",
 };
 
 export const USER_TABLE_CELL_DATA = [

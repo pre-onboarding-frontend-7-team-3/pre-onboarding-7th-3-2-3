@@ -1,8 +1,9 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Container = styled.div`
   ${({ theme }) => theme.flexDefault}
   justify-content: space-between;
+  margin-bottom: 10px;
 `;
 
 export const FilterContainer = styled.div`
@@ -22,6 +23,6 @@ export const AddNewUserButton = styled.button`
 `;
 
 export const customTableStyle = {
-  container: { minWidth: '1100px' },
+  container: { minWidth: "1100px" },
   table: { minWidth: 650 },
 };
