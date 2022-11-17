@@ -1,5 +1,5 @@
-export const STATUS_FORMAT: { [key: string]: string | number } = {
-  '': '선택안함',
+export const STATUS_FORMAT: Record<string, string | number> = {
+  '': '필터제외',
   9999: '관리자확인필요',
   1: '입금대기',
   2: '운용중',
@@ -7,8 +7,8 @@ export const STATUS_FORMAT: { [key: string]: string | number } = {
   4: '해지',
 };
 
-export const BROKERS_FORMAT: { [key: string]: string } = {
-  '': '선택안함',
+export const BROKERS_FORMAT: Record<string, string> = {
+  '': '필터제외',
   '209': '유안타증권',
   '218': '현대증권',
   '230': '미래에셋증권',
@@ -36,10 +36,10 @@ export const BROKERS_FORMAT: { [key: string]: string } = {
   '271': '토스증권',
 };
 
-export const IS_ACTIVE_FORMAT: { [key: string]: string } = {
-  '': '선택',
-  'true': '활성화',
-  'false': '비활성화',
+export const IS_ACTIVE_FORMAT: Record<string, string> = {
+  '': '필터제외',
+  true: '활성화',
+  false: '비활성화',
 };
 
 export const BROKER_FORMAT = {
@@ -98,13 +98,13 @@ export const BROKER_LIST = [
   '토스증권',
 ];
 
-export const IS_STAFF_FORMAT: { [key: string]: string } = {
-  '': '선택',
-  'true': '임직원',
-  'false': '고객',
-}
+export const IS_STAFF_FORMAT: Record<string, string> = {
+  '': '필터제외',
+  true: '임직원',
+  false: '고객',
+};
 
-export const GENDER: { [key: string]: string } = {
+export const GENDER: Record<string, string> = {
   1: '남',
   2: '여',
   3: '남',
@@ -112,14 +112,14 @@ export const GENDER: { [key: string]: string } = {
 };
 
 export const USER_TABLE_CELL_DATA = [
-  "고객명",
-  "계좌수",
-  "이메일 주소",
-  "성별",
-  "생년월일",
-  "휴대폰 번호",
-  "최근 로그인",
-  "수신 동의",
-  "계좌 활성화",
-  "가입일",
+  '고객명',
+  '계좌수',
+  '이메일 주소',
+  '성별',
+  '생년월일',
+  '휴대폰 번호',
+  '최근 로그인',
+  '수신 동의',
+  '계좌 활성화',
+  '가입일',
 ];
