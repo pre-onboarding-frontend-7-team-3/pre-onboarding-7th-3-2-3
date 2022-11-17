@@ -1,19 +1,19 @@
-import { accountQueryParamsAtom } from "./atoms";
-import { useAtom } from "jotai";
-import styled from "styled-components";
-import { Table, TableContainer, Paper, Button } from "@mui/material";
+import { accountQueryParamsAtom } from './atoms';
+import { useAtom } from 'jotai';
+import styled from 'styled-components';
+import { Table, TableContainer, Paper, Button } from '@mui/material';
 import {
   useGetAccountQuery,
   usePrefetchAccountQuery,
-} from "@src/components/InvestmentAccountList/Account-query/InvestmentAccount.query";
-import InvestmentAccountTableHead from "./InvestmentAccountTableHead/InvestmentAccountTableHead";
-import InvestmentAccountItem from "./InvestmentAccountItem/InvestmentAccountItem";
+} from '@src/components/InvestmentAccountList/Account-query/InvestmentAccount.query';
+import InvestmentAccountTableHead from './InvestmentAccountTableHead/InvestmentAccountTableHead';
+import InvestmentAccountItem from './InvestmentAccountItem/InvestmentAccountItem';
 
-import Dropdown from "../common/Dropdown/Dropdown";
-import SearchInput from "../common/SearchInput/SearchInput";
-import PagenationButton from "./PagenationButton/PagenationButton";
-import { DROPDOWN_DATA } from "@src/constants/dropDownData";
-import Loader from "../common/Loader/Loader";
+import Dropdown from '../common/Dropdown/Dropdown';
+import SearchInput from '../common/SearchInput/SearchInput';
+import PagenationButton from './PagenationButton/PagenationButton';
+import { DROPDOWN_DATA } from '@src/constants/dropDownData';
+import Loader from '../common/Loader/Loader';
 
 const InvestmentAccountList = () => {
   const [accountQueryParams, setAccountQueryParams] = useAtom(
@@ -30,7 +30,7 @@ const InvestmentAccountList = () => {
     usePrefetchAccountQuery(accountQueryParams).data?.data.length;
 
   const handlePageNum = (num: number) => {
-    setAccountQueryParams((prev) => {
+    setAccountQueryParams(prev => {
       return {
         ...prev,
         pageNum: num,
@@ -58,6 +58,7 @@ const InvestmentAccountList = () => {
         <SearchInput
           onUpdateParams={setAccountQueryParams}
           text="계좌명 검색"
+          accountQueryParams={accountQueryParams}
         />
         {DROPDOWN_DATA.map(({ id, name, data }) => (
           <Dropdown
@@ -69,7 +70,7 @@ const InvestmentAccountList = () => {
           />
         ))}
         <Button
-          sx={{ margin: "8px" }}
+          sx={{ margin: '8px' }}
           variant="contained"
           onClick={initDropDownFilters}
         >
