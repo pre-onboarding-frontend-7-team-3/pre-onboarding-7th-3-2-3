@@ -6,7 +6,7 @@ import { Table, TableContainer, Paper } from "@mui/material";
 
 import SearchInput from "../common/SearchInput/SearchInput";
 import PagenationButton from "../InvestmentAccountList/PagenationButton/PagenationButton";
-import { useGetUserListQuery } from "./UserList-query/UserList.query";
+import { useGetUserListQuery, usePrefetchUserListQuery } from "./UserList-query/UserList.query";
 import CustomTableBody from "../common/Table/CustomTableBody";
 import { GENDER, USER_TABLE_CELL_DATA } from "@src/constants/tableData";
 import CustomTableHead from "../common/Table/CustomTableHead";
@@ -19,9 +19,9 @@ const UserList = () => {
   const [userQueryParams, setUserQueryParams] = useAtom(userQueryParamsAtom);
   const [isModalOpen, setIsModalOpen] = useState(false);  
 
-  const maxPage = 5;
-
   const { data, isLoading, isError } = useGetUserListQuery(userQueryParams);
+
+  const isMaxPage = usePrefetchUserListQuery(userQueryParams).data?.data.length
 
   const handleCurrentPage = (num: number) => {
     setUserQueryParams((prev) => {
@@ -79,7 +79,7 @@ const UserList = () => {
       </TableContainer>
       <PagenationButton
         currentPage={userQueryParams.pageNum}
-        maxPage={maxPage}
+        isMaxPage={isMaxPage}
         handlePageNum={handleCurrentPage}
       />
       {isModalOpen && <NewUserModal setIsModalOpen={setIsModalOpen} />}
