@@ -8,22 +8,9 @@ type GetInvestmentAccount = {
   pageNum: number;
 };
 class InvestmentAccountRepository {
-  // private baseQueryString: string = '/accounts?_expand=user&q=';
-
-  // private getBrokerParamsById(id: string) {
-  //   return id && `&broker_id=${id}`;
-  // }
-
-  // private getIsActiveParams(is_active: boolean) {
-  //   return is_active && `&is_active=${is_active}`;
-  // }
-
-  // private getStatusString(status: string) {
-  //   return status && `&status=${status}`;
-  // }
-
   private getPageString(pageNum: number) {
     return `&_page=${pageNum}&_limit=20`;
+
   }
 
   private baseQueryString: string = '/accounts?_expand=user';

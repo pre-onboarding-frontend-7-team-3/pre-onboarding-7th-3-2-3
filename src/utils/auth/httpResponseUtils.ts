@@ -1,4 +1,4 @@
-import { USER_VALIDATION_ERRORS } from './validator';
+import { USER_VALIDATION_ERRORS } from '../validator';
 
 export const handleHTTPResponseError = res => {
   if (res.response?.data === 'Cannot find user')

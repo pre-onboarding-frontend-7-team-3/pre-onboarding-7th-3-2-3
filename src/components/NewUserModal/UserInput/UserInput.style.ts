@@ -10,3 +10,8 @@ export const UserInput = styled.input`
   background: #ffffff;
   color: #3c6dba;
 `;
+
+export const ErrorText = styled.div`
+  color: red;
+  font-size: 13px;
+`;
