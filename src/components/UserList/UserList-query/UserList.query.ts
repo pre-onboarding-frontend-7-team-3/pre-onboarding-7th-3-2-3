@@ -13,3 +13,22 @@ export const useGetUserListQuery = (userQueryParams: any) => {
     }
   );
 };
+
+export const usePrefetchUserListQuery = (accountQueryParams: any) => {
+  const accountPrefetchQueryParams = {
+    ...accountQueryParams,
+    pageNum: accountQueryParams.pageNum + 1,
+  };
+  return useQuery(
+    ["GetInvestmentAccount", accountPrefetchQueryParams],
+    () => {
+      return UserListRepository.getInvestmentAccount(
+        accountPrefetchQueryParams
+      );
+    },
+    {
+      staleTime: 2000,
+      keepPreviousData: true,
+    }
+  )
+};

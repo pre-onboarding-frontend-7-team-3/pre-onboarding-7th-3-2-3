@@ -5,16 +5,16 @@ type GetInvestmentAccount = {
   is_active?: boolean;
   status?: string;
   q?: string;
-  pageLimit: number;
+  pageNum: number;
 };
 class UserListRepository {
   private baseQueryString: string = 'users?_embed=userSetting';
 
-  getInvestmentAccount({ pageLimit, q }: GetInvestmentAccount) {
+  getInvestmentAccount({ pageNum, q }: GetInvestmentAccount) {
     return clientAPI.get(this.baseQueryString, {
       params: {
         name_like: q,
-        _page: pageLimit,
+        _page: pageNum,
         _limit: 20,
       },
     });

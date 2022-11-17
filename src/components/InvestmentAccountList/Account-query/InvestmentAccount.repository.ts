@@ -7,6 +7,7 @@ type GetInvestmentAccount = {
   keyword?: string;
   pageNum: number;
 };
+
 class InvestmentAccountRepository {
   private getPageString(pageNum: number) {
     return `&_page=${pageNum}&_limit=20`;
@@ -22,22 +23,15 @@ class InvestmentAccountRepository {
     }
     return params;
   }
-
   getInvestmentAccount(params: GetInvestmentAccount) {
     const paramsWithoutEmptyString = this.removeEmptyStringFromParams({
       ...params,
       pageNum: 0,
-    }); 
-
+    });
     const pageString = this.getPageString(params.pageNum);
     return clientAPI.get(this.baseQueryString + pageString, {
       params: paramsWithoutEmptyString,
     });
-  }
-
-  preFetchAccount(nextPage: number, maxPage: number) {
-    const pageString = this.getPageString(nextPage);
-    return clientAPI.get(this.baseQueryString + pageString);
   }
 }
 
