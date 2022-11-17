@@ -1,5 +1,6 @@
-import { useMutation } from "@tanstack/react-query";
-import NewUserModalRepository from "./NewUserModal.repository";
+import { AxiosError } from 'axios';
+import { useMutation } from '@tanstack/react-query';
+import NewUserModalRepository from './NewUserModal.repository';
 
 export type FormDataType = {
   photo: HTMLImageElement;
@@ -15,18 +16,22 @@ export type FormDataType = {
   created_at: Date;
 };
 
+
 export const useCreateNewUserQuery = (
+  successCallback: () => void,
   handleCloseModal: (toggleEvent: boolean) => void
 ) => {
   const { mutate } = useMutation(
     (formData: FormDataType) => NewUserModalRepository.createNewUser(formData),
     {
-      onSuccess: (res) => {
+      onSuccess: res => {
         handleCloseModal(false);
       },
-      onError: (err) => {
-        console.log(`ERR: `, err);
-        // TODO 에러 예외처리
+      onError: (err: AxiosError) => {
+        if (err.response?.data === 'Email already exists') {
+          return errorCallback();
+        }
+        alert('잠시 후 시도해 주세요');
       },
     }
   );

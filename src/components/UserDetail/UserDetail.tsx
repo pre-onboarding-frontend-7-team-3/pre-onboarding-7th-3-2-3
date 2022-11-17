@@ -1,14 +1,14 @@
-import { useState } from "react";
-import styled from "styled-components";
+import { useState } from 'react';
+import styled from 'styled-components';
 
-import useUserDetail from "./hooks/useUserDetail";
-import useEditComment from "./hooks/useEditUserDetail";
+import useUserDetail from './hooks/useUserDetail';
+import useEditComment from './hooks/useEditUserDetail';
 
-import InvestmentAccountItem from "../InvestmentAccountList/InvestmentAccountItem/InvestmentAccountItem";
-import InvestmentAccountTableHead from "../InvestmentAccountList/InvestmentAccountTableHead/InvestmentAccountTableHead";
-import UserInfoTable from "./UserInfoTable";
+import InvestmentAccountItem from '../InvestmentAccountList/InvestmentAccountItem/InvestmentAccountItem';
+import InvestmentAccountTableHead from '../InvestmentAccountList/InvestmentAccountTableHead/InvestmentAccountTableHead';
+import UserInfoTable from './UserInfoTable';
 
-import { TableContainer, Table, Paper } from "@mui/material";
+import { TableContainer, Table, Paper } from '@mui/material';
 
 type Props = {
   id: string;
@@ -16,7 +16,7 @@ type Props = {
 
 const UserDetail = ({ id }: Props) => {
   const results = useUserDetail(id);
-  const isLoading = results.some((result) => result.isLoading);
+  const isLoading = results.some(result => result.isLoading);
 
   const [detailResult, accountsResult, settingResult] = results;
 
@@ -43,24 +43,26 @@ const UserDetail = ({ id }: Props) => {
   const onSaveUsedData = () => {
     saveUsedData.mutate();
   };
-
+  // console.log(`DETAIL : `, detail);
   if (isLoading) return <>Loading...</>;
   return (
     <Wrapper>
       <Title>사용자 정보</Title>
       <TableContainer>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <UserInfoTable
-            detail={detail}
-            setting={setting}
-            isEditing={isEditing}
-            setInputState={setInputState}
-          />
+          {detail && (
+            <UserInfoTable
+              detail={detail}
+              setting={setting}
+              isEditing={isEditing}
+              setInputState={setInputState}
+            />
+          )}
         </Table>
       </TableContainer>
 
       <EditButton onClick={isEditing ? clickCompleteEdit : clickEdit}>
-        {isEditing ? "완료" : "수정"}
+        {isEditing ? '완료' : '수정'}
       </EditButton>
 
       <Title>{`증권 계좌 목록 (${accounts?.data.length}건)`}</Title>
@@ -80,13 +82,11 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-
   width: 100%;
 `;
 
 const Title = styled.span`
   margin: 20px 0 10px 0;
-
   color: black;
   font-size: 20px;
   font-weight: 700;
@@ -95,9 +95,7 @@ const Title = styled.span`
 const EditButton = styled.button`
   width: 60px;
   height: 32px;
-
   margin: 10px 0;
-
   font-size: 14px;
   font-weight: 600;
   border: 1px solid gray;

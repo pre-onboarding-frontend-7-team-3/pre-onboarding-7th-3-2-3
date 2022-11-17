@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 const UserTableItem = ({ data }: { data: any }) => {
   const navigate = useNavigate();
-  console.log(data);
+
   return (
     <TableBody>
       {data?.data.map((row: any, idx: number) => (

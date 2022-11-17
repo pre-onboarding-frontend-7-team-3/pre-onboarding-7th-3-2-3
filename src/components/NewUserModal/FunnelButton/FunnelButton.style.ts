@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const SelectedFunnelButton = styled.button`
   padding: 8px 14px;
   margin-right: 10px;
+  margin-bottom: 10px;
   border-radius: 20px;
   background: #3c6dba;
   color: #fff;

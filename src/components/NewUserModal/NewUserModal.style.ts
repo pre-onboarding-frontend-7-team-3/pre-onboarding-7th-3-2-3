@@ -47,6 +47,10 @@ export const Header = styled.div`
 `;
 
 export const FunnelButtonContainer = styled.div`
+  ${({ theme }) => theme.flexColumn}
+`;
+
+export const InnerContainer = styled.div`
   display: flex;
 `;
 
@@ -71,3 +75,8 @@ export const Button = styled.button`
   box-shadow: 0px 1px 2px rgba(9, 16, 55, 0.4);
   cursor: pointer;
 `;
+
+export const HiddenInput = {
+  width: '0px',
+  height: '0px',
+};

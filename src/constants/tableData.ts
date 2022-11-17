@@ -114,16 +114,16 @@ export const GENDER: TableDataType = {
 };
 
 export const USER_TABLE_CELL_DATA = [
-  "고객명",
-  "계좌수",
-  "이메일 주소",
-  "성별",
-  "생년월일",
-  "휴대폰 번호",
-  "최근 로그인",
-  "수신 동의",
-  "계좌 활성화",
-  "가입일",
+  '고객명',
+  '계좌수',
+  '이메일 주소',
+  '성별',
+  '생년월일',
+  '휴대폰 번호',
+  '최근 로그인',
+  '수신 동의',
+  '계좌 활성화',
+  '가입일',
 ];
 
 export const USER_DETAIL_TABLE_CELL_DATA = [
