@@ -25,10 +25,8 @@ const InvestmentAccountList = () => {
     isError,
   } = useGetAccountQuery(accountQueryParams);
 
-  const {data : nextPage, isLoading2} = usePrefetchAccountQuery(accountQueryParams);
-
-  const maxPage = defaultAccountListData?.data?.length;
-
+  const isMaxPage = usePrefetchAccountQuery(accountQueryParams).data?.data.length
+  
   const handlePageNum = (num: number) => {
     setAccountQueryParams((prev) => {
       return {
@@ -45,7 +43,6 @@ const InvestmentAccountList = () => {
         <h3>error...</h3>
       </>
     );
-  console.log(nextPage, isLoading2);
 
   return (
     <>
@@ -72,7 +69,7 @@ const InvestmentAccountList = () => {
       </TableContainer>
       <PagenationButton
         currentPage={accountQueryParams.pageNum}
-        maxPage={maxPage}
+        isMaxPage={isMaxPage}
         handlePageNum={handlePageNum}
       />
     </>

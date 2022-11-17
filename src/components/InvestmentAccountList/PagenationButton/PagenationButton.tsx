@@ -9,7 +9,7 @@ interface PagenationButtonType {
 
 const PagenationButton = ({
   currentPage,
-  maxPage,
+  isMaxPage,
   handlePageNum,
 }: PagenationButtonType) => {
   return (
@@ -26,7 +26,7 @@ const PagenationButton = ({
 
       <Button
         variant="contained"
-        disabled={currentPage >= maxPage}
+        disabled={isMaxPage == 0}
         onClick={() => handlePageNum(currentPage+1)}
       >
         Next page

@@ -1,4 +1,4 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import InvestmentAccountRepository from "./InvestmentAccount.repository";
 
 export const useGetAccountQuery = (accountQueryParams: any) => {
@@ -17,17 +17,20 @@ export const useGetAccountQuery = (accountQueryParams: any) => {
 };
 
 export const usePrefetchAccountQuery = (accountQueryParams: any) => {
-  const queryClient = useQueryClient();
   const accountPrefetchQueryParams = {
     ...accountQueryParams,
     pageNum: accountQueryParams.pageNum + 1,
   };
-  return queryClient.fetchQuery(
+  return useQuery(
     ["GetInvestmentAccount", accountPrefetchQueryParams],
     () => {
       return InvestmentAccountRepository.getInvestmentAccount(
         accountPrefetchQueryParams
       );
+    },
+    {
+      staleTime: 2000,
+      keepPreviousData: true,
     }
-  );
+  )
 };
