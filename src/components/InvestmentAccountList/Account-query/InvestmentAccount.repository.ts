@@ -27,22 +27,23 @@ class InvestmentAccountRepository {
   }
   private baseQueryString: string = '/accounts?_expand=user';
 
-  getInvestmentAccount({
-    broker_id,
-    is_active,
-    status,
-    keyword,
-    pageLimit,
-  }: GetInvestmentAccount) {
+  private removeEmptyStringFromParams(params: GetInvestmentAccount) {
+    for (const key of Object.keys(params)) {
+      if (params[key as keyof typeof params] === '') {
+        delete params[key as keyof typeof params];
+      }
+    }
+
+    return params;
+  }
+
+  getInvestmentAccount(params: GetInvestmentAccount) {
+    const paramsWithoutEmptyString = this.removeEmptyStringFromParams({
+      ...params,
+    });
+
     return clientAPI.get(this.baseQueryString, {
-      params: {
-        name_like: keyword,
-        broker_id,
-        is_active,
-        _page: pageLimit,
-        _limit: 20,
-        status,
-      },
+      params: paramsWithoutEmptyString,
     });
   }
 
