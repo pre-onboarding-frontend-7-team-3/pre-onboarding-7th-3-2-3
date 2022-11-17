@@ -1,20 +1,20 @@
-import { editUserName } from "@src/libs/api/user";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 
-const useEditComment = () => {
-  //   const queryClient = useQueryClient();
-  //   return useMutation({
-  //     mutationFn: (id: string, value: string) => editUserName(id, value),
-  //     mutationKey: "userEditName",
-  //     onSuccess: () => console.log("성공"),
-  //   });
+import clientAPI from "@src/libs/api/client";
+
+const useEditComment = (id: string, value: any) => {
+  return useMutation({
+    mutationFn: async () => {
+      await clientAPI.patch(
+        `${import.meta.env.VITE_SERVER_URL}/users/${id}`,
+        value
+      );
+    },
+    // TODO: recoil로 error처리
+    // onError: res => {
+    //   setServerAuthError(handleHTTPResponseError(res));
+    // },
+  });
 };
 
 export default useEditComment;
-/*
-(id: string, value: string) => editUserName(id, value), {
-    onSuccess: () => {
-      queryClient.invalidateQueries("userDetail", "userAccount", "userSetting");
-    },
-  }
-*/
