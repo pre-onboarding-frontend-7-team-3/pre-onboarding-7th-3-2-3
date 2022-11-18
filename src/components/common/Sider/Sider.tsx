@@ -17,7 +17,6 @@ const Sider = () => {
     cookies.remove("access_token");
     navigate(ROUTES.LOGIN);
   };
-
   return (
     <S.Container isSiderVisible={isSiderVisible}>
       <S.Heading>DnC</S.Heading>
