@@ -12,6 +12,7 @@
 
 - [실행 방법](#%EF%B8%8F-실행-방법)
 - [협업 과정](#-협업-과정)
+- [기능 시연](#%EF%B8%8F-기능-시연) 
 - [Best Practice 및 채택 근거](#%EF%B8%8F-best-practice-및-채택-근거)
 - [팀 코드 컨벤션](#-팀-코드-컨벤션)
 - [사용 기술](#-사용-기술)
@@ -41,6 +42,32 @@ $ npm run dev
 3. 소통 플랫폼으로 게더타운과 디스코드를 활용해서 협업을 진행했습니다.
 
 </br>
+
+## ☑️ 기능 시연
+
+   - [ ] 로그인
+
+   ![3-2 로그인](https://user-images.githubusercontent.com/78708082/202619559-6ae3d56a-c5b5-43c0-90d9-2b1ac4b553e3.gif)
+
+   
+   - [ ] 계좌 목록
+
+   ![3-2 계좌목록](https://user-images.githubusercontent.com/78708082/202619555-bc614507-a8e1-4e7b-9027-9268d3ec74f7.gif)
+
+
+   - [ ] 사용자 목록
+
+   ![3-2 사용자_목록](https://user-images.githubusercontent.com/78708082/202619561-51230727-0c32-4a07-89ad-9d9603a9664f.gif)
+
+
+   - [ ] 신규 사용자
+
+   ![3-2 고객_추가](https://user-images.githubusercontent.com/78708082/202619548-5d59b370-c62e-4f3c-b2e2-0b29757f8720.gif)
+
+
+   - [ ] 사용자 상세
+
+   ![3-2 시연_사용자_상세](https://user-images.githubusercontent.com/78708082/202619326-74325e21-0d79-4cc1-8f7c-f526f03e421c.gif)
 
 ## ☑️ Best Practice 및 채택 근거
 
