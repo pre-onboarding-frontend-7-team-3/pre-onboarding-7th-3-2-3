@@ -9,9 +9,9 @@ global.__rootDir = path.resolve(__dirname)
 const server = express();
 const router = jsonServer.router('db.json')
 
-server.use( cors({
+server.use(cors({
   origin: '*',
-}),)
+}))
 
 server.db = router.db
 const rules = auth.rewriter({
@@ -22,6 +22,7 @@ const rules = auth.rewriter({
 
 server.use(rules)
 server.use(auth)
+
 server.use('/api', router)
 
 server.use(express.static("dist"))

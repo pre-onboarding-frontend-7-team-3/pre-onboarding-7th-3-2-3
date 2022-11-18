@@ -1,22 +1,6 @@
 {
   "users": [
     {
-      "id": 2,
-      "uuid": "6c5b56af-a561-423d-8893-d586d5516b7c",
-      "photo": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/260.jpg",
-      "name": "Florence 추",
-      "email": ".@yahoo.co.kr",
-      "age": 44,
-      "gender_origin": 1,
-      "birth_date": "1976-08-22T19:04:50.344Z",
-      "phone_number": "010-6545-4726",
-      "address": "Belgium 안양구",
-      "detail_address": "50500 신정동 Apt. 073",
-      "last_login": "2022-02-19T01:43:32.934Z",
-      "created_at": "2019-09-19T16:13:58.044Z",
-      "updated_at": "2020-12-26T02:22:18.084Z"
-    },
-    {
       "id": 3,
       "uuid": "43833e8a-3d8a-43f1-9f3e-7ab5a8e4469c",
       "photo": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/650.jpg",
@@ -1605,17 +1589,6 @@
   ],
   "userSetting": [
     {
-      "id": 2,
-      "userId": 2,
-      "uuid": "6c5b56af-a561-423d-8893-d586d5516b7c",
-      "allow_marketing_push": false,
-      "allow_invest_push": false,
-      "is_active": false,
-      "is_staff": false,
-      "created_at": "2021-04-04T13:29:46.030Z",
-      "updated_at": "2021-10-09T06:25:42.103Z"
-    },
-    {
       "id": 3,
       "userId": 3,
       "uuid": "43833e8a-3d8a-43f1-9f3e-7ab5a8e4469c",
@@ -2695,20 +2668,6 @@
     }
   ],
   "accounts": [
-    {
-      "id": 1,
-      "userId": 2,
-      "uuid": "64980c27-6b9d-4906-8f5d-88f0b14b0efa",
-      "broker_id": "288",
-      "status": 2,
-      "number": "685335799905",
-      "name": "Money Market Account",
-      "assets": "505446929.91",
-      "payments": "53014117.15",
-      "is_active": true,
-      "created_at": "2021-10-14T22:31:48.478Z",
-      "updated_at": "2021-09-29T07:52:53.331Z"
-    },
     {
       "id": 1,
       "userId": 3,

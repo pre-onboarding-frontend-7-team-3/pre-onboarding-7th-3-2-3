@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "heroku-prebuild": "npm install && vite build",
-    "start": "mv dist server && cd server && npm install && npm run start",
+    "heroku-prebuild": "npm install && vite build && ls",
+    "start": "ls && mv dist server && cd server && npm install && npm run start",
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview"
@@ -41,7 +41,6 @@
     "@types/react": "^18.0.24",
     "@types/react-dom": "^18.0.8",
     "@types/styled-components": "^5.1.26",
-    "esbuild": "^0.15.14",
-    "typescript": "^4.9.3"
+    "esbuild": "^0.15.14"
   }
 }
