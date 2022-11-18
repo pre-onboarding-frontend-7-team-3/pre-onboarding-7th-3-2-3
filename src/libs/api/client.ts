@@ -1,6 +1,5 @@
 import axios from "axios";
 import Cookies from "universal-cookie";
-import { redirect } from "react-router-dom";
 
 const clientAPI = axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,

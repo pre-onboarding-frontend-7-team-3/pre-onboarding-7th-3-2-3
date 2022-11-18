@@ -1,6 +1,6 @@
-import { HashLoader } from "react-spinners";
+import { HashLoader } from 'react-spinners';
 
-import * as S from "./Loader.style";
+import * as S from './Loader.style';
 
 const Loader = () => {
   return (

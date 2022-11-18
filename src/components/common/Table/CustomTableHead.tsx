@@ -3,7 +3,7 @@ interface Props {
   data: string[];
   checkbox?: boolean;
 }
-// { data: string[] }
+
 const CustomTableHead = ({ data, checkbox }: Props) => {
   return (
     <TableHead>
