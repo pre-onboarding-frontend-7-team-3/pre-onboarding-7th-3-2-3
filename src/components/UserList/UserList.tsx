@@ -1,28 +1,25 @@
-import { useMemo, useState } from 'react';
-import * as S from './UserList.style';
-import { useAtom } from 'jotai';
+import { useMemo, useState } from "react";
+import * as S from "./UserList.style";
+import { useAtom } from "jotai";
 
-import { Table, TableContainer, Paper } from '@mui/material';
-
-import SearchInput from '../common/SearchInput/SearchInput';
-import PagenationButton from '../common/PagenationButton/PagenationButton';
+import { userQueryParamsAtom } from "./atoms";
 import {
   useDeleteUsers,
   useGetUserListQuery,
   usePrefetchUserListQuery,
-} from './UserList-query/UserList.query';
-import CustomTableBody from '../common/Table/CustomTableBody';
-import { GENDER, USER_TABLE_CELL_DATA } from '@src/constants/tableData';
-import CustomTableHead from '../common/Table/CustomTableHead';
-import { formatBoolean } from '@src/utils/formatBoolean';
-import { maskingPhoneNumber, maskingUserName } from '@src/utils/processData';
+} from "@src/shared/User-query/User.query";
 
-import NewUserModal from '../NewUserModal';
-import { userQueryParamsAtom } from './atoms';
-
-import Loader from '../common/Loader/Loader';
-
-import DeleteModal from '@src/components/UserList/DeleteModal';
+import { Table, TableContainer, Paper } from "@mui/material";
+import SearchInput from "../common/SearchInput/SearchInput";
+import PagenationButton from "../common/PagenationButton/PagenationButton";
+import CustomTableBody from "../common/Table/CustomTableBody";
+import { GENDER, USER_TABLE_CELL_DATA } from "@src/constants/tableData";
+import CustomTableHead from "../common/Table/CustomTableHead";
+import { formatBoolean } from "@src/utils/formatBoolean";
+import { maskingPhoneNumber, maskingUserName } from "@src/utils/processData";
+import NewUserModal from "../NewUserModal";
+import Loader from "../common/Loader/Loader";
+import DeleteModal from "@src/components/UserList/DeleteModal";
 
 const UserList = () => {
   const [userQueryParams, setUserQueryParams] = useAtom(userQueryParamsAtom);
@@ -30,17 +27,15 @@ const UserList = () => {
   const [isNewUserModalOpen, setIsNewUserModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-
   const [checked, setChecked] = useState<string[]>([]);
 
   const { data, isLoading, isError } = useGetUserListQuery(userQueryParams);
   const isMaxPage = usePrefetchUserListQuery(userQueryParams).data?.data.length;
   const { mutate: deleteUser } = useDeleteUsers();
 
-  
-  const handleCheck = (userId: string) => {
+  const handleAlreadyCheck = (userId: string) => {
     checked.includes(userId)
-      ? setChecked(checked.filter(el => el !== userId))
+      ? setChecked(checked.filter((el) => el !== userId))
       : setChecked([...checked, userId]);
   };
 
@@ -54,7 +49,7 @@ const UserList = () => {
   };
 
   const handleCurrentPage = (num: number) => {
-    setUserQueryParams(prev => {
+    setUserQueryParams((prev) => {
       return {
         ...prev,
         pageNum: num,
@@ -69,14 +64,14 @@ const UserList = () => {
         account_count: Math.floor(Math.random() * 10),
         email: data.email,
         gender_origin: GENDER[data.gender_origin],
-        birth_date: data?.birth_date?.split('').slice(0, 10),
+        birth_date: data?.birth_date?.split("").slice(0, 10),
         phone_number: maskingPhoneNumber(data?.phone_number),
-        last_login: data?.last_login?.split('').slice(0, 10),
+        last_login: data?.last_login?.split("").slice(0, 10),
         allow_marketing_push: formatBoolean(
           data?.userSetting[0]?.allow_invest_push
         ),
         is_active: formatBoolean(data?.userSetting[0]?.is_active),
-        created_at: data?.created_at?.split('').slice(0, 10),
+        created_at: data?.created_at?.split("").slice(0, 10),
         id: data.id,
         uuid: data.uuid,
       })),
@@ -94,7 +89,7 @@ const UserList = () => {
         </S.FilterContainer>
         <S.ButtonContainer>
           <S.Button onClick={onDeleteUserButtonClick}>삭제</S.Button>
-          <S.Button onClick={() => setIsNewUserModalOpen(prev => !prev)}>
+          <S.Button onClick={() => setIsNewUserModalOpen((prev) => !prev)}>
             신규 고객 추가
           </S.Button>
         </S.ButtonContainer>
@@ -105,7 +100,7 @@ const UserList = () => {
           <CustomTableBody
             data={userData}
             checkbox={true}
-            handleCheck={handleCheck}
+            handleCheck={handleAlreadyCheck}
           />
         </Table>
       </TableContainer>
@@ -122,8 +117,7 @@ const UserList = () => {
 
       <DeleteModal
         confirmDeleteUsers={confirmDeleteUsers}
-        
-        ={isDeleteModalOpen}
+        isDeleteModalOpen={isDeleteModalOpen}
         setIsDeleteModalOpen={setIsDeleteModalOpen}
       />
     </>
