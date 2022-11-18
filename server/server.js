@@ -6,6 +6,7 @@ const express = require('express')
 const path = require('path')
 global.__rootDir = path.resolve(__dirname)
 
+
 const server = express();
 const router = jsonServer.router('db.json')
 
@@ -31,6 +32,6 @@ server.get('/', (req, res) => {
   res.sendFile(__dirname+'/dist/index.html')
 })
 
-server.listen(4000, () => {
+server.listen( process.env.PORT || 5000, () => {
   console.log('JSON Server is running...')
 })
