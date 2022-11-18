@@ -1,9 +1,9 @@
-import styled from 'styled-components';
-import { Button } from '@mui/material';
+import styled from "styled-components";
+import { Button } from "@mui/material";
 
 interface PagenationButtonType {
   currentPage: number;
-  maxPage: number;
+  isMaxPage: number;
   handlePageNum: (num: number) => void;
 }
 
@@ -17,7 +17,7 @@ const PagenationButton = ({
       <Button
         variant="contained"
         disabled={currentPage <= 1}
-        onClick={() => handlePageNum(currentPage-1)}
+        onClick={() => handlePageNum(currentPage - 1)}
       >
         Previous page
       </Button>
@@ -27,7 +27,7 @@ const PagenationButton = ({
       <Button
         variant="contained"
         disabled={isMaxPage == 0}
-        onClick={() => handlePageNum(currentPage+1)}
+        onClick={() => handlePageNum(currentPage + 1)}
       >
         Next page
       </Button>

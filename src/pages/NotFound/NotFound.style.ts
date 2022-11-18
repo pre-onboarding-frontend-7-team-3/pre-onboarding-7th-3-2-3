@@ -1,3 +1,10 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-export const NotFoundText = styled.div``;
+export const Container = styled.main`
+  ${({ theme }) => theme.flexCenter}
+  flex-direction:column;
+  width: 100vw;
+  height: 100vh;
+`;
+
+export const NotFoundText = styled.h1``;

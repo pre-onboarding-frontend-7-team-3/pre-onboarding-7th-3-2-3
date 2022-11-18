@@ -10,7 +10,11 @@ export const FilterContainer = styled.div`
   ${({ theme }) => theme.flexDefault}
 `;
 
-export const AddNewUserButton = styled.button`
+export const ButtonContainer = styled.div`
+  ${({ theme }) => theme.flexDefault}
+`;
+
+export const Button = styled.button`
   ${({ theme }) => theme.flexCenter}
   min-width: 110px;
   padding: 8px 14px;

@@ -114,16 +114,28 @@ export const GENDER: TableDataType = {
 };
 
 export const USER_TABLE_CELL_DATA = [
-  '고객명',
-  '계좌수',
-  '이메일 주소',
-  '성별',
-  '생년월일',
-  '휴대폰 번호',
-  '최근 로그인',
-  '수신 동의',
-  '계좌 활성화',
-  '가입일',
+  "고객명",
+  "계좌수",
+  "이메일 주소",
+  "성별",
+  "생년월일",
+  "휴대폰 번호",
+  "최근 로그인",
+  "수신 동의",
+  "계좌 활성화",
+  "가입일",
+];
+
+export const ACCOUNT_TABLE_CELL_DATA = [
+  "고객명",
+  "브로커명",
+  "계좌번호",
+  "계좌상태",
+  "계좌명",
+  "평가금액",
+  "입금금액",
+  "계좌활성화",
+  "계좌개설일",
 ];
 
 export const USER_DETAIL_TABLE_CELL_DATA = [
@@ -137,4 +149,15 @@ export const USER_DETAIL_TABLE_CELL_DATA = [
   "활성화 여부",
   "가입 날짜",
   "최근 로그인",
+];
+
+export const USER_DETAL_ACCOUNT_LIST_TABLE_CELL_DATA = [
+  "브로커명",
+  "계좌번호",
+  "계좌상태",
+  "계좌명",
+  "평가금액",
+  "입금금액",
+  "계좌활성화",
+  "계좌개설일",
 ];

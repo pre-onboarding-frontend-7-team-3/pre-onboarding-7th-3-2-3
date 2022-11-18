@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import UserListRepository from "./UserList.repository";
 
 export const useGetUserListQuery = (userQueryParams: any) => {
@@ -30,5 +30,20 @@ export const usePrefetchUserListQuery = (accountQueryParams: any) => {
       staleTime: 2000,
       keepPreviousData: true,
     }
-  )
+  );
+};
+
+export const useDeleteUsers = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (checkedUserIds: string[]) => {
+      return await Promise.all(
+        checkedUserIds.map((userId) => UserListRepository.deleteUser(userId))
+      );
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["GetUserList"]);
+    },
+  });
 };

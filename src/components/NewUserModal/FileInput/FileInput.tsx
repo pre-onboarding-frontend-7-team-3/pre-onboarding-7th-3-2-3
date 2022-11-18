@@ -1,12 +1,26 @@
 import { useState } from 'react';
+import { UseFormRegister, FieldValues, FieldErrorsImpl } from 'react-hook-form';
 import * as S from './FileInput.style';
 import { ErrorText } from '../UserInput/UserInput.style';
 
-const FileInput = ({ register, errors }) => {
-  const [fileURL, setFileURL] = useState({});
-  const isFileUploaded = Object.keys(fileURL).length !== 0;
+interface FileInputrops {
+  errors: Partial<
+    FieldErrorsImpl<{
+      [x: string]: string[];
+    }>
+  >;
+  register: UseFormRegister<FieldValues>;
+}
 
-  const saveFileImage = event => {
+const FileInput = ({ register, errors }: FileInputrops) => {
+  const [fileURL, setFileURL] = useState({
+    url: '',
+    image: false,
+  });
+  const isFileUploaded = fileURL.image;
+
+  const saveFileImage = (event: any) => {
+    if (!event.target.files) return;
     if (event.target.files.length !== 0) {
       const imageFormat = event.target.files[0].type.includes('image');
 
@@ -16,7 +30,6 @@ const FileInput = ({ register, errors }) => {
       });
     }
   };
-
   return (
     <>
       <S.FileInputLabel

@@ -1,14 +1,17 @@
-import { useState } from 'react';
-import styled from 'styled-components';
+import { useState } from "react";
+import styled from "styled-components";
 
-import useUserDetail from './hooks/useUserDetail';
-import useEditComment from './hooks/useEditUserDetail';
+import useUserDetail from "./hooks/useUserDetail";
+import useEditComment from "./hooks/useEditUserDetail";
 
-import InvestmentAccountItem from '../InvestmentAccountList/InvestmentAccountItem/InvestmentAccountItem';
-import InvestmentAccountTableHead from '../InvestmentAccountList/InvestmentAccountTableHead/InvestmentAccountTableHead';
-import UserInfoTable from './UserInfoTable';
+import Loader from "../common/Loader/Loader";
 
-import { TableContainer, Table, Paper } from '@mui/material';
+import InvestmentAccountItem from "../InvestmentAccountList/InvestmentAccountItem/InvestmentAccountItem";
+import UserInfoTable from "./UserInfoTable";
+
+import { TableContainer, Table, Paper } from "@mui/material";
+import CustomTableHead from "../common/Table/CustomTableHead";
+import { USER_DETAL_ACCOUNT_LIST_TABLE_CELL_DATA } from "@src/constants/tableData";
 
 type Props = {
   id: string;
@@ -16,7 +19,7 @@ type Props = {
 
 const UserDetail = ({ id }: Props) => {
   const results = useUserDetail(id);
-  const isLoading = results.some(result => result.isLoading);
+  const isLoading = results.some((result) => result.isLoading);
 
   const [detailResult, accountsResult, settingResult] = results;
 
@@ -43,8 +46,8 @@ const UserDetail = ({ id }: Props) => {
   const onSaveUsedData = () => {
     saveUsedData.mutate();
   };
-  // console.log(`DETAIL : `, detail);
-  if (isLoading) return <>Loading...</>;
+
+  if (isLoading) return <Loader />;
   return (
     <Wrapper>
       <Title>사용자 정보</Title>
@@ -62,13 +65,13 @@ const UserDetail = ({ id }: Props) => {
       </TableContainer>
 
       <EditButton onClick={isEditing ? clickCompleteEdit : clickEdit}>
-        {isEditing ? '완료' : '수정'}
+        {isEditing ? "완료" : "수정"}
       </EditButton>
 
       <Title>{`증권 계좌 목록 (${accounts?.data.length}건)`}</Title>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <InvestmentAccountTableHead pageType="UserDetail" />
+          <CustomTableHead data={USER_DETAL_ACCOUNT_LIST_TABLE_CELL_DATA} />
           <InvestmentAccountItem data={accounts} />
         </Table>
       </TableContainer>
