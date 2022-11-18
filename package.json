@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "heroku-prebuild": "npm install && npx tsc && vite build",
+    "heroku-prebuild": "npm install && vite build",
     "start": "mv dist server && cd server && npm install && npm run start",
     "dev": "vite",
     "build": "tsc && vite build",
