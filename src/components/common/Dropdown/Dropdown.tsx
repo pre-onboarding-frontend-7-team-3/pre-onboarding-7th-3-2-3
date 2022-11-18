@@ -11,6 +11,7 @@ type Props = {
     is_active?: string;
     status?: string;
     pageNum?: number;
+    q?: string;
   };
   name: string;
   data: any;

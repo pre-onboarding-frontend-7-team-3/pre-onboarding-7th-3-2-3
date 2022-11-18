@@ -1,6 +1,6 @@
-import * as S from "./CustomTableBody.style";
-import { Checkbox, TableBody, TableCell, TableRow } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import * as S from './CustomTableBody.style';
+import { Checkbox, TableBody, TableCell, TableRow } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   data: { [key: string]: any }[];
@@ -31,7 +31,7 @@ const CustomTableBody = ({ data, checkbox, handleCheck }: Props) => {
           )}
           {Object.entries(row).map(([userRowkey, userRowVal], childIdx) => {
             switch (userRowkey) {
-              case "name":
+              case 'name':
                 return (
                   <TableCell
                     onClick={() => navigate(`/users/${data[parentIdx].id}`)}
@@ -44,9 +44,9 @@ const CustomTableBody = ({ data, checkbox, handleCheck }: Props) => {
                     {userRowVal}
                   </TableCell>
                 );
-              case "id":
-              case "uuid":
-                return "";
+              case 'id':
+              case 'uuid':
+                return '';
               default:
                 return (
                   <TableCell

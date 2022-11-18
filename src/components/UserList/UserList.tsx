@@ -22,9 +22,14 @@ import { userQueryParamsAtom } from './atoms';
 
 import Loader from '../common/Loader/Loader';
 
+import DeleteModal from '@src/components/UserList/DeleteModal';
+
 const UserList = () => {
   const [userQueryParams, setUserQueryParams] = useAtom(userQueryParamsAtom);
-  const [isModalOpen, setIsModalOpen] = useState(false);  
+
+  const [isNewUserModalOpen, setIsNewUserModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
 
   const [checked, setChecked] = useState<string[]>([]);
 
@@ -39,8 +44,11 @@ const UserList = () => {
       : setChecked([...checked, userId]);
   };
 
-  const handleClick = () => {
-    //await Promise.all(checked.map((userId) => mutate(userId)));
+  const onDeleteUserButtonClick = () => {
+    setIsDeleteModalOpen(true);
+  };
+
+  const confirmDeleteUsers = () => {
     deleteUser(checked);
     setChecked([]);
   };
@@ -85,8 +93,8 @@ const UserList = () => {
           <SearchInput onUpdateParams={setUserQueryParams} text="고객명 검색" />
         </S.FilterContainer>
         <S.ButtonContainer>
-          <S.Button onClick={handleClick}>삭제</S.Button>
-          <S.Button onClick={() => setIsModalOpen(prev => !prev)}>
+          <S.Button onClick={onDeleteUserButtonClick}>삭제</S.Button>
+          <S.Button onClick={() => setIsNewUserModalOpen(prev => !prev)}>
             신규 고객 추가
           </S.Button>
         </S.ButtonContainer>
@@ -106,7 +114,18 @@ const UserList = () => {
         isMaxPage={isMaxPage}
         handlePageNum={handleCurrentPage}
       />
-      {isModalOpen && <NewUserModal setIsModalOpen={setIsModalOpen} />}
+
+      <NewUserModal
+        isNewUserModalOpen={isNewUserModalOpen}
+        setIsNewUserModalOpen={setIsNewUserModalOpen}
+      />
+
+      <DeleteModal
+        confirmDeleteUsers={confirmDeleteUsers}
+        
+        ={isDeleteModalOpen}
+        setIsDeleteModalOpen={setIsDeleteModalOpen}
+      />
     </>
   );
 };

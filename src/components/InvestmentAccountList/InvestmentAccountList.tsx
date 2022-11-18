@@ -1,3 +1,5 @@
+
+
 import { accountQueryParamsAtom } from "./atoms";
 import { useAtom } from "jotai";
 import styled from "styled-components";
@@ -18,6 +20,7 @@ import { ACCOUNT_TABLE_CELL_DATA } from "@src/constants/tableData";
 
 import * as S from "../UserList/UserList.style";
 
+
 const InvestmentAccountList = () => {
   const [accountQueryParams, setAccountQueryParams] = useAtom(
     accountQueryParamsAtom
@@ -32,7 +35,7 @@ const InvestmentAccountList = () => {
   const isMaxPage = usePrefetchAccountQuery(accountQueryParams).data?.data.length
   
   const handlePageNum = (num: number) => {
-    setAccountQueryParams((prev) => {
+    setAccountQueryParams(prev => {
       return {
         ...prev,
         pageNum: num,
@@ -56,6 +59,7 @@ const InvestmentAccountList = () => {
 
   return (
     <>
+
       <S.Container>
         <S.FilterContainer>
           <SearchInput
@@ -80,6 +84,7 @@ const InvestmentAccountList = () => {
           </Button>
         </S.FilterContainer>
       </S.Container>
+
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <CustomTableHead data={ACCOUNT_TABLE_CELL_DATA} />
