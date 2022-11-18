@@ -36,7 +36,6 @@ export const usePrefetchUserListQuery = (accountQueryParams: any) => {
       staleTime: 10 * 60 * 1000,
       cacheTime: 30 * 60 * 1000,
       keepPreviousData: true,
-      suspense: true,
     }
   );
 };
@@ -90,14 +89,17 @@ export const useEditUserName = (id: string, value: any) => {
 };
 
 export const useCreateNewUser = (
-  errorCallback: () => void,
-  handleCloseModal: (toggleEvent: boolean) => void
+  handleCloseModal: (toggleEvent: boolean) => void,
+  errorCallback: () => void
 ) => {
+  const queryClient = useQueryClient();
+
   const { mutate } = useMutation(
     (formData: FormDataType) => UserRepository.createNewUser(formData),
     {
       onSuccess: (res) => {
         handleCloseModal(false);
+        queryClient.invalidateQueries(["GetUserList"]);
       },
       onError: (err: AxiosError) => {
         if (err.response?.data === "Email already exists") {
