@@ -4,6 +4,7 @@ const cors = require('cors')
 const auth = require('json-server-auth')
 const express = require('express')
 const path = require('path')
+global.__rootDir = path.resolve(__dirname)
 
 const server = express();
 const router = jsonServer.router('db.json')
@@ -23,10 +24,10 @@ server.use(rules)
 server.use(auth)
 server.use('/api', router)
 
-server.use(express.static("build"))
+server.use(express.static("dist"))
 
 server.get('/', (req, res) => {
-  res.sendFile('/build/index.html')
+  res.sendFile(__dirname+'/dist/index.html')
 })
 
 server.listen(4000, () => {
