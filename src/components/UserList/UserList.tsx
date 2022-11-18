@@ -5,7 +5,7 @@ import { useAtom } from 'jotai';
 import { Table, TableContainer, Paper } from '@mui/material';
 
 import SearchInput from '../common/SearchInput/SearchInput';
-import PagenationButton from '../InvestmentAccountList/PagenationButton/PagenationButton';
+import PagenationButton from '../common/PagenationButton/PagenationButton';
 import {
   useDeleteUsers,
   useGetUserListQuery,
@@ -24,15 +24,15 @@ import Loader from '../common/Loader/Loader';
 
 const UserList = () => {
   const [userQueryParams, setUserQueryParams] = useAtom(userQueryParamsAtom);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);  
 
   const [checked, setChecked] = useState<string[]>([]);
 
   const { data, isLoading, isError } = useGetUserListQuery(userQueryParams);
   const isMaxPage = usePrefetchUserListQuery(userQueryParams).data?.data.length;
   const { mutate: deleteUser } = useDeleteUsers();
-  // usePrefetchAccountList(currentPage, maxPage);
 
+  
   const handleCheck = (userId: string) => {
     checked.includes(userId)
       ? setChecked(checked.filter(el => el !== userId))
