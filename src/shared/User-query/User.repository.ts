@@ -1,9 +1,9 @@
-import clientAPI from "@src/libs/api/client";
-import { FormDataType, GetInvestmentAccount } from "./User.model";
+import clientAPI from '@src/libs/api/client';
+import { FormDataType, GetInvestmentAccount } from './User.model';
 
 class UserRepository {
   getUserList({ pageNum, q }: GetInvestmentAccount) {
-    return clientAPI.get("/users?_embed=userSetting", {
+    return clientAPI.get('/users?_embed=userSetting', {
       params: {
         name_like: q,
         _page: pageNum,
@@ -16,7 +16,7 @@ class UserRepository {
     return clientAPI.delete(`/users/${userId}`);
   }
 
-  editUserName = (id: string, value: any) => {
+  editUserName = (id: string, value: string) => {
     return clientAPI.patch(`/users/${id}`, value);
   };
 
@@ -37,7 +37,7 @@ class UserRepository {
   };
 
   createNewUser(formData: FormDataType) {
-    return clientAPI.post("/users", formData);
+    return clientAPI.post('/users', formData);
   }
 }
 

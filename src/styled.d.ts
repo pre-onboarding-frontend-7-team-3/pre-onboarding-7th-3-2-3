@@ -6,12 +6,12 @@ declare module 'styled-components' {
     flexDefault: ThemedCssFunction;
     flexColumn: ThemedCssFunction;
     bg: {
-      white?: string;
       lightBlue?: string;
       darkBlue?: string;
       grey?: string;
       blue?: string;
       lightGrey?: string;
+      white?: string;
     };
   }
 }

@@ -1,9 +1,14 @@
 import clientAPI from '../../../libs/api/client';
 
+type Props = {
+  email: string;
+  password: string;
+};
+
 class LoginRepository {
   private baseQueryString: string = '/login';
 
-  handleLogin(authInputs) {
+  handleLogin(authInputs: Props) {
     return clientAPI.post(this.baseQueryString, authInputs);
   }
 }

@@ -1,25 +1,21 @@
-
-
-import { accountQueryParamsAtom } from "./atoms";
-import { useAtom } from "jotai";
-import styled from "styled-components";
-import { Table, TableContainer, Paper,Button } from "@mui/material";
+import { accountQueryParamsAtom } from './atoms';
+import { useAtom } from 'jotai';
+import { Table, TableContainer, Paper, Button } from '@mui/material';
 import {
   useGetAccountQuery,
   usePrefetchAccountQuery,
-} from "@src/components/InvestmentAccountList/Account-query/InvestmentAccount.query";
-import InvestmentAccountItem from "./InvestmentAccountItem/InvestmentAccountItem";
+} from '@src/components/InvestmentAccountList/Account-query/InvestmentAccount.query';
+import InvestmentAccountItem from './InvestmentAccountItem/InvestmentAccountItem';
 
-import Dropdown from "../common/Dropdown/Dropdown";
-import SearchInput from "../common/SearchInput/SearchInput";
-import PagenationButton from "../common/PagenationButton/PagenationButton";
-import { DROPDOWN_DATA } from "@src/constants/dropDownData";
-import Loader from "../common/Loader/Loader";
-import CustomTableHead from "../common/Table/CustomTableHead";
-import { ACCOUNT_TABLE_CELL_DATA } from "@src/constants/tableData";
+import Dropdown from '../common/Dropdown/Dropdown';
+import SearchInput from '../common/SearchInput/SearchInput';
+import PagenationButton from '../common/PagenationButton/PagenationButton';
+import { DROPDOWN_DATA } from '@src/constants/dropDownData';
+import Loader from '../common/Loader/Loader';
+import CustomTableHead from '../common/Table/CustomTableHead';
+import { ACCOUNT_TABLE_CELL_DATA } from '@src/constants/tableData';
 
-import * as S from "../UserList/UserList.style";
-
+import * as S from '../UserList/UserList.style';
 
 const InvestmentAccountList = () => {
   const [accountQueryParams, setAccountQueryParams] = useAtom(
@@ -32,8 +28,9 @@ const InvestmentAccountList = () => {
     isError,
   } = useGetAccountQuery(accountQueryParams);
 
-  const isMaxPage = usePrefetchAccountQuery(accountQueryParams).data?.data.length
-  
+  const isMaxPage =
+    usePrefetchAccountQuery(accountQueryParams).data?.data.length;
+
   const handlePageNum = (num: number) => {
     setAccountQueryParams(prev => {
       return {
@@ -59,7 +56,6 @@ const InvestmentAccountList = () => {
 
   return (
     <>
-
       <S.Container>
         <S.FilterContainer>
           <SearchInput
@@ -76,7 +72,7 @@ const InvestmentAccountList = () => {
             />
           ))}
           <Button
-            sx={{ margin: "8px" }}
+            sx={{ margin: '8px' }}
             variant="contained"
             onClick={initDropDownFilters}
           >
@@ -101,7 +97,3 @@ const InvestmentAccountList = () => {
 };
 
 export default InvestmentAccountList;
-
-const Container = styled.div`
-  ${({ theme }) => theme.flexDefault}
-`;

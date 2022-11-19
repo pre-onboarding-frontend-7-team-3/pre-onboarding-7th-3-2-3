@@ -9,7 +9,7 @@ export interface GetInvestmentAccount {
 export interface FormDataType {
   photo: HTMLImageElement;
   gender_origin: string;
-  age: any;
+  age: number;
   name: string;
   birth_date: string;
   detail_address: string;
