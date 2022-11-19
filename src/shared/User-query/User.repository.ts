@@ -1,8 +1,8 @@
 import clientAPI from '@src/libs/api/client';
-import { FormDataType, GetInvestmentAccount } from './User.model';
+import { FormDataType, userQueryParamsProps } from './User.model';
 
 class UserRepository {
-  getUserList({ pageNum, q }: GetInvestmentAccount) {
+  getUserList({ q, pageNum }: userQueryParamsProps) {
     return clientAPI.get('/users?_embed=userSetting', {
       params: {
         name_like: q,

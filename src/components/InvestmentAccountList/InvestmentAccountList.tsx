@@ -4,7 +4,7 @@ import { Table, TableContainer, Paper, Button } from '@mui/material';
 import {
   useGetAccountQuery,
   usePrefetchAccountQuery,
-} from '@src/components/InvestmentAccountList/Account-query/InvestmentAccount.query';
+} from '@src/shared/Account-query/Account.query';
 import InvestmentAccountItem from './InvestmentAccountItem/InvestmentAccountItem';
 
 import Dropdown from '../common/Dropdown/Dropdown';
