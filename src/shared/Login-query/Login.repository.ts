@@ -1,9 +1,10 @@
-import clientAPI from '../../../libs/api/client';
+import clientAPI from '@src/libs/api/client';
+import { authInputProps } from './Login.model';
 
 class LoginRepository {
   private baseQueryString: string = '/login';
 
-  handleLogin(authInputs) {
+  handleLogin(authInputs: authInputProps) {
     return clientAPI.post(this.baseQueryString, authInputs);
   }
 }

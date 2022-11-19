@@ -1,7 +1,4 @@
-export interface GetInvestmentAccount {
-  broker_id?: string;
-  is_active?: boolean;
-  status?: string;
+export interface userQueryParamsProps {
   q?: string;
   pageNum: number;
 }
@@ -9,7 +6,7 @@ export interface GetInvestmentAccount {
 export interface FormDataType {
   photo: HTMLImageElement;
   gender_origin: string;
-  age: any;
+  age: number;
   name: string;
   birth_date: string;
   detail_address: string;

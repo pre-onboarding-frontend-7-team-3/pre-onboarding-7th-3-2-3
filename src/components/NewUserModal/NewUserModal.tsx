@@ -1,22 +1,23 @@
-import React, { useState, useRef } from "react";
-import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
-import UserInput from "./UserInput/UserInput";
-import FunnelButton from "./FunnelButton/FunnelButton";
-import FileInput from "./FileInput/FileInput";
-import { GENDER_DATA } from "../../constants/funnelButtonData";
-import useUnmountIfClickedOutside from "../../hooks/useUnmountIfClickedOutside";
-import { NEW_USER_INPUT_DATA } from "../../constants/NewUserInputData";
-import * as S from "./NewUserModal.style";
-import { ErrorText } from "./UserInput/UserInput.style";
-import { useCreateNewUser } from "@src/shared/User-query/User.query";
+import React, { useState, useRef } from 'react';
+import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
+import * as S from './NewUserModal.style';
 
-type Props = {
-  isNewUserModalOpen: boolean;
-  setIsNewUserModalOpen: (toggleEvent: boolean) => void;
-};
+import UserInput from './UserInput/UserInput';
+import FunnelButton from './FunnelButton/FunnelButton';
+import FileInput from './FileInput/FileInput';
+import { GENDER_DATA } from '@src/constants/funnelButtonData';
+import { NEW_USER_INPUT_DATA } from '@src/constants/NewUserInputData';
+import { ErrorText } from './UserInput/UserInput.style';
 
-const NewUserModal = ({ isNewUserModalOpen, setIsNewUserModalOpen }: Props) => {
-  const [genderOrigin, setGenderOrigin] = useState("");
+import { useCreateNewUser } from '@src/shared/User-query/User.query';
+import useUnmountIfClickedOutside from '@src/hooks/useUnmountIfClickedOutside';
+
+interface IProps {
+  setIsNewUserModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const NewUserModal = ({ setIsNewUserModalOpen }: IProps) => {
+  const [genderOrigin, setGenderOrigin] = useState('');
   const modalRef = useRef<HTMLFormElement>(null);
   const handleCloseModal = () => {
     setIsNewUserModalOpen(false);
@@ -33,42 +34,42 @@ const NewUserModal = ({ isNewUserModalOpen, setIsNewUserModalOpen }: Props) => {
 
   const handleEmailError = () => {
     setError(
-      "email",
-      { type: "focus", message: "이미 존재하는 이메일입니다" },
+      'email',
+      { type: 'focus', message: '이미 존재하는 이메일입니다' },
       { shouldFocus: true }
     );
   };
 
   const onSubmitMutate = useCreateNewUser(handleCloseModal, handleEmailError);
 
-  const onValid: SubmitHandler<FieldValues> = (data) => {
+  const onSubmitNewUserForm: SubmitHandler<FieldValues> = formInput => {
     const formData = {
-      photo: data.file[0],
+      photo: formInput.file[0],
       gender_origin: genderOrigin,
-      age: data.age,
-      name: data.name,
-      birth_date: data.birth_date,
-      detail_address: data.detail_address,
-      phone_number: data.phone_number,
-      address: data.address,
-      email: data.email,
-      password: data.password,
+      age: formInput.age,
+      name: formInput.name,
+      birth_date: formInput.birth_date,
+      detail_address: formInput.detail_address,
+      phone_number: formInput.phone_number,
+      address: formInput.address,
+      email: formInput.email,
+      password: formInput.password,
       created_at: new Date(),
     };
     onSubmitMutate(formData);
   };
 
-  return isNewUserModalOpen ? (
+  return (
     <S.ViewPortContainer>
       <S.ModalContainer
-        onSubmit={handleSubmit(onValid)}
+        onSubmit={handleSubmit(onSubmitNewUserForm)}
         ref={modalRef}
         autoComplete="false"
       >
-        <input type="password" style={{ width: "0px", height: "0px" }} />
+        <input type="password" style={{ width: '0px', height: '0px' }} />
         {/* disable chrome autocompletion */}
         <S.Title>신규 고객 추가</S.Title>
-        {NEW_USER_INPUT_DATA.slice(0, 4).map((inputProps) => (
+        {NEW_USER_INPUT_DATA.slice(0, 4).map(inputProps => (
           <React.Fragment key={inputProps.id}>
             <S.Header>{inputProps.text}</S.Header>
             <UserInput
@@ -96,7 +97,7 @@ const NewUserModal = ({ isNewUserModalOpen, setIsNewUserModalOpen }: Props) => {
         </S.FunnelButtonContainer>
         <S.Header>프로필 사진</S.Header>
         <FileInput register={register} errors={errors} />
-        {NEW_USER_INPUT_DATA.slice(4, 8).map((inputProps) => (
+        {NEW_USER_INPUT_DATA.slice(4, 8).map(inputProps => (
           <React.Fragment key={inputProps.id}>
             <S.Header>{inputProps.text}</S.Header>
             <UserInput
@@ -112,7 +113,7 @@ const NewUserModal = ({ isNewUserModalOpen, setIsNewUserModalOpen }: Props) => {
         </S.ButtonContainer>
       </S.ModalContainer>
     </S.ViewPortContainer>
-  ) : null;
+  );
 };
 
 export default NewUserModal;

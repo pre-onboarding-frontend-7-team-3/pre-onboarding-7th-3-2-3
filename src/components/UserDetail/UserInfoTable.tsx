@@ -1,14 +1,14 @@
 /** @jsxImportSource @emotion/react */
-import { ReactNode, useMemo } from "react";
-import { css } from "@emotion/react";
+import { Dispatch, SetStateAction, ReactNode, useMemo } from 'react';
+import { css } from '@emotion/react';
 
-import { convertDate } from "@src/utils/convertDate";
-import { formatBoolean } from "@src/utils/formatBoolean";
+import { convertDate } from '@src/utils/convertDate';
+import { formatBoolean } from '@src/utils/formatBoolean';
 
-import { GENDER } from "@src/constants/tableData";
-import { USER_DETAIL_TABLE_CELL_DATA } from "@src/constants/tableData";
+import { GENDER } from '@src/constants/tableData';
+import { USER_DETAIL_TABLE_CELL_DATA } from '@src/constants/tableData';
 
-import { UserDetailProps, UserSettingProps } from "./types";
+import { UserDetailProps, UserSettingProps } from './types';
 
 import {
   TableBody,
@@ -16,13 +16,13 @@ import {
   TableHead,
   TableRow,
   InputBase,
-} from "@mui/material";
+} from '@mui/material';
 
 interface Props {
   detail: UserDetailProps;
   setting: UserSettingProps;
-  isEditing: any;
-  setInputState: any;
+  isEditing: React.SetStateAction<boolean>;
+  setInputState: Dispatch<SetStateAction<string>>;
 }
 
 interface defaultUserDataProps {
@@ -52,7 +52,7 @@ const UserInfoTable = ({
     return { readOnly: true };
   };
 
-  const editTargetArr = ["name"];
+  const editTargetArr = ['name'];
 
   const inputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputState(e.target.value);
@@ -74,7 +74,7 @@ const UserInfoTable = ({
   }, [detail, setting]);
   return (
     <>
-      <TableHead css={{ backgroundColor: "white" }}>
+      <TableHead css={{ backgroundColor: 'white' }}>
         <TableRow>
           {USER_DETAIL_TABLE_CELL_DATA.map(
             (headData: ReactNode, idx: number) => {
@@ -88,7 +88,7 @@ const UserInfoTable = ({
         </TableRow>
       </TableHead>
 
-      <TableBody css={{ backgroundColor: "white" }}>
+      <TableBody css={{ backgroundColor: 'white' }}>
         <TableRow>
           {Object.entries(defaultUserData).map(
             ([head, body]: Array<string>, idx: number) => {
@@ -115,7 +115,7 @@ export default UserInfoTable;
 const inputStyle = (isEditing: any) => css`
   height: 30px;
   padding: 2px 0;
-  color: "#3A474E";
+  color: '#3A474E';
   font-size: 14px;
   font-weight: 500;
   ${isEditing &&

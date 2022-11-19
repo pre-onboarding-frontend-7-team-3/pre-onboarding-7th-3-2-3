@@ -1,6 +1,8 @@
+import { AxiosError } from 'axios';
 import { USER_VALIDATION_ERRORS } from '../validator';
 
-export const handleHTTPResponseError = res => {
+export const handleHTTPResponseError = (res: AxiosError) => {
+  console.log(res);
   if (res.response?.data === 'Cannot find user')
     return USER_VALIDATION_ERRORS.USER_NOT_FOUND;
   if (res.response?.data === 'Incorrect password')

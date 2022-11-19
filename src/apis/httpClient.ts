@@ -1,4 +1,4 @@
-import axios, { type AxiosError, type AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 
 interface IHttpClient {
   request<T extends Promise<Response>>({

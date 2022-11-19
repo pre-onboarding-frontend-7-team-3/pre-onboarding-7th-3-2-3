@@ -3,14 +3,14 @@ import {
   useQueries,
   useQuery,
   useQueryClient,
-} from "@tanstack/react-query";
-import { AxiosError } from "axios";
-import { FormDataType } from "./User.model";
-import UserRepository from "./User.repository";
+} from '@tanstack/react-query';
+import { AxiosError } from 'axios';
+import { userQueryParamsProps, FormDataType } from './User.model';
+import UserRepository from './User.repository';
 
-export const useGetUserListQuery = (userQueryParams: any) => {
+export const useGetUserListQuery = (userQueryParams: userQueryParamsProps) => {
   return useQuery(
-    ["GetUserList", userQueryParams],
+    ['GetUserList', userQueryParams],
     () => {
       return UserRepository.getUserList(userQueryParams);
     },
@@ -22,13 +22,15 @@ export const useGetUserListQuery = (userQueryParams: any) => {
   );
 };
 
-export const usePrefetchUserListQuery = (accountQueryParams: any) => {
+export const usePrefetchUserListQuery = (
+  userQueryParams: userQueryParamsProps
+) => {
   const accountPrefetchQueryParams = {
-    ...accountQueryParams,
-    pageNum: accountQueryParams.pageNum + 1,
+    ...userQueryParams,
+    pageNum: userQueryParams.pageNum + 1,
   };
   return useQuery(
-    ["GetPrefetUserList", accountPrefetchQueryParams],
+    ['GetPrefetUserList', accountPrefetchQueryParams],
     () => {
       return UserRepository.getUserList(accountPrefetchQueryParams);
     },
@@ -46,11 +48,11 @@ export const useDeleteUsers = () => {
   return useMutation({
     mutationFn: async (checkedUserIds: string[]) => {
       return await Promise.all(
-        checkedUserIds.map((userId) => UserRepository.deleteUser(userId))
+        checkedUserIds.map(userId => UserRepository.deleteUser(userId))
       );
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(["GetUserList"]);
+      queryClient.invalidateQueries(['GetUserList']);
     },
   });
 };
@@ -59,15 +61,15 @@ export const useUserDetail = (userId: string) => {
   return useQueries({
     queries: [
       {
-        queryKey: ["userDetail", userId],
+        queryKey: ['userDetail', userId],
         queryFn: () => UserRepository.getUserDetail(userId),
       },
       {
-        queryKey: ["userAccount", userId],
+        queryKey: ['userAccount', userId],
         queryFn: () => UserRepository.getUserAllAccount(userId),
       },
       {
-        queryKey: ["userSetting", userId],
+        queryKey: ['userSetting', userId],
         queryFn: () => UserRepository.getUserSetting(userId),
       },
     ],
@@ -78,8 +80,8 @@ export const useEditUserName = (id: string, value: any) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: () => UserRepository.editUserName(id, value),
-    onSuccess: (res) => {
-      queryClient.refetchQueries(["GetUserList"]);
+    onSuccess: res => {
+      queryClient.refetchQueries(['GetUserList']);
     },
     // TODO: recoil로 error처리
     // onError: res => {
@@ -97,15 +99,15 @@ export const useCreateNewUser = (
   const { mutate } = useMutation(
     (formData: FormDataType) => UserRepository.createNewUser(formData),
     {
-      onSuccess: (res) => {
+      onSuccess: res => {
         handleCloseModal(false);
-        queryClient.invalidateQueries(["GetUserList"]);
+        queryClient.invalidateQueries(['GetUserList']);
       },
       onError: (err: AxiosError) => {
-        if (err.response?.data === "Email already exists") {
+        if (err.response?.data === 'Email already exists') {
           return errorCallback();
         }
-        alert("잠시 후 시도해 주세요");
+        alert('잠시 후 시도해 주세요');
       },
     }
   );
