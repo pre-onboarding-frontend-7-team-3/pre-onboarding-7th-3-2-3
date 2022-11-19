@@ -2,9 +2,9 @@ import { Dispatch, SetStateAction } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import Cookies from 'universal-cookie';
-import ROUTES from '../../../constants/routes';
+import ROUTES from '@src/constants/routes';
 import LoginRepository from './Login.repository';
-import { handleHTTPResponseError } from '../../../utils/auth/httpResponseUtils';
+import { handleHTTPResponseError } from '@src/utils/auth/httpResponseUtils';
 import { AxiosError } from 'axios';
 
 export const useLoginQuery = (

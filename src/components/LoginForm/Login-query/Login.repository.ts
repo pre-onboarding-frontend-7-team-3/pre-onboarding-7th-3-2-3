@@ -1,4 +1,4 @@
-import clientAPI from '../../../libs/api/client';
+import clientAPI from '@src/libs/api/client';
 
 type Props = {
   email: string;
