@@ -5,10 +5,10 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import { GetInvestmentAccount, FormDataType } from './User.model';
+import { userQueryParamsProps, FormDataType } from './User.model';
 import UserRepository from './User.repository';
 
-export const useGetUserListQuery = (userQueryParams: GetInvestmentAccount) => {
+export const useGetUserListQuery = (userQueryParams: userQueryParamsProps) => {
   return useQuery(
     ['GetUserList', userQueryParams],
     () => {
@@ -23,11 +23,11 @@ export const useGetUserListQuery = (userQueryParams: GetInvestmentAccount) => {
 };
 
 export const usePrefetchUserListQuery = (
-  accountQueryParams: GetInvestmentAccount
+  userQueryParams: userQueryParamsProps
 ) => {
   const accountPrefetchQueryParams = {
-    ...accountQueryParams,
-    pageNum: accountQueryParams.pageNum + 1,
+    ...userQueryParams,
+    pageNum: userQueryParams.pageNum + 1,
   };
   return useQuery(
     ['GetPrefetUserList', accountPrefetchQueryParams],

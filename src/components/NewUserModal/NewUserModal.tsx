@@ -1,14 +1,16 @@
 import React, { useState, useRef } from "react";
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
+
+import * as S from "./NewUserModal.style";
 import UserInput from "./UserInput/UserInput";
 import FunnelButton from "./FunnelButton/FunnelButton";
 import FileInput from "./FileInput/FileInput";
 import { GENDER_DATA } from "@src/constants/funnelButtonData";
-import useUnmountIfClickedOutside from "@src/hooks/useUnmountIfClickedOutside";
 import { NEW_USER_INPUT_DATA } from "@src/constants/NewUserInputData";
-import * as S from "./NewUserModal.style";
 import { ErrorText } from "./UserInput/UserInput.style";
+
 import { useCreateNewUser } from "@src/shared/User-query/User.query";
+import useUnmountIfClickedOutside from "@src/hooks/useUnmountIfClickedOutside";
 
 type Props = {
   isNewUserModalOpen: boolean;

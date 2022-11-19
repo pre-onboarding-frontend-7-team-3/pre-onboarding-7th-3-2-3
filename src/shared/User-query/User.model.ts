@@ -1,7 +1,4 @@
-export interface GetInvestmentAccount {
-  broker_id?: string;
-  is_active?: boolean;
-  status?: string;
+export interface userQueryParamsProps {
   q?: string;
   pageNum: number;
 }
