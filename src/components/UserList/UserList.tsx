@@ -88,7 +88,12 @@ const UserList = () => {
           <SearchInput onUpdateParams={setUserQueryParams} text="고객명 검색" />
         </S.FilterContainer>
         <S.ButtonContainer>
-          <S.Button onClick={onDeleteUserButtonClick}>삭제</S.Button>
+          <S.Button
+            onClick={onDeleteUserButtonClick}
+            disabled={!checked.length}
+          >
+            삭제
+          </S.Button>
           <S.Button onClick={() => setIsNewUserModalOpen(prev => !prev)}>
             신규 고객 추가
           </S.Button>
