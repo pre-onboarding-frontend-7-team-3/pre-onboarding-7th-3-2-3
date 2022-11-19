@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
 import * as S from './LoginForm.style';
 import LoginInput from './LoginInput/LoginInput';
 import LoginErrorModal from './LoginErrorModal/LoginErrorModal';
-import { useLoginQuery } from './Login-query/Login.query';
+import { useLoginQuery } from '@src/shared/Login-query/Login.query';
+import { authInputProps } from '@src/shared/Login-query/Login.model';
 
 const LoginForm = () => {
   const [serverAuthError, setServerAuthError] = useState('');
@@ -12,13 +13,14 @@ const LoginForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<authInputProps>();
 
   const onSubmitMutate = useLoginQuery(setServerAuthError);
+  const onSubmitLoginForm = handleSubmit(authInputs => onSubmitMutate(authInputs));
 
   return (
     <S.Container>
-      <S.Form onSubmit={handleSubmit((data: any) => onSubmitMutate(data))}>
+      <S.Form onSubmit={onSubmitLoginForm}>
         <S.Logo
           src="https://platum.kr/wp-content/uploads/2021/03/de.jpg"
           alt="디셈버앤컴퍼니"
