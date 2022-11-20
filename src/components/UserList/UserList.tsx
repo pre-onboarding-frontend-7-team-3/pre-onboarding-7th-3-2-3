@@ -23,7 +23,6 @@ import DeleteModal from '@src/components/UserList/DeleteModal';
 
 const UserList = () => {
   const [userQueryParams, setUserQueryParams] = useAtom(userQueryParamsAtom);
-
   const [isNewUserModalOpen, setIsNewUserModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
@@ -117,13 +116,11 @@ const UserList = () => {
       {isNewUserModalOpen && (
         <NewUserModal setIsNewUserModalOpen={setIsNewUserModalOpen} />
       )}
-      {isDeleteModalOpen && (
-        <DeleteModal
-          confirmDeleteUsers={confirmDeleteUsers}
-          isDeleteModalOpen={isDeleteModalOpen}
-          setIsDeleteModalOpen={setIsDeleteModalOpen}
-        />
-      )}
+      <DeleteModal
+        confirmDeleteUsers={confirmDeleteUsers}
+        isDeleteModalOpen={isDeleteModalOpen}
+        setIsDeleteModalOpen={setIsDeleteModalOpen}
+      />
     </>
   );
 };

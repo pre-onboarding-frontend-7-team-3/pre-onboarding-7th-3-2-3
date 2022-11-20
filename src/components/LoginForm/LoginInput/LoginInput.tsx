@@ -1,10 +1,7 @@
 import * as S from './LoginInput.style';
-import {
-  regex,
-  USER_VALIDATION_ERRORS,
-} from '../../../utils/validator';
+import { regex, USER_VALIDATION_ERRORS } from '../../../utils/validator';
 
-const LoginInput = ({ register, errors, serverAuthError }: any) => {
+const LoginInput = ({ register, errors }: any) => {
   const isClientAuthError = Object.keys(errors).length !== 0;
   return (
     <>

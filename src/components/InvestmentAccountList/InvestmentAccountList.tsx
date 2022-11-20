@@ -43,6 +43,7 @@ const InvestmentAccountList = () => {
   const initDropDownFilters = () => {
     setAccountQueryParams({
       pageNum: 1,
+      q: '',
     });
   };
 
@@ -59,6 +60,7 @@ const InvestmentAccountList = () => {
       <S.Container>
         <S.FilterContainer>
           <SearchInput
+            accountQueryParams={accountQueryParams}
             onUpdateParams={setAccountQueryParams}
             text="계좌명 검색"
           />
