@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as S from './SearchInput.style';
 import useDebounce from '@src/hooks/useDebounce';
 
@@ -29,11 +29,12 @@ const SearchInput = ({
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    // onUpdateParams((prev: any) => {
-    //   return { ...prev, q: value };
-    // });
     setValue(value);
   };
+
+  useEffect(() => {
+    setValue(q);
+  }, [q]);
 
   return (
     <S.Input
