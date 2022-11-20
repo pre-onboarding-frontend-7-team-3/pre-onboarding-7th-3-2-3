@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Template = styled.main`
   display: flex;
@@ -9,5 +9,6 @@ export const Template = styled.main`
 export const PageContainer = styled.div`
   display: flex;
   width: 100%;
+  height: calc(100vh - 70px);
   flex-wrap: wrap;
 `;

@@ -2,26 +2,23 @@ import { useMemo, useState } from 'react';
 import * as S from './UserList.style';
 import { useAtom } from 'jotai';
 
-import { Table, TableContainer, Paper } from '@mui/material';
-
-import SearchInput from '../common/SearchInput/SearchInput';
-import PagenationButton from '../common/PagenationButton/PagenationButton';
+import { userQueryParamsAtom } from './atoms';
 import {
   useDeleteUsers,
   useGetUserListQuery,
   usePrefetchUserListQuery,
-} from './UserList-query/UserList.query';
+} from '@src/shared/User-query/User.query';
+
+import { Table, TableContainer, Paper } from '@mui/material';
+import SearchInput from '../common/SearchInput/SearchInput';
+import PagenationButton from '../common/PagenationButton/PagenationButton';
 import CustomTableBody from '../common/Table/CustomTableBody';
 import { GENDER, USER_TABLE_CELL_DATA } from '@src/constants/tableData';
 import CustomTableHead from '../common/Table/CustomTableHead';
 import { formatBoolean } from '@src/utils/formatBoolean';
 import { maskingPhoneNumber, maskingUserName } from '@src/utils/processData';
-
 import NewUserModal from '../NewUserModal';
-import { userQueryParamsAtom } from './atoms';
-
 import Loader from '../common/Loader/Loader';
-
 import DeleteModal from '@src/components/UserList/DeleteModal';
 
 const UserList = () => {
@@ -35,7 +32,7 @@ const UserList = () => {
   const isMaxPage = usePrefetchUserListQuery(userQueryParams).data?.data.length;
   const { mutate: deleteUser } = useDeleteUsers();
 
-  const handleCheck = (userId: string) => {
+  const handleAlreadyCheck = (userId: string) => {
     checked.includes(userId)
       ? setChecked(checked.filter(el => el !== userId))
       : setChecked([...checked, userId]);
@@ -90,7 +87,12 @@ const UserList = () => {
           <SearchInput onUpdateParams={setUserQueryParams} text="고객명 검색" />
         </S.FilterContainer>
         <S.ButtonContainer>
-          <S.Button onClick={onDeleteUserButtonClick}>삭제</S.Button>
+          <S.Button
+            onClick={onDeleteUserButtonClick}
+            disabled={!checked.length}
+          >
+            삭제
+          </S.Button>
           <S.Button onClick={() => setIsNewUserModalOpen(prev => !prev)}>
             신규 고객 추가
           </S.Button>
@@ -102,7 +104,7 @@ const UserList = () => {
           <CustomTableBody
             data={userData}
             checkbox={true}
-            handleCheck={handleCheck}
+            handleCheck={handleAlreadyCheck}
           />
         </Table>
       </TableContainer>
@@ -111,17 +113,16 @@ const UserList = () => {
         isMaxPage={isMaxPage}
         handlePageNum={handleCurrentPage}
       />
-
-      <NewUserModal
-        isNewUserModalOpen={isNewUserModalOpen}
-        setIsNewUserModalOpen={setIsNewUserModalOpen}
-      />
-
-      <DeleteModal
-        confirmDeleteUsers={confirmDeleteUsers}
-        isDeleteModalOpen={isDeleteModalOpen}
-        setIsDeleteModalOpen={setIsDeleteModalOpen}
-      />
+      {isNewUserModalOpen && (
+        <NewUserModal setIsNewUserModalOpen={setIsNewUserModalOpen} />
+      )}
+      {isDeleteModalOpen && (
+        <DeleteModal
+          confirmDeleteUsers={confirmDeleteUsers}
+          isDeleteModalOpen={isDeleteModalOpen}
+          setIsDeleteModalOpen={setIsDeleteModalOpen}
+        />
+      )}
     </>
   );
 };

@@ -1,21 +1,22 @@
 import React, { useState, useRef } from 'react';
-import * as S from './NewUserModal.style';
 import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
+import * as S from './NewUserModal.style';
+
 import UserInput from './UserInput/UserInput';
 import FunnelButton from './FunnelButton/FunnelButton';
 import FileInput from './FileInput/FileInput';
-import { GENDER_DATA } from '../../constants/funnelButtonData';
-import useUnmountIfClickedOutside from '../../hooks/useUnmountIfClickedOutside';
-import { NEW_USER_INPUT_DATA } from '../../constants/NewUserInputData';
-import { useCreateNewUserQuery } from './NewUserModal-query/NewUserModal.query';
+import { GENDER_DATA } from '@src/constants/funnelButtonData';
+import { NEW_USER_INPUT_DATA } from '@src/constants/NewUserInputData';
 import { ErrorText } from './UserInput/UserInput.style';
 
-type Props = {
-  isNewUserModalOpen: boolean;
-  setIsNewUserModalOpen: (toggleEvent: boolean) => void;
-};
+import { useCreateNewUser } from '@src/shared/User-query/User.query';
+import useUnmountIfClickedOutside from '@src/hooks/useUnmountIfClickedOutside';
 
-const NewUserModal = ({ isNewUserModalOpen, setIsNewUserModalOpen }: Props) => {
+interface IProps {
+  setIsNewUserModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const NewUserModal = ({ setIsNewUserModalOpen }: IProps) => {
   const [genderOrigin, setGenderOrigin] = useState('');
   const modalRef = useRef<HTMLFormElement>(null);
   const handleCloseModal = () => {
@@ -39,34 +40,29 @@ const NewUserModal = ({ isNewUserModalOpen, setIsNewUserModalOpen }: Props) => {
     );
   };
 
-  useUnmountIfClickedOutside(modalRef, handleCloseModal);
+  const onSubmitMutate = useCreateNewUser(handleCloseModal, handleEmailError);
 
-  const onSubmitMutate = useCreateNewUserQuery(
-    handleCloseModal,
-    handleEmailError
-  );
-
-  const onValid: SubmitHandler<FieldValues> = data => {
+  const onSubmitNewUserForm: SubmitHandler<FieldValues> = formInput => {
     const formData = {
-      photo: data.file[0],
+      photo: formInput.file[0],
       gender_origin: genderOrigin,
-      age: data.age,
-      name: data.name,
-      birth_date: data.birth_date,
-      detail_address: data.detail_address,
-      phone_number: data.phone_number,
-      address: data.address,
-      email: data.email,
-      password: data.password,
+      age: formInput.age,
+      name: formInput.name,
+      birth_date: formInput.birth_date,
+      detail_address: formInput.detail_address,
+      phone_number: formInput.phone_number,
+      address: formInput.address,
+      email: formInput.email,
+      password: formInput.password,
       created_at: new Date(),
     };
     onSubmitMutate(formData);
   };
 
-  return isNewUserModalOpen ? (
+  return (
     <S.ViewPortContainer>
       <S.ModalContainer
-        onSubmit={handleSubmit(onValid)}
+        onSubmit={handleSubmit(onSubmitNewUserForm)}
         ref={modalRef}
         autoComplete="false"
       >
@@ -117,7 +113,7 @@ const NewUserModal = ({ isNewUserModalOpen, setIsNewUserModalOpen }: Props) => {
         </S.ButtonContainer>
       </S.ModalContainer>
     </S.ViewPortContainer>
-  ) : null;
+  );
 };
 
 export default NewUserModal;

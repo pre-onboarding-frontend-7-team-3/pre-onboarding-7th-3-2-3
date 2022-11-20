@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { ReactNode, useMemo } from 'react';
+import { Dispatch, SetStateAction, ReactNode, useMemo } from 'react';
 import { css } from '@emotion/react';
 
 import { convertDate } from '@src/utils/convertDate';
@@ -21,8 +21,8 @@ import {
 interface Props {
   detail: UserDetailProps;
   setting: UserSettingProps;
-  isEditing: any;
-  setInputState: any;
+  isEditing: React.SetStateAction<boolean>;
+  setInputState: Dispatch<SetStateAction<string>>;
 }
 
 interface defaultUserDataProps {
@@ -120,6 +120,7 @@ const inputStyle = (isEditing: any) => css`
   font-weight: 500;
   ${isEditing &&
   css`
+    padding-left: 2px;
     border: solid 1px #3a474e;
     border-radius: 5px;
   `}
