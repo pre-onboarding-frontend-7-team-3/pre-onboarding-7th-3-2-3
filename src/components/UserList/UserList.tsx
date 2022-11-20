@@ -116,13 +116,11 @@ const UserList = () => {
       {isNewUserModalOpen && (
         <NewUserModal setIsNewUserModalOpen={setIsNewUserModalOpen} />
       )}
-      {isDeleteModalOpen && (
-        <DeleteModal
-          confirmDeleteUsers={confirmDeleteUsers}
-          isDeleteModalOpen={isDeleteModalOpen}
-          setIsDeleteModalOpen={setIsDeleteModalOpen}
-        />
-      )}
+      <DeleteModal
+        confirmDeleteUsers={confirmDeleteUsers}
+        isDeleteModalOpen={isDeleteModalOpen}
+        setIsDeleteModalOpen={setIsDeleteModalOpen}
+      />
     </>
   );
 };
