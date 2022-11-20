@@ -17,7 +17,11 @@ export const DROPDOWN_DATA = [
     name: 'is_active',
     data: handleTableDataToSelectData(IS_ACTIVE_FORMAT),
   },
-  { id: 3, name: 'status', data: handleTableDataToSelectData(STATUS_FORMAT) },
+  {
+    id: 3,
+    name: 'status',
+    data: handleTableDataToSelectData(STATUS_FORMAT),
+  },
 ];
 
 export const USER_DROPDOWN_DATA = [

@@ -37,7 +37,6 @@ const Dropdown = ({
     setAccountQueryParams((prev: any) => {
       return { ...prev, pageNum: 1, [name]: value };
     });
-    setSelectVal(value);
   };
 
   useEffect(() => {
