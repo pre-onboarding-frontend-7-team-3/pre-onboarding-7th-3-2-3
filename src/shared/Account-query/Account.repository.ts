@@ -16,14 +16,27 @@ class InvestmentAccountRepository {
     }
     return params;
   }
-  getInvestmentAccount(params: InvestmentAccountProps) {
-    const paramsWithoutEmptyString = this.removeEmptyStringFromParams({
-      ...params,
-      pageNum: 0,
-    });
-    const pageString = this.getPageString(params.pageNum);
+
+  getInvestmentAccount({
+    broker_id,
+    is_active,
+    status,
+    q,
+    pageNum,
+  }: InvestmentAccountProps) {
+    // const paramsWithoutEmptyString = this.removeEmptyStringFromParams({
+    //   ...params,
+    //   pageNum: 0,
+    // });
+
+    const pageString = this.getPageString(pageNum);
     return clientAPI.get(this.baseQueryString + pageString, {
-      params: paramsWithoutEmptyString,
+      params: {
+        ...(broker_id && { broker_id }),
+        ...(is_active && { is_active }),
+        ...(status && { status }),
+        ...(q && { q }),
+      },
     });
   }
 }
