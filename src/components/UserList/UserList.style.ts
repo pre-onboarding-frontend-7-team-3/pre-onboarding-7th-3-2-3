@@ -28,6 +28,5 @@ export const Button = styled.button`
 `;
 
 export const customTableStyle = {
-  container: { minWidth: '1100px' },
   table: { minWidth: 650 },
 };
