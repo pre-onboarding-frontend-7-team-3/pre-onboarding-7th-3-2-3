@@ -29,6 +29,7 @@ const SearchInput = ({
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
+
     setValue(value);
   };
 

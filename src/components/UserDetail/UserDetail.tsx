@@ -1,17 +1,17 @@
-import { useState } from "react";
-import styled from "styled-components";
+import { useState } from 'react';
+import styled from 'styled-components';
 
 import {
   useUserDetail,
   useEditUserName,
-} from "@src/shared/User-query/User.query";
+} from '@src/shared/User-query/User.query';
 
-import Loader from "../common/Loader/Loader";
-import InvestmentAccountItem from "../InvestmentAccountList/InvestmentAccountItem/InvestmentAccountItem";
-import UserInfoTable from "./UserInfoTable";
-import { TableContainer, Table, Paper } from "@mui/material";
-import CustomTableHead from "../common/Table/CustomTableHead";
-import { USER_DETAL_ACCOUNT_LIST_TABLE_CELL_DATA } from "@src/constants/tableData";
+import Loader from '../common/Loader/Loader';
+import InvestmentAccountItem from '../InvestmentAccountList/InvestmentAccountItem/InvestmentAccountItem';
+import UserInfoTable from './UserInfoTable';
+import { TableContainer, Table, Paper } from '@mui/material';
+import CustomTableHead from '../common/Table/CustomTableHead';
+import { USER_DETAL_ACCOUNT_LIST_TABLE_CELL_DATA } from '@src/constants/tableData';
 
 type Props = {
   id: string;
@@ -19,7 +19,7 @@ type Props = {
 
 const UserDetail = ({ id }: Props) => {
   const results = useUserDetail(id);
-  const isLoading = results.some((result) => result.isLoading);
+  const isLoading = results.some(result => result.isLoading);
 
   const [detailResult, accountsResult, settingResult] = results;
 
@@ -65,7 +65,7 @@ const UserDetail = ({ id }: Props) => {
       </TableContainer>
 
       <EditButton onClick={isEditing ? clickCompleteEdit : clickEdit}>
-        {isEditing ? "완료" : "수정"}
+        {isEditing ? '완료' : '수정'}
       </EditButton>
 
       <Title>{`증권 계좌 목록 (${accounts?.data.length}건)`}</Title>
