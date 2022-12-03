@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import * as S from './UserList.style';
 import { useAtom } from 'jotai';
 
@@ -20,6 +20,7 @@ import { maskingPhoneNumber, maskingUserName } from '@src/utils/processData';
 import NewUserModal from '../NewUserModal';
 import Loader from '../common/Loader/Loader';
 import DeleteModal from '@src/components/UserList/DeleteModal';
+import { useQueryClient } from '@tanstack/react-query';
 
 const UserList = () => {
   const [userQueryParams, setUserQueryParams] = useAtom(userQueryParamsAtom);
@@ -29,7 +30,17 @@ const UserList = () => {
   const [checked, setChecked] = useState<string[]>([]);
 
   const { data, isLoading, isError } = useGetUserListQuery(userQueryParams);
-  const isMaxPage = usePrefetchUserListQuery(userQueryParams).data?.data.length;
+  const isMaxPage = (Math.ceil(data?.headers["x-total-count"] / 20) > userQueryParams.pageNum )// per page
+  const queryClient = useQueryClient(); //useQueryClient 훅을 쓸려고 정의
+
+  useEffect(() => {
+    if (!isMaxPage) {
+      usePrefetchUserListQuery(queryClient ,userQueryParams)
+    }
+  }, [userQueryParams]);
+
+
+
   const { mutate: deleteUser } = useDeleteUsers();
 
   const handleAlreadyCheck = (userId: string) => {

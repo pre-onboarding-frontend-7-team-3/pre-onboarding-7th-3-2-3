@@ -65,8 +65,7 @@ $ npm run dev
 
 - [ ] 사용자 목록에서는 민감한 정보를 다루지 않기 때문에 staleTime과 cacheTime 을 길게 설정하고 사용자 추가, 수정, 삭제가 될 때 `invalidateQueries`를 사용, 데이터를 비교해 최신의 데이터를 UI로 출력하게 했습니다.
 
-- [ ] 캐싱 기능을 제공하는 react query의 장점을 살리기 위해, 다음 페이지에 대한 data를 prefetch하여, 페이지 이동 시, prefetch된 데이터를 바로 보여줄 수 있게 하였습니다. react-query는 queryClient의 prefetch API를 제공하고 있는데, 저희는 prefetch API 대신, useQuery를 이용하여 prefetch를 구현했습니다. 저희는 데이터 캐싱 자체와, 그 값을 이용해, 현재 페이지가 maxPage인지 판단까지 할 수 있도록 하는 2가지 목적을 위해 prefetch를 구현했는데, prefetch API는 실제 값을 return 하지는 않아, 저희 목적에 맞지 않았습니다.
-
+- [ ] 캐싱 기능을 제공하는 react query의 장점을 살리기 위해, 다음 페이지에 대한 data를 prefetch하여, 페이지 이동 시, prefetch된 데이터를 바로 보여줄 수 있게 하였습니다. 
 
    ![3-2 캐싱 및 stale time](https://user-images.githubusercontent.com/78708082/202600627-517f3916-5409-4e31-b9b6-10570de043d8.gif)
 
@@ -164,8 +163,7 @@ $ npm run dev
 ## 🔨 사용 기술
 
 <img alt="HTML5" src ="https://img.shields.io/badge/HTML5-E34F26?&style=flat&logo=HTML5&logoColor=white"/> <img alt="CSS3" src ="https://img.shields.io/badge/CSS3-1572B6?&style=flat&logo=CSS3&logoColor=white"/> <img alt="JavaScript" src ="https://img.shields.io/badge/JavaScript-F7DF1E?&style=flat&logo=JavaScript&logoColor=white"/> <img alt="React" src ="https://img.shields.io/badge/React-61DAFB?&style=flat&logo=React&logoColor=white"/> <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-blue?style=flat&logo=TypeScript&logoColor=white"/> ![](https://img.shields.io/badge/-react--query-%23FF4154) ![](https://img.shields.io/badge/axios-551a8b?style=flat-square&logo=axios&logoColor=white) ![](https://img.shields.io/badge/-json--server-%237c007c) 
-![](https://img.shields.io/badge/-universal--cookie-%23e0b077) <img alt="styled-components" src ="https://img.shields.io/badge/styled components-DB7093?&style=flat&logo=styled-components&logoColor=white"/> <img alt="recoil" src ="https://img.shields.io/badge/recoil-4082bc?&style=flat&logo=Recoils&logoColor=white"/> <img alt="Notion" src ="https://img.shields.io/badge/Notion-green?&style=flat&logo=Notion&logoColor=white"/>
-![badge](https://img.shields.io/badge/styled%20components-DB7093?style=flat-square&logo=styled%20components&logoColor=white) ![badge](https://img.shields.io/badge/MUI-397cf9?style=flat-square&logo=MUI&logoColor=white) ![badge](https://img.shields.io/badge/Heroku-430098?style=flat-square&logo=Heroku&logoColor=white)
+![](https://img.shields.io/badge/-universal--cookie-%23e0b077) <img alt="styled-components" src ="https://img.shields.io/badge/styled components-DB7093?&style=flat&logo=styled-components&logoColor=white"/> <img alt="recoil" src ="https://img.shields.io/badge/recoil-4082bc?&style=flat&logo=Recoils&logoColor=white"/> <img alt="Notion" src ="https://img.shields.io/badge/Notion-green?&style=flat&logo=Notion&logoColor=white"/>![badge](https://img.shields.io/badge/MUI-397cf9?style=flat-square&logo=MUI&logoColor=white) ![badge](https://img.shields.io/badge/Heroku-430098?style=flat-square&logo=Heroku&logoColor=white)
 
 
 </br>
