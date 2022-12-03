@@ -3,7 +3,6 @@ import { useAtom } from 'jotai';
 import { Table, TableContainer, Paper, Button } from '@mui/material';
 import {
   useGetAccountQuery,
-  usePrefetchAccountQuery,
 } from '@src/shared/Account-query/Account.query';
 import InvestmentAccountItem from './InvestmentAccountItem/InvestmentAccountItem';
 
@@ -26,11 +25,10 @@ const InvestmentAccountList = () => {
     data: defaultAccountListData,
     isLoading,
     isError,
-  } = useGetAccountQuery(accountQueryParams);
+  } =  useGetAccountQuery(accountQueryParams);
 
-  const isMaxPage =
-    usePrefetchAccountQuery(accountQueryParams).data?.data.length;
-
+  const isMaxPage = (Math.ceil(defaultAccountListData?.headers["x-total-count"] / 20) > accountQueryParams.pageNum )// per page
+  
   const handlePageNum = (num: number) => {
     setAccountQueryParams(prev => {
       return {
